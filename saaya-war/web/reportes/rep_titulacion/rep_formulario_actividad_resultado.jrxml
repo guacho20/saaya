@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rep_formulario" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="0" rightMargin="40" topMargin="0" bottomMargin="0" uuid="808d6a52-7c68-4c26-ac7a-9d00e2fd20d6">
+	<property name="ireport.zoom" value="1.0245201830476058"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\JHONPRODUCER\\Documents\\GitHub\\code\\trunk\\rua\\rua-war\\web\\reportes"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pide_proyecto" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select ide_ytipar,c.ide_ytitio,detalle_ytitio as tipo,detalle_ytipar as objetivo,detalle_ytiacr as indicador,detalle_ytimev as verificacion
+from yavirac_titu_pro_act_resul a
+left join yavirac_titu_tipo_activi_resul b on a.ide_ytitia=b.ide_ytitia
+left join yavirac_titu_tipo_objetivo c on b.ide_ytitio=c.ide_ytitio
+left join yavirac_titu_medios_verifica e on b.ide_ytimev=e.ide_ytimev
+left join yavirac_titu_actividad_resulta d on b.ide_ytiacr=d.ide_ytiacr
+where a.ide_ytipro = $P{pide_proyecto}
+group by ide_ytipar,detalle_ytitio,detalle_ytipar,detalle_ytiacr,detalle_ytimev,c.ide_ytitio
+order by ide_ytipar,ide_ytitio]]>
+	</queryString>
+	<field name="ide_ytipar" class="java.lang.Long"/>
+	<field name="ide_ytitio" class="java.lang.Long"/>
+	<field name="tipo" class="java.lang.String"/>
+	<field name="objetivo" class="java.lang.String"/>
+	<field name="indicador" class="java.lang.String"/>
+	<field name="verificacion" class="java.lang.String"/>
+	<group name="tipo_objetivo">
+		<groupExpression><![CDATA[$F{ide_ytitio}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="42">
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="6e263c75-9633-450e-9558-4b0ce605ca77" stretchType="RelativeToBandHeight" x="370" y="14" width="185" height="28" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="false" isItalic="false" isPdfEmbedded="false"/>
+					<paragraph leftIndent="5" rightIndent="5" spacingBefore="5" spacingAfter="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{verificacion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="6e263c75-9633-450e-9558-4b0ce605ca77" stretchType="RelativeToBandHeight" x="0" y="14" width="185" height="28" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="false" isItalic="false" isPdfEmbedded="false"/>
+					<paragraph leftIndent="5" rightIndent="5" spacingBefore="5" spacingAfter="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{objetivo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="81043930-4ef5-4c23-b045-e81c55038da4" isPrintRepeatedValues="false" x="0" y="0" width="555" height="14" isRemoveLineWhenBlank="true"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font size="9" isBold="true"/>
+					<paragraph lineSpacing="Single" leftIndent="5" rightIndent="5" spacingBefore="2" tabStopWidth="40"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6e263c75-9633-450e-9558-4b0ce605ca77" stretchType="RelativeToBandHeight" x="185" y="14" width="185" height="28" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="false" isItalic="false" isPdfEmbedded="false"/>
+					<paragraph leftIndent="5" rightIndent="5" spacingBefore="5" spacingAfter="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{indicador}]]></textFieldExpression>
+				<patternExpression><![CDATA[$F{objetivo}]]></patternExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

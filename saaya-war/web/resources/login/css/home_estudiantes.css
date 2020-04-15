@@ -1,0 +1,133 @@
+/*
+ * Base structure
+ */
+
+html,
+body {
+    height: 100%;
+    /*background-color: #ffffff;   */
+    /*background-color:  #f2f4f4;
+    background-image: radial-gradient(circle, #ffffff, #ffffff, #e5e7e9 ); */
+
+}   
+body {
+
+
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: #222020;
+    text-align: center;
+    text-shadow: 0 1px 3px rgba(0,0,0,.5);  
+    background-image: url('../..//sd.jpg');
+    background-repeat: no-repeat, repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+/* Extra markup and styles for table-esque vertical and horizontal centering */
+.site-wrapper {
+
+    display: table;
+    width: 100%;
+    height: 100%; /* For at least Firefox */
+    min-height: 100%;
+    -webkit-box-shadow: inset 0 0 5rem rgba(0,0,0,.5);
+    box-shadow: inset 0 0 5rem rgba(0,0,0,.5);
+
+}
+.site-wrapper-inner {
+
+    display: table-cell;
+    vertical-align: top;
+}
+.cover-container {
+
+    position: relative;
+
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/* Padding for spacing */
+.inner {
+
+    padding: 30px;
+}
+
+
+/* Padding for spacing */
+.logo {
+
+    -webkit-transform: translateX(-3px);
+    transform: translateX(-3px);
+
+    position: absolute;
+    top: 100%;
+    left: 52%;
+
+    margin: 10% 0 0 -25%;
+
+    padding-top:  5px;
+    height: 220px;
+    background-color: #005384;
+}
+
+.texto {    
+    position: absolute;
+    top: 26%;
+    left: 62%;
+
+    margin: 10% 0 0 -59%;
+
+    font-size:18px;
+    text-shadow: none;
+    text-align:center;
+}
+
+/*
+ * Cover
+ */
+
+.cover {
+    padding: 0 20px;
+}
+.cover .btn-lg {
+    position: absolute;
+    top: 100%;
+    left: 63%;
+
+    margin: 10% 0 0 -25%;
+
+    padding: 10px 20px;
+    font-weight: bold;
+}
+
+
+
+/*
+ * Affix and center
+ */
+
+@media (min-width: 768px) {
+    /* Pull out the header and footer */
+    .masthead {
+        position: fixed;
+        top: 0;
+    }
+    /* Start the vertical centering */
+    .site-wrapper-inner {
+        vertical-align: middle;
+    }
+    /* Handle the widths */
+    .masthead,
+    .mastfoot,
+    .cover-container {
+        width: 100%; /* Must be percentage or pixels for horizontal alignment */
+    }
+}
+
+@media (min-width: 992px) {
+    .masthead,
+    .cover-container {
+        width: 700px;
+    }
+}

@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rep_asistencia_alumno" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="fd2f75ba-28df-41be-82d7-832328595b85">
+	<property name="ireport.zoom" value="0.9075000000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="123"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\Saayascode\\trunk\\rua\\rua-war\\web\\reportes\\rep_asistencia\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="usuario" class="java.lang.String"/>
+	<parameter name="nombre" class="java.lang.String"/>
+	<parameter name="ide_sucu" class="java.lang.Integer"/>
+	<parameter name="ide_empr" class="java.lang.Integer"/>
+	<parameter name="pide_libreta_practica" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT a.ide_ytilpr,nombre_yaldap,doc_identidad_yaldap,nombre_comercial_ytiemp,  fecha_desde_ytilpr, fecha_hasta_ytilpr,
+descripcion_ystmen,observaciones_ytilpr,revisor1,revisor2,numero,
+nombre_comercial_ytiemp, direccion_ytiemp,telefono_fijo_ytiemp, descripcion_ytiace  actividad, resumen_trabajo_ytilpr,nombre_ypedpe, apellido_ypedpe, firma_ypedpe
+FROM (
+select b.ide_ytilpr,b.ide_ytiemp, a.nombre_yaldap, a.doc_identidad_yaldap, b. fecha_desde_ytilpr, b.resumen_trabajo_ytilpr,b. fecha_hasta_ytilpr,d.descripcion_ystmen,b.observaciones_ytilpr
+, h.nombre_ypedpe, h.apellido_ypedpe, h.firma_ypedpe,yav_ide_ypedpe,yav_ide_ypedpe2
+from yavirac_titu_libreta_practica b ,yavirac_alum_dato_personal a,yavirac_stror_mension d,yavirac_perso_dato_personal h
+where b.ide_yaldap=a.ide_yaldap and b.ide_ystmen=d.ide_ystmen and b.ide_ypedpe=h.ide_ypedpe
+ ) a
+
+left join (
+select e.ide_ytiemp,e.nombre_comercial_ytiemp, e.direccion_ytiemp,e.telefono_fijo_ytiemp,f.descripcion_ytiace
+from yavirac_titu_empresa e,
+yavirac_titu_actividad_economic f
+where  e.ide_ytiace=f.ide_ytiace
+) c on a.ide_ytiemp=c.ide_ytiemp
+left join (select ide_ypedpe,apellido_ypedpe||' '||nombre_ypedpe as revisor1 from yavirac_perso_dato_personal
+) b  on a.yav_ide_ypedpe = b.ide_ypedpe
+left join (select ide_ypedpe,apellido_ypedpe||' '||nombre_ypedpe as revisor2 from yavirac_perso_dato_personal
+) d on  a.yav_ide_ypedpe2 = d.ide_ypedpe
+left join (select ide_ytilpr,sum(numero_horas_ytihpr) as numero  from yavirac_titu_horario_practica group by ide_ytilpr
+) e on a.ide_ytilpr =e.ide_ytilpr
+where a.ide_ytilpr=$P{pide_libreta_practica}]]>
+	</queryString>
+	<field name="ide_ytilpr" class="java.lang.Long"/>
+	<field name="nombre_yaldap" class="java.lang.String">
+		<fieldDescription><![CDATA[Este campo nos indicara el nombre del alumno de la tabla yavirac_alum_dato_personal]]></fieldDescription>
+	</field>
+	<field name="doc_identidad_yaldap" class="java.lang.String">
+		<fieldDescription><![CDATA[Este campo nos indicara el documento de identidad del alumno de la tabla yavirac_alum_dato_personal]]></fieldDescription>
+	</field>
+	<field name="nombre_comercial_ytiemp" class="java.lang.String"/>
+	<field name="fecha_desde_ytilpr" class="java.sql.Date">
+		<fieldDescription><![CDATA[fecha desde cuando realizo las practicas]]></fieldDescription>
+	</field>
+	<field name="fecha_hasta_ytilpr" class="java.sql.Date">
+		<fieldDescription><![CDATA[fecha hasta que realizo las practicas]]></fieldDescription>
+	</field>
+	<field name="descripcion_ystmen" class="java.lang.String"/>
+	<field name="observaciones_ytilpr" class="java.lang.String"/>
+	<field name="revisor1" class="java.lang.String"/>
+	<field name="revisor2" class="java.lang.String"/>
+	<field name="numero" class="java.math.BigDecimal"/>
+	<field name="direccion_ytiemp" class="java.lang.String"/>
+	<field name="telefono_fijo_ytiemp" class="java.lang.String"/>
+	<field name="actividad" class="java.lang.String"/>
+	<field name="resumen_trabajo_ytilpr" class="java.lang.String">
+		<fieldDescription><![CDATA[resumen de todo lo que realizo en las practicas]]></fieldDescription>
+	</field>
+	<field name="nombre_ypedpe" class="java.lang.String"/>
+	<field name="apellido_ypedpe" class="java.lang.String"/>
+	<field name="firma_ypedpe" class="org.postgresql.geometric.PGpath"/>
+	<group name="mension">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band height="163" splitType="Stretch">
+				<rectangle>
+					<reportElement uuid="ac04eae9-d5ad-483a-b579-fa525b81917f" x="4" y="4" width="520" height="153"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="a0cd9861-d136-43ab-90d8-165d253b0f61" x="12" y="110" width="499" height="39"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="b4e1ca81-399d-442a-9d85-80d6086e2220" x="86" y="12" width="336" height="87"/>
+				</rectangle>
+				<staticText>
+					<reportElement uuid="ef29f882-22e0-40a7-a2d8-4e54b74b3805" key="staticText" x="12" y="24" width="60" height="68"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[HORARIO SEMANAL DE PRACTICAS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="d0e6fa74-0baf-4f3d-9a09-ad9073edcca3" x="22" y="117" width="100" height="20"/>
+					<textElement/>
+					<text><![CDATA[OBSERVACIONES:]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement uuid="759fd315-168a-455b-998a-fd240bd6d82d" x="433" y="13" width="78" height="86"/>
+				</rectangle>
+				<staticText>
+					<reportElement uuid="369e58a1-70d9-49fc-a0ba-e7a365578c36" x="437" y="20" width="67" height="54"/>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[TOTAL DE HORAS SEMANALES]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="d639bca4-2385-43a7-823d-fe4812463721" x="144" y="116" width="360" height="20"/>
+					<textElement textAlignment="Justified"/>
+					<textFieldExpression><![CDATA[$F{observaciones_ytilpr}]]></textFieldExpression>
+				</textField>
+				<subreport>
+					<reportElement uuid="127a0d27-bd03-4fff-b127-3bac298a9352" x="78" y="7" width="200" height="55"/>
+					<subreportParameter name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="pide_libreta_practica">
+						<subreportParameterExpression><![CDATA[$P{pide_libreta_practica}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "/reportes/rep_titulacion/rep_libreta_practica_crostab.jasper"]]></subreportExpression>
+				</subreport>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="d639bca4-2385-43a7-823d-fe4812463721" x="448" y="70" width="50" height="20"/>
+					<textElement textAlignment="Center">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band splitType="Stretch"/>
+		</groupFooter>
+	</group>
+	<group name="materia">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band height="107" splitType="Stretch">
+				<rectangle>
+					<reportElement uuid="9d3ccbcc-55c0-4d5a-9d26-b687b59a5567" x="4" y="8" width="520" height="81"/>
+				</rectangle>
+				<staticText>
+					<reportElement uuid="9a558fcc-4574-4521-8844-d07bf779c1bc" key="staticText" x="182" y="10" width="143" height="20"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement/>
+					<text><![CDATA[DATOS DE LA EMPRESA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="44793d82-5ab9-4198-9789-ca27625d21c2" x="20" y="34" width="69" height="20"/>
+					<textElement/>
+					<text><![CDATA[NOMBRE: ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="756d7371-3519-439f-9a27-7e0258bd2a2d" x="19" y="65" width="70" height="20"/>
+					<textElement/>
+					<text><![CDATA[TELEFONO:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="47646bf8-fcda-4d42-9f52-9a39ca567d5f" x="283" y="34" width="73" height="20"/>
+					<textElement/>
+					<text><![CDATA[DIRECCION: ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="47a9ff4a-0d26-439c-9520-c56644a56891" x="283" y="65" width="73" height="20"/>
+					<textElement/>
+					<text><![CDATA[ACTIVIDAD:]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="2218d6ef-09b2-418f-bb5e-770c7a9f992e" x="89" y="34" width="194" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{nombre_comercial_ytiemp}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement uuid="a94906d3-86b3-4097-9c6b-ca47433ff3cf" x="89" y="65" width="194" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{telefono_fijo_ytiemp}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="481a2627-2df8-46ac-9b7e-963e8326606b" x="361" y="34" width="150" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{direccion_ytiemp}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="acc4291b-e7ad-4587-81be-6cbdc67b26bd" x="361" y="65" width="150" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{actividad}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band splitType="Stretch"/>
+		</groupFooter>
+	</group>
+	<group name="paralelo">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band height="130" splitType="Stretch">
+				<rectangle>
+					<reportElement uuid="0c3cebc7-5c8b-4948-a23b-38055e29a41a" x="4" y="5" width="520" height="120"/>
+				</rectangle>
+				<staticText>
+					<reportElement uuid="78df37d5-8aff-46cf-ab78-b3761c5d107b" x="174" y="14" width="182" height="20"/>
+					<textElement/>
+					<text><![CDATA[RESUMEN TECNICO DE TRABAJOS]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="21838630-d119-41c2-85b4-05305f5208fa" x="12" y="40" width="499" height="18"/>
+					<textElement textAlignment="Justified"/>
+					<textFieldExpression><![CDATA[$F{resumen_trabajo_ytilpr}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band splitType="Stretch"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="63" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="54f51be2-a05c-40a5-9c9c-83bc866c9ffb" x="296" y="22" width="228" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LIBRETA DE PRACTICAS]]></text>
+			</staticText>
+			<subreport isUsingCache="true">
+				<reportElement uuid="f76619fa-894c-420a-8ce0-53fa0d367090" key="subreport-1" x="0" y="0" width="162" height="49"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ide_empr">
+					<subreportParameterExpression><![CDATA[$P{ide_empr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ide_sucu">
+					<subreportParameterExpression><![CDATA[$P{ide_sucu}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "/reportes/rep_sistema/rep_cabecera.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="99" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="03b5405d-e42f-43af-afd6-38e4044d3083" x="344" y="11" width="180" height="77"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="49c899e2-1fc5-4b19-ab31-0111c799b905" x="3" y="11" width="333" height="77"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="939ce821-d2b9-411b-9792-7e6e6607c08a" x="120" y="15" width="139" height="20"/>
+				<textElement/>
+				<text><![CDATA[DATOS DEL PRACTICANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b3dd137f-3500-4948-9724-3329c5f96cfb" x="12" y="35" width="74" height="20"/>
+				<textElement/>
+				<text><![CDATA[NOMBRE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e80aef2f-8985-4cfa-9d25-fa4fd1486371" x="12" y="61" width="74" height="20"/>
+				<textElement/>
+				<text><![CDATA[CARRERA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0b30fc05-8af6-430b-8c99-054187876c47" x="356" y="14" width="140" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[REPORTE(FECHA)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f24336d9-c557-4547-ae71-0158713dab76" x="356" y="32" width="59" height="20"/>
+				<textElement/>
+				<text><![CDATA[DESDE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7a5f851f-e5a5-4330-b16b-abc8e76bb709" x="356" y="59" width="59" height="20"/>
+				<textElement/>
+				<text><![CDATA[HASTA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="aa875a2e-25d0-4032-b1ac-35facf1320a2" x="86" y="35" width="239" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nombre_yaldap}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b8186974-cdba-40ce-bf9d-e42c8f1ca708" x="86" y="61" width="236" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{descripcion_ystmen}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="629e4b83-14f0-44c4-b169-be6fa6967b11" x="415" y="32" width="109" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{fecha_desde_ytilpr}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="cf341d16-59e8-445a-a0af-57467ac54347" x="415" y="59" width="109" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{fecha_hasta_ytilpr}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="149" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="298e1676-8fe2-4fe2-b9e7-2378026d0ef3" x="361" y="0" width="163" height="121"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="ba6643ac-6ecf-4ed1-8c66-e9e77f38355c" x="181" y="0" width="163" height="121"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="07145cca-557a-4d46-ac39-b8cdd71e8a5f" x="4" y="0" width="163" height="121"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="34aef5a5-6572-463d-ae68-cf68a7bc4b03" x="22" y="39" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[JEFE INMEDIATO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="aefea700-ee24-4819-9fc7-ce9044928795" x="210" y="39" width="112" height="20"/>
+				<textElement/>
+				<text><![CDATA[DOCENTE REVISOR 1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8b425284-c9d9-4536-b730-a7d0b9a1ad71" x="383" y="39" width="112" height="20"/>
+				<textElement/>
+				<text><![CDATA[DOCENTE REVISOR 2]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="1dbab746-c04c-43fd-a81a-226af6711f45" x="193" y="60" width="143" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{revisor1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="a5c33d54-a01a-4fcb-9544-9c8e267c0b85" x="372" y="60" width="139" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{revisor2}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="900f12b9-19d8-49d0-8a58-b4865e8ec7ba" x="23" y="33" width="100" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="7ad228ab-86fd-4b98-87fe-34dff7677a74" x="210" y="34" width="112" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="8d9d2d4a-1ea4-41ec-bbef-b26b9969404b" x="384" y="33" width="112" height="1"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="16" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="be59d63d-7c83-47f2-a553-3259e91a35a7" key="staticText-8" x="1" y="1" width="100" height="15"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement/>
+				<text><![CDATA[Usuario Impresión:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a" isBlankWhenNull="false">
+				<reportElement uuid="ab33c9a7-6bfd-4731-9d1d-1811f897ab97" key="textField-7" x="269" y="1" width="100" height="15"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="96198ad0-0906-466a-b754-3ed82e14b2c6" key="textField-8" x="415" y="1" width="80" height="15"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" isBlankWhenNull="false">
+				<reportElement uuid="758c7f85-a07e-4c75-9771-47e5fd8fc936" key="textField-9" x="495" y="1" width="40" height="15"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="ca489c68-7ff3-4172-80ef-77480c4bb08d" key="textField-10" x="101" y="1" width="100" height="15"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="79719f66-2733-43bb-8eca-1e150fbf260e" key="staticText-9" x="210" y="1" width="56" height="15"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

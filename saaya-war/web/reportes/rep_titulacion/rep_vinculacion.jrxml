@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rep_portada_proyecto" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="808d6a52-7c68-4c26-ac7a-9d00e2fd20d6">
+	<property name="ireport.zoom" value="1.0000000000000007"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="96"/>
+	<parameter name="ide_sucu" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ide_empr" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\Users\\JHONPRODUCER\\Documents\\GitHub\\code\\trunk\\rua\\rua-war\\web\\reportes"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pide_proyecto" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pide_provincia" class="java.lang.String"/>
+	<parameter name="pide_canton" class="java.lang.String"/>
+	<parameter name="pide_parroquia" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select ide_ytipro,a.ide_ystmen,descripcion_ystmen,detalle_proyecto_ytipro,nombre_comercial_ytiemp,nombre_ytipee,
+e.nombre_ypedpe||' '||e.apellido_ypedpe as elaborado,f.nombre_ypedpe||' '||f.apellido_ypedpe as revisado,
+g.nombre_ypedpe||' '||g.apellido_ypedpe as aprovado,secuencial_ytipro
+from yavirac_titu_proyecto a
+left join yavirac_stror_mension b on a.ide_ystmen=b.ide_ystmen
+left join yavirac_titu_empresa c on a.ide_ytiemp=c.ide_ytiemp
+left join yavirac_titu_persona_empresa d on c.ide_ytiemp=d.ide_ytiemp
+left join yavirac_perso_dato_personal e on a.ide_ypedpe=e.ide_ypedpe
+left join yavirac_perso_dato_personal f on a.yav_ide_ypedpe=f.ide_ypedpe
+left join yavirac_perso_dato_personal g on a.yav_ide_ypedpe2=g.ide_ypedpe
+where ide_ytipro =$P{pide_proyecto}]]>
+	</queryString>
+	<field name="ide_ytipro" class="java.lang.Long"/>
+	<field name="ide_ystmen" class="java.lang.Long"/>
+	<field name="descripcion_ystmen" class="java.lang.String"/>
+	<field name="detalle_proyecto_ytipro" class="java.lang.String"/>
+	<field name="nombre_comercial_ytiemp" class="java.lang.String"/>
+	<field name="nombre_ytipee" class="java.lang.String"/>
+	<field name="elaborado" class="java.lang.String"/>
+	<field name="revisado" class="java.lang.String"/>
+	<field name="aprovado" class="java.lang.String"/>
+	<field name="secuencial_ytipro" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="e8d48945-f5fd-4e0b-b38e-c75b1449ac8c" x="131" y="1" width="248" height="49"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INSTITUTO TECNOLÓGICO SUPERIOR
+" YAVIRAC"
+Quito - Ecuador]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="81115987-0e14-4f8f-9c94-4192c5a4fc9c" x="455" y="0" width="100" height="50"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"/imagenes/logoinstituto.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="16d21240-cb9c-4c3c-b48e-5609b96ac269" x="0" y="0" width="100" height="50"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"/imagenes/senecyt.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="732" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="5fbb0a65-0142-4719-8878-6fca47fc262f" x="0" y="200" width="555" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DEPARTAMENTO DE VINCULACIÓN CON LA SOCIEDAD]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="81043930-4ef5-4c23-b045-e81c55038da4" x="20" y="238" width="535" height="20"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font size="11"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>CARRERA: </b>"+$F{descripcion_ystmen}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="81043930-4ef5-4c23-b045-e81c55038da4" x="20" y="258" width="535" height="64"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font size="11"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>NOMBRE DEL PROYECTO : </b>"+$F{detalle_proyecto_ytipro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="81043930-4ef5-4c23-b045-e81c55038da4" x="20" y="322" width="535" height="40"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font size="11"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>COORDINADOR DE CARRERA: </b>"+$F{revisado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="81043930-4ef5-4c23-b045-e81c55038da4" x="20" y="362" width="535" height="30"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font size="11"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>AUTOR: </b>"+$F{elaborado}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement uuid="7d336f05-b094-4fe7-b4a4-7624e6c1c85d" x="0" y="704" width="523" height="28"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pide_parroquia">
+					<subreportParameterExpression><![CDATA[$P{pide_parroquia}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ide_empr">
+					<subreportParameterExpression><![CDATA[$P{ide_empr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ide_sucu">
+					<subreportParameterExpression><![CDATA[$P{ide_sucu}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pide_canton">
+					<subreportParameterExpression><![CDATA[$P{pide_canton}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pide_provincia">
+					<subreportParameterExpression><![CDATA[$P{pide_provincia}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pide_proyecto">
+					<subreportParameterExpression><![CDATA[$P{pide_proyecto}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "/reportes/rep_titulacion/rep_formulario_proyecto.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement uuid="ed05707e-4e44-4bc5-9912-6d4f30e0084c" x="131" y="46" width="248" height="49"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INSTITUTO TECNOLÓGICO SUPERIOR
+" YAVIRAC"
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="cf01f59d-f559-4ca4-8cc9-9343ac2952a7" x="20" y="392" width="535" height="30"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font size="11"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>INSTITUCIÓN  BENEFICIARIA: </b>"+$F{nombre_comercial_ytiemp}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d9d50100-75c2-4c44-b8f3-2edd4eb5a23e" x="20" y="482" width="535" height="20"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font size="11"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>CODIGO DEL PROYECTO: </b>"+$F{secuencial_ytipro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6eb0056c-ab8a-4dc5-9967-85f94bfe6578" x="20" y="422" width="535" height="30"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font size="11"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>COORDINADORES DE LA INSTITUCION BENEFICIARIA: </b>"+$F{nombre_ytipee}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="62cb98bd-c2ea-4595-9e45-65e1c9e5deb5" x="0" y="684" width="555" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["QUITO - ECUADOR"]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement uuid="086be0b6-19f0-49b7-b6eb-0b1b2d5f97e8" x="199" y="107" width="125" height="80"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"/imagenes/logoinstituto.png"]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

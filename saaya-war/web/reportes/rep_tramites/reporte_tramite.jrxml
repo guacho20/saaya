@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte_tramite" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e368094e-63fd-4d88-8328-9ca32dff3b58">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="pide_tramite" class="java.lang.Integer"/>
+	<parameter name="nombre" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["http://localhost:8080/inspectoria"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select a.ide_ytring, a.numero_sec_ytring,procedencia_ytring as nombre_yaldap,  cedula_ytring as doc_identidad_yaldap, a.fecha_documento_ytring, a.hora_ytring, a.fecha_entrega_ytring, c.nombre_ytrtid, c.dias_tramite_ytrtid
+from yavirac_tra_ingreso a, yavirac_tra_tipo_documento c
+where  a.ide_ytrtid = c.ide_ytrtid
+and a.ide_ytring=$P{pide_tramite}]]>
+	</queryString>
+	<field name="ide_ytring" class="java.lang.Long"/>
+	<field name="numero_sec_ytring" class="java.lang.String"/>
+	<field name="nombre_yaldap" class="java.lang.String">
+		<fieldDescription><![CDATA[Este campo nos indicara el nombre del alumno de la tabla yavirac_alum_dato_personal]]></fieldDescription>
+	</field>
+	<field name="doc_identidad_yaldap" class="java.lang.String">
+		<fieldDescription><![CDATA[Este campo nos indicara el documento de identidad del alumno de la tabla yavirac_alum_dato_personal]]></fieldDescription>
+	</field>
+	<field name="fecha_documento_ytring" class="java.sql.Date"/>
+	<field name="hora_ytring" class="java.sql.Time"/>
+	<field name="fecha_entrega_ytring" class="java.sql.Date">
+		<fieldDescription><![CDATA[Este campo define la fecha que se realiza la entrag de la respuesta al usurario ]]></fieldDescription>
+	</field>
+	<field name="nombre_ytrtid" class="java.lang.String"/>
+	<field name="dias_tramite_ytrtid" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="55" splitType="Stretch">
+			<textField>
+				<reportElement x="429" y="5" width="116" height="20" uuid="3e7fccca-4743-4258-9292-6de83b9f6dd4"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero_sec_ytring}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="200" y="5" width="133" height="20" uuid="60fe97e9-2eb2-469f-be94-92339b6fce2b"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONTROL DE TRÁMITES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="245" y="24" width="55" height="20" uuid="264b0e2f-d07c-4895-809a-e47a982d6207"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[INGRESO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="5" width="19" height="20" uuid="18639f8d-a8e2-46e5-9019-bbb7aca04065"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[No.]]></text>
+			</staticText>
+			<image>
+				<reportElement x="43" y="0" width="145" height="55" uuid="643c757a-399d-4fa1-b2aa-e508bc5db089"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "/imagenes/logoinstituto.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<staticText>
+				<reportElement x="36" y="15" width="86" height="20" uuid="85ed322a-3f57-4337-8fed-289a6c0a21cd"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROCEDENCIA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="122" y="15" width="232" height="20" uuid="26909e9b-f810-4f7a-8dab-3506977083ba"/>
+				<textFieldExpression><![CDATA[$F{nombre_yaldap}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="348" y="15" width="131" height="20" uuid="9c174f2f-52d4-40a0-be98-2190d97bc4af"/>
+				<textFieldExpression><![CDATA[$F{doc_identidad_yaldap}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="36" y="59" width="100" height="20" uuid="a5cd5831-7dcf-40c3-a5a9-5a5085e5dfc2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TIPO DOCUMENTO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="36" y="77" width="100" height="20" uuid="88c4017a-6010-4472-a57b-290b2b81fad3"/>
+				<textFieldExpression><![CDATA[$F{nombre_ytrtid}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="188" y="59" width="112" height="20" uuid="d5cb6113-65da-4491-be8d-e06ce73485a0"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA DOCUMENTO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="188" y="77" width="100" height="20" uuid="4a5c3c4a-40b7-498a-9960-a46e5af10d01"/>
+				<textFieldExpression><![CDATA[$F{fecha_documento_ytring}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="365" y="57" width="100" height="20" uuid="0a7268bd-f7ee-4f9c-9309-04b8c779bb0b"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA ENTREGA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="365" y="77" width="121" height="20" uuid="31d92c2e-796c-4a36-8749-05b544f7e67c"/>
+				<textFieldExpression><![CDATA[$F{fecha_entrega_ytring}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="2" y="124" width="553" height="1" uuid="b8380460-bc87-4ce7-ad7a-8383a66cc9ab"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+		<band height="208">
+			<staticText>
+				<reportElement x="36" y="80" width="100" height="20" uuid="96c5230e-5903-4aaa-ac81-6e357d2306c1"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo Documento]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="136" y="80" width="100" height="20" uuid="2a443b52-a672-498b-ab5e-565e27a0df25"/>
+				<textFieldExpression><![CDATA[$F{nombre_ytrtid}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="36" y="100" width="100" height="20" uuid="45c5faea-af92-4115-9388-255c67755154"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Procedencia]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="136" y="100" width="218" height="20" uuid="df882e73-3b85-400d-9cd2-a6f85588474d"/>
+				<textFieldExpression><![CDATA[$F{nombre_yaldap}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="100" width="129" height="20" uuid="c8997405-41c0-4ec3-896a-99e77ab6ef35"/>
+				<textFieldExpression><![CDATA[$F{doc_identidad_yaldap}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="36" y="120" width="100" height="20" uuid="613c0aaa-9765-4a48-8319-7e051012e672"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Documento]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="136" y="120" width="147" height="20" uuid="85ef9ecb-30cf-4919-aa8e-5502590e7c9f"/>
+				<textFieldExpression><![CDATA[$F{fecha_documento_ytring}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="421" y="120" width="34" height="20" uuid="d1950002-2701-41c3-935b-75fb2311093e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Plazo]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="120" width="31" height="20" uuid="69cd9bca-ba0f-4b35-a797-d64f1748103b"/>
+				<textFieldExpression><![CDATA[$F{dias_tramite_ytrtid}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="410" y="10" width="19" height="20" uuid="851477c9-2482-46e0-b0d0-34305d81bec0"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[No.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="429" y="10" width="116" height="20" uuid="4a8d65e1-2b3e-436b-b67c-c39f1a5178a3"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero_sec_ytring}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="162" y="7" width="192" height="20" uuid="61b90d81-468b-42a3-a330-8e2f42380013"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[INSTITUTO TECNOLOGICO SUPERIOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="159" y="26" width="213" height="20" uuid="889aaaed-2e00-4c8f-aa54-60823e78fb49"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DE TURISMO Y PATRIMONIO "YAVIRAC"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="177" y="45" width="177" height="20" uuid="49f70360-621f-4e09-98d3-fb9284d20c50"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DEPARTAMENTO DE SECRETARIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="170" width="263" height="20" uuid="843af4c2-2882-476b-af7d-5c69705747a4"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOTA:TICKET UNICO QUE LE ACREDITA A RETIRAR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="188" width="100" height="20" uuid="1bcba993-6350-4016-8724-a123299632eb"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DOCUMENTACIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="484" y="119" width="30" height="20" uuid="68e11817-147f-4e81-89ce-95d9cba21725"/>
+				<text><![CDATA[dias]]></text>
+			</staticText>
+			<image>
+				<reportElement x="37" y="0" width="134" height="65" uuid="c92e9836-6800-4fe2-a0f7-35df11240bbd"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "/imagenes/logoinstituto.png"]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="372" y="181" width="131" height="1" uuid="67f28cae-7e16-4386-9131-2dee8cf0df11"/>
+			</line>
+			<staticText>
+				<reportElement x="386" y="188" width="100" height="20" uuid="5c1011e7-e798-4dfc-9df0-7da34227fe54"/>
+				<text><![CDATA[Firma y Sello]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="445" y="0" width="100" height="20" uuid="d7cb8fed-ef79-4db3-9d22-1479e432b7a6"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="88" y="0" width="245" height="20" uuid="88c4017a-6010-4472-a57b-290b2b81fad3"/>
+				<textFieldExpression><![CDATA["Usuario impresión: "+$P{nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

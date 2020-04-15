@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rep_formulario" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="0" rightMargin="40" topMargin="0" bottomMargin="0" uuid="808d6a52-7c68-4c26-ac7a-9d00e2fd20d6">
+	<property name="ireport.zoom" value="1.3636363636363644"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\Users\\JHONPRODUCER\\Documents\\GitHub\\code\\trunk\\rua\\rua-war\\web\\reportes"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pide_proyecto" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select ide_ytipoo,c.ide_ytitio,detalle_ytitio as tipo,detalle_ytipoo as objetivo,detalle_ytiind as indicador,detalle_ytimev as verificacion
+from yavirac_titu_pro_objetivo a
+left join yavirac_titu_objetivo_indica_me b on a.ide_ytiobi=b.ide_ytiobi
+left join yavirac_titu_tipo_objetivo c on b.ide_ytitio=c.ide_ytitio
+left join yavirac_titu_indicador d on b.ide_ytiind=d.ide_ytiind
+left join yavirac_titu_medios_verifica e on b.ide_ytimev=e.ide_ytimev
+where a.ide_ytipro = $P{pide_proyecto}
+group by ide_ytipoo,detalle_ytitio,detalle_ytiind,detalle_ytimev,c.ide_ytitio
+order by ide_ytipoo,ide_ytitio]]>
+	</queryString>
+	<field name="ide_ytipoo" class="java.lang.Long"/>
+	<field name="ide_ytitio" class="java.lang.Long"/>
+	<field name="tipo" class="java.lang.String"/>
+	<field name="objetivo" class="java.lang.String"/>
+	<field name="indicador" class="java.lang.String"/>
+	<field name="verificacion" class="java.lang.String"/>
+	<group name="tipo_objetivo">
+		<groupExpression><![CDATA[$F{ide_ytitio}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="32">
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="6e263c75-9633-450e-9558-4b0ce605ca77" x="0" y="14" width="185" height="18"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="false" isItalic="false" isPdfEmbedded="false"/>
+					<paragraph leftIndent="5" rightIndent="5" spacingBefore="5" spacingAfter="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{objetivo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="6e263c75-9633-450e-9558-4b0ce605ca77" stretchType="RelativeToBandHeight" x="185" y="14" width="185" height="18"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="false" isItalic="false" isPdfEmbedded="false"/>
+					<paragraph leftIndent="5" rightIndent="5" spacingBefore="5" spacingAfter="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{indicador}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="6e263c75-9633-450e-9558-4b0ce605ca77" stretchType="RelativeToBandHeight" x="370" y="14" width="185" height="18"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="false" isItalic="false" isPdfEmbedded="false"/>
+					<paragraph leftIndent="5" rightIndent="5" spacingBefore="5" spacingAfter="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{verificacion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="81043930-4ef5-4c23-b045-e81c55038da4" isPrintRepeatedValues="false" x="0" y="0" width="555" height="14" isRemoveLineWhenBlank="true"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font size="9" isBold="true"/>
+					<paragraph lineSpacing="Single" leftIndent="5" rightIndent="5" spacingBefore="2" tabStopWidth="40"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="41" splitType="Stretch">
+			<subreport runToBottom="true">
+				<reportElement uuid="8466d29d-c5cb-46cb-8928-6071c32eff1e" x="0" y="0" width="555" height="41"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pide_proyecto">
+					<subreportParameterExpression><![CDATA[$P{pide_proyecto}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "/reportes/rep_titulacion/rep_formulario_actividad_resultado.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

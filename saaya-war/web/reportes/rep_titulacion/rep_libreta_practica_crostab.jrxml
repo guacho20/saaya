@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rep_asistencia_alumno" pageWidth="483" pageHeight="102" columnWidth="463" leftMargin="12" rightMargin="8" topMargin="8" bottomMargin="6" uuid="fd2f75ba-28df-41be-82d7-832328595b85">
+	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\Saayascode\\trunk\\rua\\rua-war\\web\\reportes\\rep_asistencia\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pide_libreta_practica" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select ide_ytilpr,ide_yhodia,hora_inicio_ytihpr,descripcion,numero_horas_ytihpr, descripcion_yhodia,orden_yhodia,orden
+from (
+ select c.ide_ytilpr,d.ide_yhodia,(case when c.hora_inicio_ytihpr is null then '' else to_char(c.hora_inicio_ytihpr, 'HH24:MI')||''  end) as hora_inicio_ytihpr ,'HORA DESDE' as descripcion, c.numero_horas_ytihpr,orden_yhodia||'.'|| d.descripcion_yhodia as descripcion_yhodia,orden_yhodia,1 as orden
+from yavirac_titu_horario_practica c, yavirac_hora_dia d
+where c.ide_yhodia=d.ide_yhodia
+UNION
+ select c.ide_ytilpr,d.ide_yhodia,(case when c.hora_fin_ytihpr is null then '' else to_char(c.hora_fin_ytihpr, 'HH24:MI')||'' end) as hora_fin_ytihpr,'HORA HASTA' as descripcion, c.numero_horas_ytihpr, orden_yhodia||'.'||d.descripcion_yhodia as descripcion_yhodia,orden_yhodia,2 as orden
+from yavirac_titu_horario_practica c, yavirac_hora_dia d
+where c.ide_yhodia=d.ide_yhodia
+
+ ) a
+ where ide_ytilpr=4
+ order by orden_yhodia,orden]]>
+	</queryString>
+	<field name="ide_ytilpr" class="java.lang.Long"/>
+	<field name="ide_yhodia" class="java.lang.Long"/>
+	<field name="hora_inicio_ytihpr" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="numero_horas_ytihpr" class="java.lang.Long"/>
+	<field name="descripcion_yhodia" class="java.lang.String"/>
+	<field name="orden_yhodia" class="java.lang.Long"/>
+	<field name="orden" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="60" splitType="Stretch">
+			<elementGroup>
+				<crosstab columnBreakOffset="15">
+					<reportElement uuid="d14082f5-18d0-484d-a53a-186ac8062142" x="0" y="0" width="463" height="60"/>
+					<rowGroup name="descripcion" width="70">
+						<bucket class="java.lang.String">
+							<bucketExpression><![CDATA[$F{descripcion}]]></bucketExpression>
+						</bucket>
+						<crosstabRowHeader>
+							<cellContents backcolor="#F0F8FF" mode="Transparent">
+								<textField>
+									<reportElement uuid="398ee753-ad84-4001-9ead-ee232a4fa58f" style="Crosstab Data Text" x="0" y="0" width="70" height="25"/>
+									<textElement/>
+									<textFieldExpression><![CDATA[$V{descripcion}]]></textFieldExpression>
+								</textField>
+							</cellContents>
+						</crosstabRowHeader>
+						<crosstabTotalRowHeader>
+							<cellContents/>
+						</crosstabTotalRowHeader>
+					</rowGroup>
+					<columnGroup name="descripcion_yhodia" height="30">
+						<bucket class="java.lang.String">
+							<bucketExpression><![CDATA[$F{descripcion_yhodia}]]></bucketExpression>
+						</bucket>
+						<crosstabColumnHeader>
+							<cellContents backcolor="#F0F8FF" mode="Transparent" style="Crosstab Data Text">
+								<textField isBlankWhenNull="true">
+									<reportElement uuid="3b0f7fbc-ab00-4077-8d43-7b392c99d5b6" style="Crosstab Data Text" x="0" y="0" width="50" height="30"/>
+									<textElement>
+										<font size="8"/>
+										<paragraph tabStopWidth="50"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$V{descripcion_yhodia}]]></textFieldExpression>
+								</textField>
+							</cellContents>
+						</crosstabColumnHeader>
+						<crosstabTotalColumnHeader>
+							<cellContents/>
+						</crosstabTotalColumnHeader>
+					</columnGroup>
+					<measure name="hora_inicio_ytihprMeasure" class="java.lang.String">
+						<measureExpression><![CDATA[$F{hora_inicio_ytihpr}]]></measureExpression>
+					</measure>
+					<crosstabCell width="50" height="25">
+						<cellContents>
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement uuid="38a47656-d23e-4fec-afa4-83734ab02c07" style="Crosstab Data Text" mode="Opaque" x="0" y="0" width="50" height="25"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$V{hora_inicio_ytihprMeasure}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabCell>
+				</crosstab>
+			</elementGroup>
+		</band>
+	</summary>
+</jasperReport>

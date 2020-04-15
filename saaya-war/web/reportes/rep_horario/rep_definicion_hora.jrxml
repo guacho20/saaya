@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rep_definicionhora" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e108c217-e1c5-43b0-950e-8f4304f6df48">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="titulo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ide_empr" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ide_sucu" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ide_usua" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="usuario" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select  ide_yhodeh, c.ide_ystpea, d.ide_yhothj, e.ide_yhotih, a.ide_ystjor, f.ide_ystmod, hora_inicio_yhodeh, hora_final_yhodeh, activo_yhodeh, descripcion_ystjor, descripcion_ystpea, descripcion_yhothj, descripcion_yhotih, descripcion_ystmod
+from yavirac_hora_definicion_hora a, yavirac_stror_jornada b, yavirac_stror_periodo_academic c, yavirac_hora_tipo_horario_jorna d,
+yavirac_hora_tipo_horario e, yavirac_stror_modalidad f
+where a.ide_ystjor= b.ide_ystjor
+and a.ide_ystpea= c.ide_ystpea
+and a.ide_yhothj= d.ide_yhothj
+and a.ide_yhotih= e.ide_yhotih
+and a.ide_ystmod= f.ide_ystmod
+order by descripcion_ystjor]]>
+	</queryString>
+	<field name="ide_yhodeh" class="java.lang.Long"/>
+	<field name="ide_ystpea" class="java.lang.Long"/>
+	<field name="ide_yhothj" class="java.lang.Long"/>
+	<field name="ide_yhotih" class="java.lang.Long"/>
+	<field name="ide_ystjor" class="java.lang.Long"/>
+	<field name="ide_ystmod" class="java.lang.Long"/>
+	<field name="hora_inicio_yhodeh" class="java.sql.Time"/>
+	<field name="hora_final_yhodeh" class="java.sql.Time"/>
+	<field name="activo_yhodeh" class="java.lang.Boolean"/>
+	<field name="descripcion_ystjor" class="java.lang.String">
+		<fieldDescription><![CDATA[este campo permite describir las actividades tanto vespertina como matutina]]></fieldDescription>
+	</field>
+	<field name="descripcion_ystpea" class="java.lang.String">
+		<fieldDescription><![CDATA[este campo permite gusrdar informacion del periodo de inico y final del año lectivo]]></fieldDescription>
+	</field>
+	<field name="descripcion_yhothj" class="java.lang.String"/>
+	<field name="descripcion_yhotih" class="java.lang.String"/>
+	<field name="descripcion_ystmod" class="java.lang.String">
+		<fieldDescription><![CDATA[este campo permite conocer la descripcion de la tabla modalidad]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="109" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="43" uuid="d8dd4e8d-0198-41c4-8df6-41cf21493f3f"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="titulo">
+					<subreportParameterExpression><![CDATA[$P{titulo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="usuario">
+					<subreportParameterExpression><![CDATA[$P{usuario}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ide_empr">
+					<subreportParameterExpression><![CDATA[$P{ide_empr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ide_sucu">
+					<subreportParameterExpression><![CDATA[$P{ide_sucu}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ide_usua">
+					<subreportParameterExpression><![CDATA[$P{ide_usua}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "/reportes/rep_sistema/rep_cabecera.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="29" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="25" y="41" width="100" height="20" uuid="88ad67b8-600d-48a2-8b9e-5c4b9c95b2d4"/>
+				<text><![CDATA[JORNADA]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="62" splitType="Stretch">
+			<textField>
+				<reportElement x="25" y="0" width="127" height="20" uuid="31a9f6ee-7aaa-4640-8a40-a1dc5f8a06b4"/>
+				<textFieldExpression><![CDATA[$F{descripcion_ystjor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

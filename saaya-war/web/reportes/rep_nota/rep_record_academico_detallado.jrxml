@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rep_record_academico" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="34" bottomMargin="34" uuid="b53f5a34-8377-4b44-b3c2-d119f2e8894e">
+	<property name="ireport.zoom" value="1.3310000000000022"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="52"/>
+	<parameter name="ide_yaldap" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ide_sucu" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ide_empr" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["http://localhost:8080/rua-war"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ide_ystpea" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ide_ystmen" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select i.ide_ystpea,a.ide_ynocra,apellido_yaldap||' '||nombre_yaldap as alumno,doc_identidad_yaldap,descripcion_ystmen,fecha_inicio_ynocra,fecha_fin_ynocra,detalle_ysttfe,
+b.ide_ystmal,f.ide_ystnie,descripcion_ystnie,detalle_ystmat,codigo_mate_ynodra, num_creditos_ynodra,descripcion_ystpea,fecha_inicio_ystpea,fecha_final_ystpea,extract(year from fecha_inicio_ystpea)||'-'||extract(year from fecha_final_ystpea) as periodo,
+abreviatura_ymanum,
+b.ide_ymanum,nota_ynodra,detalle_ynoest,detalle_ymatrc,observacion_ynodra
+from yavirac_nota_cab_rec_acad a
+left join yavirac_nota_det_rec_acad b on a.ide_ynocra=b.ide_ynocra
+left join yavirac_alum_dato_personal c on a.ide_yaldap=c.ide_yaldap
+left join yavirac_stror_mension d on a.ide_ystmen=d.ide_ystmen
+left join yavirac_stror_tipo_for_educaci e on d.ide_ysttfe=e.ide_ysttfe
+left join yavirac_stror_malla f on b.ide_ystmal=f.ide_ystmal
+left join yavirac_stror_nivel_educacion g on f.ide_ystnie=g.ide_ystnie
+left join yavirac_stror_materia h on f.ide_ystmat=h.ide_ystmat
+left join yavirac_stror_periodo_academic i on b.ide_ystpea=i.ide_ystpea
+left join yavirac_matri_numero_matricula j on b.ide_ymanum=j.ide_ymanum
+left join yavirac_nota_estado_nota k on b.ide_ynoest=k.ide_ynoest
+left join yavirac_matri_tipo_reg_credito l on b.ide_ymatrc=l.ide_ymatrc
+where a.ide_yaldap=$P!{ide_yaldap} and i.ide_ystpea in ($P!{ide_ystpea}) and a.ide_ystmen=$P!{ide_ystmen}
+order by i.ide_ystpea,ide_ystnie,b.ide_ystmal]]>
+	</queryString>
+	<field name="ide_ystpea" class="java.lang.Long">
+		<fieldDescription><![CDATA[este campo reprecenta la clave primaria de la tabla periodo academico]]></fieldDescription>
+	</field>
+	<field name="ide_ynocra" class="java.lang.Long"/>
+	<field name="alumno" class="java.lang.String"/>
+	<field name="doc_identidad_yaldap" class="java.lang.String">
+		<fieldDescription><![CDATA[Este campo nos indicara el documento de identidad del alumno de la tabla yavirac_alum_dato_personal]]></fieldDescription>
+	</field>
+	<field name="descripcion_ystmen" class="java.lang.String"/>
+	<field name="fecha_inicio_ynocra" class="java.sql.Date"/>
+	<field name="fecha_fin_ynocra" class="java.sql.Date"/>
+	<field name="detalle_ysttfe" class="java.lang.String">
+		<fieldDescription><![CDATA[este campo identifica laprincipal formacion de la tabla]]></fieldDescription>
+	</field>
+	<field name="ide_ystmal" class="java.lang.Long"/>
+	<field name="ide_ystnie" class="java.lang.Long"/>
+	<field name="descripcion_ystnie" class="java.lang.String">
+		<fieldDescription><![CDATA[este campo identidica la descripcion de la tabla  nivel educacion]]></fieldDescription>
+	</field>
+	<field name="detalle_ystmat" class="java.lang.String"/>
+	<field name="codigo_mate_ynodra" class="java.lang.String"/>
+	<field name="num_creditos_ynodra" class="java.lang.Long"/>
+	<field name="descripcion_ystpea" class="java.lang.String">
+		<fieldDescription><![CDATA[este campo permite gusrdar informacion del periodo de inico y final del año lectivo]]></fieldDescription>
+	</field>
+	<field name="fecha_inicio_ystpea" class="java.sql.Date">
+		<fieldDescription><![CDATA[esta campo permite visualizar el preriodo  de inico academico]]></fieldDescription>
+	</field>
+	<field name="fecha_final_ystpea" class="java.sql.Date">
+		<fieldDescription><![CDATA[este campo permite visualizar el perioso final academico]]></fieldDescription>
+	</field>
+	<field name="periodo" class="java.lang.String"/>
+	<field name="abreviatura_ymanum" class="java.lang.String"/>
+	<field name="ide_ymanum" class="java.lang.Long"/>
+	<field name="nota_ynodra" class="java.math.BigDecimal"/>
+	<field name="detalle_ynoest" class="java.lang.String"/>
+	<field name="detalle_ymatrc" class="java.lang.String"/>
+	<field name="observacion_ynodra" class="java.lang.String"/>
+	<variable name="numeracion" class="java.lang.Integer" resetType="Group" resetGroup="nivel" calculation="Count">
+		<variableExpression><![CDATA[$F{detalle_ystmat}]]></variableExpression>
+	</variable>
+	<variable name="total" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{detalle_ystmat}]]></variableExpression>
+	</variable>
+	<group name="periodo">
+		<groupExpression><![CDATA[$F{ide_ystpea}]]></groupExpression>
+		<groupHeader>
+			<band height="17">
+				<textField>
+					<reportElement uuid="dabcc480-25cb-405c-b2a3-e6c211f9bdc6" x="0" y="3" width="555" height="11"/>
+					<box>
+						<topPen lineWidth="0.75" lineColor="#000000"/>
+						<bottomPen lineWidth="0.75" lineColor="#000000"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="7" isBold="true" isUnderline="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["PERIODO ACADÉMICO: "+$F{descripcion_ystpea}+"      FECHA INICIO: "+$F{fecha_inicio_ystpea}+"       FECHA FIN: "+$F{fecha_final_ystpea}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="nivel">
+		<groupExpression><![CDATA[$F{ide_ystnie}]]></groupExpression>
+		<groupHeader>
+			<band height="40">
+				<textField>
+					<reportElement uuid="dabcc480-25cb-405c-b2a3-e6c211f9bdc6" x="0" y="2" width="555" height="11"/>
+					<box>
+						<topPen lineWidth="0.0" lineColor="#0099CC"/>
+						<bottomPen lineWidth="0.0" lineColor="#0099CC"/>
+					</box>
+					<textElement>
+						<font size="7" isBold="true" isUnderline="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{descripcion_ystnie}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="75eaf09f-8432-4fc9-9b28-c401f81ed957" x="0" y="16" width="20" height="11"/>
+					<textElement verticalAlignment="Middle">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nº.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="75eaf09f-8432-4fc9-9b28-c401f81ed957" x="20" y="16" width="43" height="11"/>
+					<textElement verticalAlignment="Middle">
+						<font size="7" isBold="true"/>
+						<paragraph leftIndent="3" rightIndent="3"/>
+					</textElement>
+					<text><![CDATA[Código]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="75eaf09f-8432-4fc9-9b28-c401f81ed957" x="63" y="16" width="150" height="11"/>
+					<textElement verticalAlignment="Middle">
+						<font size="7" isBold="true"/>
+						<paragraph leftIndent="3" rightIndent="3"/>
+					</textElement>
+					<text><![CDATA[Materia]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="75eaf09f-8432-4fc9-9b28-c401f81ed957" x="213" y="16" width="40" height="22"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7" isBold="true"/>
+						<paragraph leftIndent="3" rightIndent="3"/>
+					</textElement>
+					<text><![CDATA[Nº Créditos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="75eaf09f-8432-4fc9-9b28-c401f81ed957" x="253" y="16" width="40" height="22"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7" isBold="true"/>
+						<paragraph leftIndent="3" rightIndent="3"/>
+					</textElement>
+					<text><![CDATA[Nº Matricula]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="75eaf09f-8432-4fc9-9b28-c401f81ed957" x="293" y="16" width="46" height="11"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7" isBold="true"/>
+						<paragraph leftIndent="3" rightIndent="3"/>
+					</textElement>
+					<text><![CDATA[Calificación]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="75eaf09f-8432-4fc9-9b28-c401f81ed957" x="339" y="16" width="60" height="11"/>
+					<textElement verticalAlignment="Middle">
+						<font size="7" isBold="true"/>
+						<paragraph leftIndent="3" rightIndent="3"/>
+					</textElement>
+					<text><![CDATA[Estado]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="75eaf09f-8432-4fc9-9b28-c401f81ed957" x="399" y="16" width="65" height="11"/>
+					<textElement verticalAlignment="Middle">
+						<font size="7" isBold="true"/>
+						<paragraph leftIndent="3" rightIndent="3"/>
+					</textElement>
+					<text><![CDATA[Tipo Aprobación]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="75eaf09f-8432-4fc9-9b28-c401f81ed957" x="464" y="16" width="91" height="11"/>
+					<textElement verticalAlignment="Middle">
+						<font size="7" isBold="true"/>
+						<paragraph leftIndent="3" rightIndent="3"/>
+					</textElement>
+					<text><![CDATA[Resolución]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="136" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="ab3fd77c-3610-4fbc-86b4-4bbfaf4eca70" x="0" y="44" width="555" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[RECORD ACADÉMICO DETALLADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="75eaf09f-8432-4fc9-9b28-c401f81ed957" x="0" y="77" width="152" height="11"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DOCUMENTO DE IDENTIFICACIÓN:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="75eaf09f-8432-4fc9-9b28-c401f81ed957" x="0" y="88" width="152" height="11"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CARRERA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="75eaf09f-8432-4fc9-9b28-c401f81ed957" x="0" y="99" width="152" height="11"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MODALIDAD:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="75eaf09f-8432-4fc9-9b28-c401f81ed957" x="0" y="110" width="152" height="11"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA INICIO CARRERA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="75eaf09f-8432-4fc9-9b28-c401f81ed957" x="0" y="121" width="152" height="11"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA CONCLUSIÓN DE ESTUDIOS:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="877addb9-0592-4668-b30f-e406d608d721" x="152" y="77" width="403" height="11"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{doc_identidad_yaldap}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="877addb9-0592-4668-b30f-e406d608d721" x="152" y="88" width="403" height="11"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion_ystmen}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="877addb9-0592-4668-b30f-e406d608d721" x="152" y="99" width="403" height="11"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{detalle_ysttfe}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="877addb9-0592-4668-b30f-e406d608d721" x="152" y="110" width="403" height="11"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha_inicio_ynocra}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="877addb9-0592-4668-b30f-e406d608d721" x="152" y="121" width="403" height="11"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( $F{fecha_fin_ynocra} == null ? "*Fecha pendiente de revision" : $F{fecha_fin_ynocra} )]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="75eaf09f-8432-4fc9-9b28-c401f81ed957" x="0" y="66" width="152" height="11"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ALUMNO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="877addb9-0592-4668-b30f-e406d608d721" x="152" y="66" width="403" height="11"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alumno}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement uuid="5c358811-9cf4-4919-a875-6de7b531417d" x="0" y="0" width="555" height="42"/>
+				<subreportParameter name="ide_sucu">
+					<subreportParameterExpression><![CDATA[$P{ide_sucu}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ide_empr">
+					<subreportParameterExpression><![CDATA[$P{ide_empr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "/reportes/rep_sistema/rep_cabecera_record.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="11" splitType="Stretch">
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement uuid="877addb9-0592-4668-b30f-e406d608d721" stretchType="RelativeToBandHeight" x="0" y="0" width="20" height="11"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{numeracion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement uuid="877addb9-0592-4668-b30f-e406d608d721" stretchType="RelativeToBandHeight" x="20" y="0" width="43" height="11"/>
+				<textElement>
+					<font size="7"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigo_mate_ynodra}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement uuid="877addb9-0592-4668-b30f-e406d608d721" stretchType="RelativeToBandHeight" x="63" y="0" width="150" height="11"/>
+				<textElement>
+					<font size="7"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{detalle_ystmat}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement uuid="877addb9-0592-4668-b30f-e406d608d721" stretchType="RelativeToBandHeight" x="213" y="0" width="40" height="11"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{num_creditos_ynodra}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="877addb9-0592-4668-b30f-e406d608d721" stretchType="RelativeToBandHeight" x="253" y="0" width="40" height="11" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{abreviatura_ymanum}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement uuid="877addb9-0592-4668-b30f-e406d608d721" stretchType="RelativeToBandHeight" x="293" y="0" width="46" height="11"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nota_ynodra}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement uuid="877addb9-0592-4668-b30f-e406d608d721" stretchType="RelativeToBandHeight" x="339" y="0" width="60" height="11"/>
+				<textElement>
+					<font size="7"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{detalle_ynoest}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement uuid="877addb9-0592-4668-b30f-e406d608d721" stretchType="RelativeToBandHeight" x="399" y="0" width="65" height="11"/>
+				<textElement>
+					<font size="7"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{detalle_ymatrc}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="877addb9-0592-4668-b30f-e406d608d721" stretchType="RelativeToBandHeight" x="464" y="0" width="91" height="11" isRemoveLineWhenBlank="true"/>
+				<textElement>
+					<font size="7"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{observacion_ynodra}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="10" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement uuid="bdeb830c-5243-4927-9928-77a5259f055a" x="495" y="0" width="60" height="10"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e92d5af9-dfd5-44e6-9f59-a61c5d258d67" x="415" y="0" width="80" height="10"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4323ebd3-22be-4af7-8e36-dc8f66579142" x="354" y="0" width="61" height="10"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="527d6c40-95a5-4960-8be9-1e15dfcfafbf" x="294" y="0" width="60" height="10"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Fecha Emisión:]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

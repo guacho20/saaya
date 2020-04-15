@@ -1,0 +1,1339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rep_formulario" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="308b82e4-797c-484e-a166-69430721209a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["http://localhost:8080/sam"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="usuario" class="java.lang.String"/>
+	<parameter name="ide_sucu" class="java.lang.Integer"/>
+	<parameter name="ide_empr" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pide_ins" class="java.lang.Integer"/>
+	<parameter name="nombre" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select ide_yinfor,fecha_ini_estudio_yinfor,fecha_matri_yinfor,descripcion_ymatip,detalle_yhogra,
+  b.ide_ystsex, b.descripcion_ystsex,titulo_otorga_yinfor,
+  c.ide_ysttid, c.descripcion_ysttid,horas_practicas_yinfor,
+  d.ide_ystpaf, d.descripcion_ystpaf,
+  e.ide_ystetn, e.detalle_ystetn,
+  f.ide_ystnac, f.descripcion_ystnac,
+  g.ide_ysttis, g.descripcion_ysttis,
+  h.ide_ystcam, h.descripcion_ystcam,
+  i.ide_ystesc, i.descripcion_ystesc,
+  j.ide_ystgrd, j.descripcion_ystgrd,
+  k.ide_ysttco, k.descripcion_ysttco ,
+  l.ide_ysttba, l.descripcion_ysttba,
+  m.ide_ystpea, m.descripcion_ystpea,
+  n.ide_ystnie, n.descripcion_ystnie,
+  o.ide_ystjor, o.descripcion_ystjor,
+  p.ide_ytiemp, p.nombre_comercial_ytiemp,
+  q.ide_ytitie, q.descripcion_ytitie,
+  r.ide_ystvis, r.descripcion_ystvis,
+  s.ide_ystmod, s.descripcion_ystmod,
+  t.ide_ypetip, t.descripcion_ypetip,
+  u.ide_ystdip, u.descripcion_ystdip as pais_vive,
+  v.yav_ide_ystdip, v.descripcion_ystdip as provincia_vive,
+  w.ide_ytiace, w.descripcion_ytiace as actividad_practica,
+  x.ide_ystmen, x.descripcion_ystmen,
+  y.ide_ystfoe, y.descripcion_ystfoe as educacion_padre,
+  z.ide_ystfoe, z.descripcion_ystfoe as educacion_madre,
+  a.nombres_yinfor,
+  a.apellidos_yinfor,
+  a.correo_electronico_yinfor,
+  a.direccion_yinfor,
+  a.celular_yinfor,
+  a.telefono_yinfor,
+  a.codigo_postal_yinfor,
+  a.nombre_emergencia_yinfor,
+  a.contacto_emergencia_yinfor,
+  a.habla_otro_idioma_yinfor,(case when habla_otro_idioma_yinfor is true then 'SI' else 'NO' end) as habla_otro_idioma,
+  a.tiene_discapacidad_yinfor,(case when tiene_discapacidad_yinfor is true then 'SI' else 'NO' end) as tiene_discapacidad,
+  a.educacion_superior_yinfor,(case when educacion_superior_yinfor is true then 'SI' else 'NO' end) as educacion_superior,
+  a.perdida_materia_yinfor,(case when perdida_materia_yinfor is true then 'SI' else 'NO' end) as perdio_materia,
+  a.perdida_gratuidad_yinfor,(case when perdida_gratuidad_yinfor is true then 'SI' else 'NO' end) as perdio_gratuidad,
+  a.practicas_preprof_yinfor,(case when practicas_preprof_yinfor is true then 'SI' else 'NO' end) as practicas_preprofesionales,
+  a.vinculacion_sociedad_yinfor,(case when vinculacion_sociedad_yinfor is true then 'SI' else 'NO' end) as vicnulacion_sociedad,
+  a.familiar_bono_yinfor,(case when familiar_bono_yinfor is true then 'SI' else 'NO' end) as familiar_bono,
+  a.dedicado_a_yinfor,(case when dedicado_a_yinfor =1 then 'Solamente Estudio' when dedicado_a_yinfor =2 then 'Alguna Ocupacion para obtener Ingresos' end) as dedicado_a,
+  (case when tipo_carrera_yinfor =1 then 'Tecnicatura' when tipo_carrera_yinfor =2 then 'Tecnología' end) as tipo_carrera,
+  a.ingresos_hogar_yinfor,
+  a.miembros_hogar_yinfor,
+  a.emplea_ingresos_yinfor,(case when emplea_ingresos_yinfor =1 then 'Sostener sus estudios' when emplea_ingresos_yinfor =2 then 'Para mantener a su familia' when emplea_ingresos_yinfor=3 then 'Otros' end) as emplea_ingresos,
+  a.numero_conadis_yinfor,
+  a.fecha_nacimiento_yinfor,anio_gradua_yinfor,
+  ab.ide_ystdoi, ab.descripcion_ystdoi,
+  ac.ide_ystgen, ac.descripcion_ystgen,
+  ad.ide_ystani, ad.descripcion_ystani,
+  ae.ide_ytiace, ae.descripcion_ytiace,descripcion_ystdom,
+  a.doc_identificacion_yinfor,canvi.descripcion_ystdip as canton_vive,pares.descripcion_ystdip as pais_reside,prores.descripcion_ystdip as provincia_reside,cares.descripcion_ystdip as canton_reside
+   from yavirac_ins_formulario a
+   left join yavirac_stror_sexo b on a.ide_ystsex = b.ide_ystsex
+   left join yavirac_stror_tipo_discapacid c on a.ide_ysttid = c.ide_ysttid
+   left join yavirac_stror_parentezco_fami d on a.ide_ystpaf = d.ide_ystpaf
+   left join yavirac_stror_etnia e on a.ide_ystetn = e.ide_ystetn
+   left join yavirac_stror_nacionalidad f on a.ide_ystnac = f.ide_ystnac
+   left join yavirac_stror_tipo_sangre g on a.ide_ysttis = g.ide_ysttis
+   left join yavirac_stror_categoria_migrato h on a.ide_ystcam = h.ide_ystcam
+   left join yavirac_stror_estado_civil i on a.ide_ystesc = i.ide_ystesc
+   left join yavirac_stror_grado_discapaci j on a.ide_ystgrd = j.ide_ystgrd
+   left join yavirac_stror_tipo_colegio k on a.ide_ysttco = k.ide_ysttco
+   left join yavirac_stror_tipo_bachillerato l on a.ide_ysttba = l.ide_ysttba
+   left join yavirac_stror_periodo_academic m on a.ide_ystpea = m.ide_ystpea
+   left join yavirac_stror_nivel_educacion n on a.ide_ystnie = n.ide_ystnie
+   left join yavirac_stror_jornada o on a.ide_ystjor = o.ide_ystjor
+   left join yavirac_titu_empresa p on a.ide_ytiemp = p.ide_ytiemp
+   left join yavirac_titu_tipo_empresa q on a.ide_ytitie = q.ide_ytitie
+   left join yavirac_stror_vinculacion_socie r on a.ide_ystvis = r.ide_ystvis
+   left join yavirac_stror_modalidad s on a.ide_ystmod = s.ide_ystmod
+   left join yavirac_perso_titu_profesional t on a.ide_ypetip = t.ide_ypetip
+   left join yavirac_stror_distribucion_pol u on a.ide_ystdip = u.ide_ystdip
+   left join yavirac_stror_distribucion_pol v on a.yav_ide_ystdip = v.ide_ystdip
+   left join yavirac_stror_distribucion_pol canvi on a.yav_ide_ystdip2 = canvi.ide_ystdip
+   left join yavirac_stror_distribucion_pol pares on a.yav_ide_ystdip3 = pares.ide_ystdip
+   left join yavirac_stror_distribucion_pol prores on a.yav_ide_ystdip4 = prores.ide_ystdip
+   left join yavirac_stror_distribucion_pol cares on a.yav_ide_ystdip5 = cares.ide_ystdip
+   left join yavirac_titu_actividad_economic w on a.ide_ytiace = w.ide_ytiace
+   left join yavirac_stror_mension x on a.ide_ystmen = x.ide_ystmen
+   left join yavirac_stror_formacion_educati y on a.ide_ystfoe = y.ide_ystfoe
+   left join yavirac_stror_formacion_educati z on a.yav_ide_ystfoe = z.ide_ystfoe
+   left join yavirac_stror_docu_identidad ab on a.ide_ystdoi = ab.ide_ystdoi
+   left join yavirac_stror_genero ac on a.ide_ystgen = ac.ide_ystgen
+   left join yavirac_stror_anio ad on a.ide_ystani = ad.ide_ystani
+   left join yavirac_titu_actividad_economic ae on a.yav_ide_ytiace = ae.ide_ytiace
+   left join yavirac_stror_idioma idi on a.ide_ystdom = idi.ide_ystdom
+   left join yavirac_matri_tipo_periodo tipm on a.ide_ymatip = tipm.ide_ymatip
+   left join yavirac_hora_grupo_academic hog on a.ide_yhogra=hog.ide_yhogra
+where ide_yinfor=$P{pide_ins}]]>
+	</queryString>
+	<field name="ide_yinfor" class="java.lang.Long"/>
+	<field name="fecha_ini_estudio_yinfor" class="java.sql.Date"/>
+	<field name="fecha_matri_yinfor" class="java.sql.Date"/>
+	<field name="descripcion_ymatip" class="java.lang.String"/>
+	<field name="detalle_yhogra" class="java.lang.String"/>
+	<field name="ide_ystsex" class="java.lang.Long"/>
+	<field name="descripcion_ystsex" class="java.lang.String"/>
+	<field name="titulo_otorga_yinfor" class="java.lang.String">
+		<fieldDescription><![CDATA[De acuerdo a la mension dan un titulo profesional]]></fieldDescription>
+	</field>
+	<field name="ide_ysttid" class="java.lang.Long"/>
+	<field name="descripcion_ysttid" class="java.lang.String">
+		<fieldDescription><![CDATA[este campo muesta informacion  hacerca del tipo de discapacidad que tiene la persona ]]></fieldDescription>
+	</field>
+	<field name="horas_practicas_yinfor" class="java.lang.Long"/>
+	<field name="ide_ystpaf" class="java.lang.Long"/>
+	<field name="descripcion_ystpaf" class="java.lang.String">
+		<fieldDescription><![CDATA[este campo permive conocer el vinculo que exista en te dos personas por sonsanguinidad, afinidad, adopciono matrimonio]]></fieldDescription>
+	</field>
+	<field name="ide_ystetn" class="java.lang.Long"/>
+	<field name="detalle_ystetn" class="java.lang.String"/>
+	<field name="ide_ystnac" class="java.lang.Long"/>
+	<field name="descripcion_ystnac" class="java.lang.String">
+		<fieldDescription><![CDATA[este campo permite descripir la nacionalidad del sea personal o estediante de la institucion]]></fieldDescription>
+	</field>
+	<field name="ide_ysttis" class="java.lang.Long"/>
+	<field name="descripcion_ysttis" class="java.lang.String">
+		<fieldDescription><![CDATA[permite conocer el tipo de sangre acorde a las caracteristicas de la persona]]></fieldDescription>
+	</field>
+	<field name="ide_ystcam" class="java.lang.Long"/>
+	<field name="descripcion_ystcam" class="java.lang.String"/>
+	<field name="ide_ystesc" class="java.lang.Long"/>
+	<field name="descripcion_ystesc" class="java.lang.String">
+		<fieldDescription><![CDATA[este campo permive conocer el estado civil de la tabla ejemplo casado,divorciado, viudo, union libre, soltero,etc]]></fieldDescription>
+	</field>
+	<field name="ide_ystgrd" class="java.lang.Long"/>
+	<field name="descripcion_ystgrd" class="java.lang.String">
+		<fieldDescription><![CDATA[este  campo muestra la descripcion  del grado de discapacidad que tiene la persona ejemplo, 50% , 10% 80% etc.]]></fieldDescription>
+	</field>
+	<field name="ide_ysttco" class="java.lang.Long"/>
+	<field name="descripcion_ysttco" class="java.lang.String"/>
+	<field name="ide_ysttba" class="java.lang.Long"/>
+	<field name="descripcion_ysttba" class="java.lang.String"/>
+	<field name="ide_ystpea" class="java.lang.Long">
+		<fieldDescription><![CDATA[este campo reprecenta la clave primaria de la tabla periodo academico]]></fieldDescription>
+	</field>
+	<field name="descripcion_ystpea" class="java.lang.String">
+		<fieldDescription><![CDATA[este campo permite gusrdar informacion del periodo de inico y final del año lectivo]]></fieldDescription>
+	</field>
+	<field name="ide_ystnie" class="java.lang.Long"/>
+	<field name="descripcion_ystnie" class="java.lang.String">
+		<fieldDescription><![CDATA[este campo identidica la descripcion de la tabla  nivel educacion]]></fieldDescription>
+	</field>
+	<field name="ide_ystjor" class="java.lang.Long"/>
+	<field name="descripcion_ystjor" class="java.lang.String">
+		<fieldDescription><![CDATA[este campo permite describir las actividades tanto vespertina como matutina ]]></fieldDescription>
+	</field>
+	<field name="ide_ytiemp" class="java.lang.Long"/>
+	<field name="nombre_comercial_ytiemp" class="java.lang.String"/>
+	<field name="ide_ytitie" class="java.lang.Long"/>
+	<field name="descripcion_ytitie" class="java.lang.String"/>
+	<field name="ide_ystvis" class="java.lang.Long"/>
+	<field name="descripcion_ystvis" class="java.lang.String"/>
+	<field name="ide_ystmod" class="java.lang.Long"/>
+	<field name="descripcion_ystmod" class="java.lang.String">
+		<fieldDescription><![CDATA[este campo permite conocer la descripcion de la tabla modalidad]]></fieldDescription>
+	</field>
+	<field name="ide_ypetip" class="java.lang.Long"/>
+	<field name="descripcion_ypetip" class="java.lang.String">
+		<fieldDescription><![CDATA[esta columna identifica la formacion que ha tenido el personal]]></fieldDescription>
+	</field>
+	<field name="ide_ystdip" class="java.lang.Long"/>
+	<field name="pais_vive" class="java.lang.String"/>
+	<field name="yav_ide_ystdip" class="java.lang.Long">
+		<fieldDescription><![CDATA[estevalor representa la clave primaria de distribucion politica]]></fieldDescription>
+	</field>
+	<field name="provincia_vive" class="java.lang.String"/>
+	<field name="ide_ytiace" class="java.lang.Long"/>
+	<field name="actividad_practica" class="java.lang.String"/>
+	<field name="ide_ystmen" class="java.lang.Long"/>
+	<field name="descripcion_ystmen" class="java.lang.String"/>
+	<field name="ide_ystfoe" class="java.lang.Long"/>
+	<field name="educacion_padre" class="java.lang.String"/>
+	<field name="educacion_madre" class="java.lang.String"/>
+	<field name="nombres_yinfor" class="java.lang.String"/>
+	<field name="apellidos_yinfor" class="java.lang.String"/>
+	<field name="correo_electronico_yinfor" class="java.lang.String"/>
+	<field name="direccion_yinfor" class="java.lang.String"/>
+	<field name="celular_yinfor" class="java.lang.String"/>
+	<field name="telefono_yinfor" class="java.lang.String"/>
+	<field name="codigo_postal_yinfor" class="java.lang.String"/>
+	<field name="nombre_emergencia_yinfor" class="java.lang.String"/>
+	<field name="contacto_emergencia_yinfor" class="java.lang.String"/>
+	<field name="habla_otro_idioma_yinfor" class="java.lang.Boolean"/>
+	<field name="habla_otro_idioma" class="java.lang.String"/>
+	<field name="tiene_discapacidad_yinfor" class="java.lang.Boolean"/>
+	<field name="tiene_discapacidad" class="java.lang.String"/>
+	<field name="educacion_superior_yinfor" class="java.lang.Boolean"/>
+	<field name="educacion_superior" class="java.lang.String"/>
+	<field name="perdida_materia_yinfor" class="java.lang.Boolean"/>
+	<field name="perdio_materia" class="java.lang.String"/>
+	<field name="perdida_gratuidad_yinfor" class="java.lang.Boolean"/>
+	<field name="perdio_gratuidad" class="java.lang.String"/>
+	<field name="practicas_preprof_yinfor" class="java.lang.Boolean"/>
+	<field name="practicas_preprofesionales" class="java.lang.String"/>
+	<field name="vinculacion_sociedad_yinfor" class="java.lang.Boolean"/>
+	<field name="vicnulacion_sociedad" class="java.lang.String"/>
+	<field name="familiar_bono_yinfor" class="java.lang.Boolean"/>
+	<field name="familiar_bono" class="java.lang.String"/>
+	<field name="dedicado_a_yinfor" class="java.lang.Long"/>
+	<field name="dedicado_a" class="java.lang.String"/>
+	<field name="tipo_carrera" class="java.lang.String"/>
+	<field name="ingresos_hogar_yinfor" class="java.lang.Long"/>
+	<field name="miembros_hogar_yinfor" class="java.lang.Long"/>
+	<field name="emplea_ingresos_yinfor" class="java.lang.Long"/>
+	<field name="emplea_ingresos" class="java.lang.String"/>
+	<field name="numero_conadis_yinfor" class="java.lang.String"/>
+	<field name="fecha_nacimiento_yinfor" class="java.sql.Date"/>
+	<field name="anio_gradua_yinfor" class="java.lang.Long"/>
+	<field name="ide_ystdoi" class="java.lang.Long"/>
+	<field name="descripcion_ystdoi" class="java.lang.String">
+		<fieldDescription><![CDATA[este campo visualiza la identidad delas personas ]]></fieldDescription>
+	</field>
+	<field name="ide_ystgen" class="java.lang.Long"/>
+	<field name="descripcion_ystgen" class="java.lang.String">
+		<fieldDescription><![CDATA[valor de estado vachar que almacena el tipo de documento identidad ejem:
+C.I.- SEXO
+]]></fieldDescription>
+	</field>
+	<field name="ide_ystani" class="java.lang.Long"/>
+	<field name="descripcion_ystani" class="java.lang.String"/>
+	<field name="descripcion_ytiace" class="java.lang.String"/>
+	<field name="descripcion_ystdom" class="java.lang.String"/>
+	<field name="doc_identificacion_yinfor" class="java.lang.String"/>
+	<field name="canton_vive" class="java.lang.String"/>
+	<field name="pais_reside" class="java.lang.String"/>
+	<field name="provincia_reside" class="java.lang.String"/>
+	<field name="canton_reside" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="85" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="53be36fe-759e-4cc3-b9f2-7b0458d73935" x="0" y="0" width="175" height="85"/>
+				<subreportParameter name="nombre">
+					<subreportParameterExpression><![CDATA[$P{nombre}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="usuario">
+					<subreportParameterExpression><![CDATA[$P{usuario}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ide_empr">
+					<subreportParameterExpression><![CDATA[$P{ide_empr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ide_sucu">
+					<subreportParameterExpression><![CDATA[$P{ide_sucu}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "/reportes/rep_sistema/rep_cabecera.jasper"]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement uuid="a6f7ee37-0cd9-4428-bbf7-53c7d8003a83" x="235" y="47" width="319" height="35"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["NRO. FORMULARIO: "+$F{ide_yinfor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="4aa951b6-3a47-444c-9cab-a33ccfb897e5" x="235" y="4" width="320" height="50"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FORMULARIO DE MATRICULA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="670" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="a025920f-bad3-446e-aaeb-7caecbf8f4f5" mode="Transparent" x="0" y="0" width="555" height="591"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="5e8da933-4351-4afd-8640-3827d948d3f2" x="1" y="0" width="230" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1. Tipo de Documento de Identificación:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d2fead4a-01f4-488a-8fe4-df42d50bb5a3" x="1" y="18" width="230" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[2. Número de Documento de Identificación:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8b037694-2c80-453a-a0b8-947ebfd43f65" x="319" y="18" width="69" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[3. Sexo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6ae1d0db-d4da-4669-9e04-751b4f486f7e" x="420" y="18" width="66" height="17"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[4. Género:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="776cbcf1-a620-44e1-a034-abbd67de42fb" x="1" y="36" width="230" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[5. Apellidos y Nombres del Estudiante:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="25a62002-de5c-4154-ad38-672dbf86fc82" x="1" y="54" width="186" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[6. Correo Electrónico:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="03e946a7-3eff-429b-8049-ef41bed9abff" x="231" y="54" width="99" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[7. Nro Celular:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="67560120-c7b3-491d-9911-639e07fa1ffd" x="387" y="54" width="127" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[8. Nro. Convencional:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6f27cfa1-ae3d-44e8-b528-6a9208168470" x="1" y="72" width="230" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[9. Dirección:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="56732806-88a2-4c57-9c9b-d1acf39942ac" x="387" y="72" width="99" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[10. Código Postal:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1f63f573-f876-4d51-bb44-85ee0202cbe1" x="1" y="90" width="329" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[11. En caso de emergencia contactar a: (Apellidos y Nombres)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9160fa1f-8d68-4c7e-a518-322574fae43c" x="335" y="90" width="100" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[12. Parentezco]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="922ae544-66a3-4e8b-9135-e5d8d5f1411a" x="455" y="90" width="95" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[13. Nro. Contacto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="420d4dc1-fd10-406d-952e-72e81961fe58" x="1" y="125" width="63" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[14. Etnia:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f4524d0d-d2ce-4f3e-83bf-75f958915ed5" x="128" y="126" width="327" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[15. En caso de escoger etnia Indigena u Otro especifique su nacionalidad:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cb0768f9-e244-431a-a240-ae91ae52b8d8" x="1" y="143" width="174" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[16. Habla algun idioma ancestral: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="99ce0f5d-ca41-4c7c-b939-fe8448ca07d0" x="201" y="143" width="68" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Especifique:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="41822230-a464-4a81-a6a4-d6c31daae1e7" x="321" y="143" width="180" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[17. Fecha de Nacimiento: (Año-Mes-Día)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="13347fa9-8b46-4d2a-bfec-2d7f7c98df5c" x="1" y="161" width="100" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[18. Tipo de Sangre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="44ef882d-7ea3-481b-b360-4cc1bba07913" x="128" y="161" width="119" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[19. Pais de Nacionalidad:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7132ff1b-c9e2-48da-9566-a049773a3460" x="321" y="161" width="130" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[20. Provincia de Nacimiento:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3ac14379-96bf-4368-84cf-b588b62d832f" x="1" y="179" width="127" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[21. Cantón de Nacimiento:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b08080ff-38ee-48f3-876f-6aa3716c76e1" x="369" y="197" width="126" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[25. Cantón Residencia:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9abcb2ee-de25-4e1a-bb53-ce5ad45019b9" x="1" y="197" width="127" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[23. País Residencia:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="980b4858-9404-48ca-abc2-2c32dbc692b7" x="175" y="197" width="134" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[24. Provincia Residencia:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7aefe674-a68f-46d0-97bb-dc32dd1eae9e" x="201" y="179" width="250" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[22. Categoría migratoria: (en caso de ser extranjero)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6a824c6b-03ab-47c9-b42f-c1f45ad7542b" x="369" y="215" width="125" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[28. Nro. Carnet CONADIS:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b63a3394-1b07-4d39-b7c4-2a3f0ef5b345" x="369" y="233" width="125" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[31. Tipo de Colegio:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="99a862bb-5bd7-4b67-9433-b89baabb6553" x="1" y="215" width="85" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[26. Estado Civil:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5f958ed2-45ed-4680-99db-b95d607c2907" x="175" y="215" width="136" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[27. Tiene Alguna Discapcidad:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cb8a6cbb-a31c-4e5a-a986-bb812e4251a8" x="175" y="233" width="134" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[30. Tipo: Especifique:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="74833683-ea99-4259-8426-8dd15fcccd6a" x="319" y="251" width="215" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[34. Posee algún título de Educación Superior:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="587cc029-f303-4e2b-a847-077917e5dc6d" x="0" y="466" width="286" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[55. El estudiante se encuentra dedicado a:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="50687979-0885-4f9a-b370-225745ac616d" x="1" y="233" width="127" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[29. Porcentaje Discapcidad:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7c844b16-750a-464b-982f-15e7948b5900" x="1" y="251" width="127" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[32. Tipo de Bachillerato:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d791ebdb-5079-4e53-8d5d-b978cd384165" x="1" y="305" width="100" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[40. Nivel Académico:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="da951e4d-bb71-49ef-b8c2-c030a3fbf8d5" x="1" y="341" width="127" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[45. Modalidad Carrera:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="91092aef-a86c-4534-b157-905d2980c767" x="1" y="359" width="127" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[48. Ha perdido laGratuidda:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="165610c6-0a6d-449c-9e7a-4d70b702783c" x="175" y="251" width="119" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[33. Año Graduación:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5a108cdc-dff5-4567-95eb-475dfb8616e5" x="1" y="287" width="100" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[37. Tipo de Matricula:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="314f76be-06ea-4080-a266-4302dbd95f28" x="1" y="323" width="147" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[43. Título que otorga la Carrera:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="16c897ed-047e-4988-bbba-948357b4dc66" x="175" y="341" width="134" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[46. Jornada en la que Estudia:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="499419b0-3739-4297-bc9c-b741b7bb2d6f" x="0" y="377" width="292" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[50. Nro. Horas de Prácticas Preprofesionales Realizadas:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="557f01e0-dde2-4875-b1ab-6c38c139c37f" x="1" y="269" width="293" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[35. Fecha inició el estudiante la carerra: (Año-Mes-Día)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="60858a57-7366-4640-b6d3-8422ac574ef1" x="175" y="287" width="134" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[38. Período/Ciclo Académico:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8ba97c64-539b-4724-937a-b1d45738f5b4" x="335" y="269" width="195" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[36. Fecha de Matrícula: (Año-Mes-Día)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="00b50e9e-2a91-4c6b-a672-9dd8f6ecefe2" x="0" y="412" width="335" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[52. Sector Económico en el que realiza Prácticas Preprofesionales:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2a7f1685-f3ff-4193-9619-6b01a5ab4ce8" x="175" y="305" width="119" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[41. Paralelo (A-Z):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="62e2b117-3581-44a5-8cc4-80c09b66787a" x="369" y="287" width="146" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[39. Año del Período Académico:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="87dd93d8-1ebe-4ec1-b6e5-4041db2ad13e" x="1" y="448" width="320" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[54. Cual es el alcance del Proyecto de Vinculación con la Sociedad:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6b7ef4ec-8577-47a6-88a1-dbaf16b3f55c" x="0" y="484" width="245" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[56. Cual es el nombre de la empresa donde labora:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9ab549d4-3b8b-47e5-8122-94d8a5a85218" x="0" y="502" width="247" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[57. Indique cual es el área de trabajo de la empresa:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="537889a4-6546-4b0c-94b2-e68d00727806" x="319" y="323" width="132" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[44. Tipo de Carrera:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="07cefea0-5b41-4d36-a788-54a5039b44cb" x="369" y="341" width="165" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[47. Ha perdido al menos una materia:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8c638c1b-4edd-45cf-8f5e-1b77d177648c" x="1" y="430" width="414" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[53. Ha participado en algún Proyecto de Vinculación con la Sociedad en el Instituto:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="15ee92cf-abbf-45a4-bbe3-6d1844649f92" x="319" y="305" width="132" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[42. Nombre de la Carrera:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="608ac443-56ed-4e63-ac94-3289046d964a" x="175" y="359" width="194" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[49. Ha realizado Prácticas Preprofesionales:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e249a151-4423-44e1-b397-32cdd09fd174" x="268" y="377" width="287" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[51. Tipo de Institución en el que realiza Prácticas Preprofesionales:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e594bf42-4902-4cf0-8d43-7fa98195991c" x="1" y="520" width="265" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[58. Para que emplea sus Ingresos económicos el estudiante:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8633c6c6-143d-497e-b1bc-9ec552a639a8" x="0" y="538" width="367" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[59. Usted o algún miembro de la familia recibe el bono de desarrollo humano:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e1634951-76b3-4971-8dfb-c045a342a96d" x="0" y="556" width="265" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[60. Nivel de Formación del Padre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a5a094c4-b322-4f87-ab31-0aff6abca54d" x="265" y="556" width="265" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[61. Nivel de Formación de la Madre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a5a6ac8c-e7fd-4600-99a4-5c8cd9e11f32" x="1" y="574" width="265" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[62. Ingresos del Hogar: $]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1e6db62f-6ee7-4bf5-88f3-2efcec37005a" x="265" y="574" width="265" height="17"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[63. Número de Miembros del Hogar:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="93fe1020-0ec9-461a-b667-3c48ebd9c4d9" x="247" y="637" width="173" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FIRMA ESTUDIANTE:]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="86dc843f-cbc8-4cef-9ffb-0fd216bc6f18" x="362" y="646" width="193" height="1"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="d28d720d-713d-4088-875c-1ad98eeb1fad" x="219" y="0" width="100" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion_ystdoi}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="4d8c4d24-dd86-4b06-948e-029740091ad1" x="219" y="18" width="100" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{doc_identificacion_yinfor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="d67fe8de-dc70-4ca5-8dcb-c78f6b3bded4" x="362" y="18" width="73" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion_ystsex}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="3a0b7c17-12e1-468e-853f-5f49a2bf6412" x="490" y="18" width="65" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion_ystgen}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="a922a24c-fc84-4899-88c3-5b8e98943863" x="219" y="36" width="329" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{apellidos_yinfor}+" "+$F{nombres_yinfor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="7226a5db-9d9b-4055-91f1-38d97ccd16d5" x="100" y="54" width="130" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{correo_electronico_yinfor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="4bd32061-d4ea-4a0d-b050-33ac36a9654a" x="300" y="54" width="87" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{celular_yinfor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="083c0c52-c183-4b1e-89e0-44351cfc84f2" x="486" y="54" width="69" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telefono_yinfor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="e7a8a127-08e9-4f9f-8c71-402d8089f82c" x="64" y="72" width="323" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{direccion_yinfor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="77c264bd-07fa-4acb-8999-68647b5abfac" x="486" y="72" width="69" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigo_postal_yinfor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="adc57289-ec69-4f6d-ae89-f6432a9f8af4" x="1" y="108" width="323" height="17"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_emergencia_yinfor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="af242203-bc31-4993-91cd-2b5fd193efdf" x="335" y="108" width="100" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion_ystpaf}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="35ada1ed-3dbc-4de4-9f4b-56b2ac860066" x="455" y="108" width="87" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contacto_emergencia_yinfor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="b4a7bece-6822-48ab-80e7-9f753eefb3cf" x="48" y="126" width="80" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{detalle_ystetn}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="e5a89a63-add5-4bb0-86ef-f2cc6be70466" x="455" y="126" width="87" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion_ystnac}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="f49b9cb4-485b-4fe4-98e8-c7b9feac9636" x="148" y="143" width="53" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{habla_otro_idioma}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="12812459-db8f-43ff-a2b7-de916b2076aa" x="259" y="143" width="63" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion_ystdom}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy-MM-dd" isBlankWhenNull="true">
+				<reportElement uuid="1c28565a-1bf6-4e93-848a-d7e1a0041865" x="501" y="143" width="54" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha_nacimiento_yinfor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="2445c91b-2ee4-48a5-ba59-6ef703b773dd" x="88" y="161" width="40" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion_ysttis}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="a1f0543b-432d-4f6d-961e-56bac39364ea" x="245" y="161" width="76" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pais_vive}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="75387e00-0932-4c23-a14b-4093281bc3b2" x="451" y="161" width="104" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{provincia_vive}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="5981b742-66bd-4617-bc7b-022fa4f89932" x="121" y="179" width="80" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{canton_vive}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="11a131ea-44db-42a2-8b48-4a24b74b930b" x="435" y="179" width="120" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion_ystcam}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="5be7c876-4b05-42c3-a10a-4e14cb0cacce" x="95" y="197" width="80" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pais_reside}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="b2edda5f-cd8b-42ee-9c3c-89e0711ba703" x="291" y="197" width="78" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{provincia_reside}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="4f0f5610-fe22-4c30-a37f-ce791e623783" x="472" y="197" width="83" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{canton_reside}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="290a22df-dce9-4232-8847-ca60721860ca" x="88" y="215" width="87" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion_ystesc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="b4a9d352-a17b-4433-9e8c-fb5c94065841" x="311" y="215" width="56" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tiene_discapacidad}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="38a1409d-580f-47d3-b635-87b92b4ae707" x="490" y="215" width="65" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero_conadis_yinfor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="22e527e6-95e2-4a5e-a388-f957c5309d52" x="128" y="233" width="47" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion_ystgrd}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="3fb36c5a-75e2-479d-a9db-c2e4f90c3259" x="275" y="233" width="87" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion_ysttid}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="cb7b79ad-44c6-4bef-8093-b2f782dd4b69" x="461" y="233" width="94" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion_ysttco}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="2929d04c-2eca-4362-a4e1-7f95cff4a65b" x="107" y="251" width="68" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion_ysttba}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="f83f4513-0d05-4188-89e4-df7f15366f98" x="269" y="251" width="50" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{anio_gradua_yinfor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="5c6a2137-7bc7-491e-9f09-c5cd3ce25847" x="530" y="251" width="25" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{educacion_superior}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy-MM-dd" isBlankWhenNull="true">
+				<reportElement uuid="5e297b46-0c1a-4d87-a9e0-e418dbeefe50" x="278" y="269" width="53" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha_ini_estudio_yinfor}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy-MM-dd" isBlankWhenNull="true">
+				<reportElement uuid="e3e329b7-e151-4814-9a25-01401f72246a" x="501" y="269" width="54" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha_matri_yinfor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="0bb0566b-1ab8-4911-9796-372bdf75c0c9" x="101" y="287" width="74" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion_ymatip}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="0af8e8de-ddea-4234-84e7-3e55833b1b54" x="303" y="287" width="66" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion_ystpea}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="09b0510e-34f2-4186-909e-223fc41fe2f2" x="512" y="287" width="43" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion_ystani}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="39a5c294-b0cb-4103-afbd-c9d8e68eff84" x="101" y="305" width="74" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion_ystnie}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="bcc1b87b-f229-4ea2-b452-8dc026483630" x="261" y="305" width="58" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{detalle_yhogra}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="21230d4b-2f45-4af0-b3a6-6bd97cb6f2e8" x="440" y="305" width="115" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion_ystmen}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="aa19a354-4da6-4ae9-857d-a6a6543e02f0" x="145" y="323" width="174" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{titulo_otorga_yinfor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="8c3d55e6-e863-41c4-a9ba-ba0fbd4a2bb2" x="412" y="323" width="139" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo_carrera}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="ff0c83c2-f239-4c26-985b-a53e80bdd232" x="101" y="341" width="74" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion_ystmod}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="b011778c-caa1-467c-ae10-f4eec0910233" x="309" y="341" width="60" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion_ystjor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="d9b3aa2f-7a29-4be4-9595-91e5e45fec24" x="534" y="341" width="21" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perdio_materia}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="5d5d6880-3980-4302-8bfb-ca7bef876b36" x="121" y="359" width="54" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perdio_gratuidad}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="ad93ad86-1da5-42dc-9285-ff4be37af8c5" x="367" y="359" width="188" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{practicas_preprofesionales}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="f388f79c-a452-491c-b3d3-b9eaa6e1efcf" x="33" y="395" width="228" height="17"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{horas_practicas_yinfor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="27845595-0d3e-4e46-a35b-a27fe6645707" x="269" y="395" width="273" height="17"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion_ytitie}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="345f2758-7810-4948-a92e-dd33c85a6793" x="303" y="413" width="247" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{actividad_practica}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="c30e96f9-2ffe-4b55-bfe9-40da4eb4b67b" x="388" y="431" width="167" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vicnulacion_sociedad}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="cd4ed77a-303c-45f6-bd17-df8b0f949423" x="303" y="449" width="252" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion_ystvis}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="90859e7c-4802-4169-b5b4-c8a13783901a" x="303" y="467" width="252" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dedicado_a}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="88a74b63-2dbe-40c1-a2db-c691bd120606" x="303" y="485" width="252" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_comercial_ytiemp}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="b15a8364-84a1-4477-9e89-459173411402" x="303" y="503" width="252" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion_ytiace}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="04be0032-b1ce-48ab-8dec-ed835d7b92ff" x="303" y="521" width="252" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{emplea_ingresos}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="d464bb3c-9e1c-4a2f-ba9e-6230338df42c" x="348" y="538" width="207" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{familiar_bono}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="bad17d1d-37cc-4e5c-bb21-a614b7af8e8e" x="156" y="556" width="105" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{educacion_padre}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="c166e572-88af-47ce-8988-5b6d052e37f9" x="156" y="574" width="105" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ingresos_hogar_yinfor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="22b1748e-c0fe-4fe0-9c58-44210e6f52ce" x="435" y="556" width="105" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{educacion_madre}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="2f899e1f-6ffd-4963-ad99-868f698360de" x="435" y="574" width="105" height="17"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{miembros_hogar_yinfor}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="64996058-a000-4c06-bae8-1ac4105e2f79" x="0" y="16" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="0626dfdd-c242-4c69-9734-55d400188281" x="0" y="35" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="2ecf5249-f19d-4376-a758-bf8ac2dbc4ce" x="0" y="71" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="8b4bf708-a5c2-46e9-95d9-64d11c209af7" x="0" y="53" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="5715a864-b327-47a5-808b-7367f2d40e60" x="0" y="89" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="db1af803-6eb9-4177-8d1c-842dc97aef40" x="0" y="124" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="63b47589-69f8-4531-b298-b5de7770bede" x="0" y="142" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="eb42a647-5448-45d4-8568-59b1e0c935d3" x="0" y="160" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="aa0eef94-38ef-4c9c-9ee9-f783aa3ce6af" x="0" y="178" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="5c5d1ee6-39e5-4aea-a4f2-21a0821dbfd9" x="0" y="196" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="50271c0e-7087-4529-b062-d0791e4266a1" x="0" y="214" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="60adb419-4d27-48cb-a11c-0823faa722a2" x="0" y="232" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="faf15c06-d4ca-49fd-a5ef-b5755e00582a" x="0" y="249" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="576dc0a7-5774-4a4f-b952-1ed9f0c7b4d1" x="0" y="268" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="65941727-f0f6-4b90-b5e2-1756942c26aa" x="0" y="286" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="e814e866-03ad-4968-90d7-d1d665f1edd8" x="0" y="304" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="c689bd0c-da90-4896-a202-78237d61cbc0" x="0" y="322" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="1b2c6efe-f9a5-4472-b16e-c579cb192a7b" x="0" y="340" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="9fe530e1-ddb2-45be-a8fd-27fb21f37e38" x="0" y="358" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="f9e74b84-be31-4799-9163-f9a4389fbe60" x="0" y="376" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="466b5bdf-850e-4edc-9df4-2948988265ce" x="0" y="411" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="255b23b6-53b8-4bc5-b4af-043a52421e33" x="0" y="429" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="33e072d2-0fb2-43e4-b97f-2fa2bb4f8d70" x="0" y="447" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="79fa112c-bec2-4f87-b036-c254a95246d8" x="0" y="465" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="c6d8cc70-28d5-478a-ab01-1b8928f998f8" x="0" y="484" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="27ab7a7f-0ecd-4fb4-bc72-e19117423898" x="0" y="502" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="9fe1b512-51c0-4307-b7ce-8b1fabca104c" x="0" y="519" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="e3e03017-7b09-4af5-834b-9d74afed001f" x="0" y="537" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="4ec5cb57-ecb0-481b-9b74-1c6f10f3b706" x="0" y="555" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="c5c43cf6-7200-4740-bcb8-7ddf356f72f3" x="0" y="574" width="555" height="1"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement uuid="b91ebee9-e64c-48f8-8ae4-faad2d6d9d27" x="515" y="2" width="40" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="94932345-795d-49b4-ab72-503051e30eab" x="1" y="2" width="100" height="15"/>
+				<textElement/>
+				<text><![CDATA[Usuario Impresión:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="2bea34ef-478a-4618-9d82-fd29e28d0e70" x="101" y="2" width="100" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{nombre}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement uuid="31392561-b12a-457d-98c6-39ab6b93e8cc" x="269" y="2" width="100" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="2573736b-0894-41b8-b37c-4623a506b9e5" x="210" y="2" width="56" height="15"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="a8a2c7ac-dd5d-482a-85a0-414c83077cf1" x="435" y="2" width="80" height="15"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

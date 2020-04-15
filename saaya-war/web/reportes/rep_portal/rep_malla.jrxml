@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rep_inscripcion" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e288d278-559f-475e-a331-a051cd6e8632">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["http://localhost:8080/sam"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ide_sucu" class="java.lang.Integer"/>
+	<parameter name="ide_empr" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pide_ins" class="java.lang.Integer"/>
+	<parameter name="nombre" class="java.lang.String"/>
+	<parameter name="pide_mension" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select a.ide_ystmen,descripcion_ystmen,total_horas_ystmen,codigo_ystmal,numero_horas_ystmal,b.ide_ystmal,detalle_ystmat,descripcion_ystnie
+from yavirac_stror_mension a, yavirac_stror_malla b,yavirac_stror_materia c,yavirac_stror_nivel_educacion d
+where a.ide_ystmen=b.ide_ystmen
+and b.ide_ystmat= c.ide_ystmat
+and b.ide_ystnie=d.ide_ystnie
+and a.ide_ystmen in ($P!{pide_mension})
+order by orden_ystnie,detalle_ystmat]]>
+	</queryString>
+	<field name="ide_ystmen" class="java.lang.Long"/>
+	<field name="descripcion_ystmen" class="java.lang.String"/>
+	<field name="total_horas_ystmen" class="java.lang.Long"/>
+	<field name="codigo_ystmal" class="java.lang.String">
+		<fieldDescription><![CDATA[este  campo es el codigo de la malla ]]></fieldDescription>
+	</field>
+	<field name="numero_horas_ystmal" class="java.lang.Integer"/>
+	<field name="ide_ystmal" class="java.lang.Long">
+		<fieldDescription><![CDATA[es campo primario]]></fieldDescription>
+	</field>
+	<field name="detalle_ystmat" class="java.lang.String">
+		<fieldDescription><![CDATA[este campo identifica el nombre de la  materia de la carrera respectiva]]></fieldDescription>
+	</field>
+	<field name="descripcion_ystnie" class="java.lang.String">
+		<fieldDescription><![CDATA[este campo identidica la descripcion de la tabla  nivel educacion]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="85" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="175" height="85" uuid="c3b45197-d42a-48d2-9512-39a7f5a06778"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ide_empr">
+					<subreportParameterExpression><![CDATA[$P{ide_empr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ide_sucu">
+					<subreportParameterExpression><![CDATA[$P{ide_sucu}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "/reportes/rep_sistema/rep_cabecera.jasper"]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement x="235" y="0" width="319" height="78" uuid="9cd9fa52-8f13-4a7f-94e9-34378f6560d1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["MALLA DE LA CARRERA: "+$F{descripcion_ystmen}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="150" height="20" uuid="b3dad8ce-b6e7-4ed5-9e8c-bffbd823bc04"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NRO. TOTAL HORAS:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="30" width="120" height="20" uuid="cce1891e-7120-4619-bc88-1cfdb65b5311"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NIVEL]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="150" y="10" width="134" height="20" uuid="395a850a-5ae5-4988-9b03-52dcb3c4966e"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_horas_ystmen}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="120" y="30" width="120" height="20" uuid="306c459f-8716-4711-8ae4-7d600315d4ba"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MATERIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="415" y="30" width="120" height="20" uuid="a16d1bf3-c577-418a-896a-fabf7c135b8b"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NRO. HORAS]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="100" height="14" uuid="a14909a7-3dd1-4416-824c-833a4d11c3b3"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion_ystnie}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="100" y="0" width="355" height="14" uuid="7768da25-e3ae-40a9-955c-6e952fe5c0db"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{detalle_ystmat}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="455" y="0" width="100" height="14" uuid="9ffa4d63-175f-4415-8eea-489212d7ec1b"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero_horas_ystmal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="15" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="15" uuid="382ca1e9-dd0e-4282-b878-0c0e849990b6"/>
+				<text><![CDATA[Usuario Impresión:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="268" y="0" width="100" height="15" uuid="79575ce7-ca6e-4b51-a6cd-4b916b496629"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="434" y="0" width="80" height="15" uuid="e92d5af9-dfd5-44e6-9f59-a61c5d258d67"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="514" y="0" width="40" height="15" uuid="bdeb830c-5243-4927-9928-77a5259f055a"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="100" height="15" uuid="165c2a68-74dc-43bf-8d9a-ca12e0bbbc0e"/>
+				<textFieldExpression><![CDATA[$P{nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="209" y="0" width="56" height="15" uuid="516a4a91-457d-4030-8f37-15ff62f2d5cf"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="111" splitType="Stretch">
+			<staticText>
+				<reportElement x="231" y="91" width="100" height="20" uuid="bb890dc6-9a02-4eea-a5d6-e6d1896fb173"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[SECRETARIA]]></text>
+			</staticText>
+			<line>
+				<reportElement x="179" y="86" width="200" height="1" uuid="cb890c17-5724-4362-a0ca-cb3a4af027a9"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

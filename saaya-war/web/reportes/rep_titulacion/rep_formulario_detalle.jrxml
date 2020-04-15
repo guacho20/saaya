@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rep_formulario" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="0" rightMargin="40" topMargin="0" bottomMargin="20" uuid="808d6a52-7c68-4c26-ac7a-9d00e2fd20d6">
+	<property name="ireport.zoom" value="1.2396694214876032"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="16"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["http://localhost:8080/rua-war/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pide_proyecto" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select ide_ytipro,introduccion_ytipro,analisis_situacional_ytipro,fundamentacion_ytipro,justificacion_ytipro
+from yavirac_titu_proyecto
+where ide_ytipro = $P{pide_proyecto}]]>
+	</queryString>
+	<field name="ide_ytipro" class="java.lang.Long"/>
+	<field name="introduccion_ytipro" class="java.lang.String"/>
+	<field name="analisis_situacional_ytipro" class="java.lang.String"/>
+	<field name="fundamentacion_ytipro" class="java.lang.String"/>
+	<field name="justificacion_ytipro" class="java.lang.String"/>
+	<group name="introduccion">
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="analisis">
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band height="38">
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement uuid="81043930-4ef5-4c23-b045-e81c55038da4" isPrintRepeatedValues="false" x="0" y="14" width="555" height="24"/>
+					<box>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="9"/>
+						<paragraph lineSpacing="Single" leftIndent="5" rightIndent="5" spacingBefore="1" spacingAfter="5" tabStopWidth="40">
+							<tabStop position="0" alignment="Left"/>
+						</paragraph>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{fundamentacion_ytipro}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="da8bebfa-4804-47c8-a41c-332ae7cd1322" x="0" y="0" width="555" height="14" backcolor="#FFFFFF"/>
+					<box>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+						<paragraph leftIndent="5" rightIndent="5" spacingBefore="1" spacingAfter="1"/>
+					</textElement>
+					<text><![CDATA[9. Estrategia de Seguimiento y Evaluación ]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="fundamentacion">
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="justificacion">
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band height="173">
+				<staticText>
+					<reportElement uuid="da8bebfa-4804-47c8-a41c-332ae7cd1322" x="0" y="0" width="555" height="14" backcolor="#FFFFFF"/>
+					<box>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+						<paragraph leftIndent="5" rightIndent="5" spacingBefore="1" spacingAfter="1"/>
+					</textElement>
+					<text><![CDATA[7. MATRIZ DE MARCO LÓGICO (PLAN DE TRABAJO)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="da8bebfa-4804-47c8-a41c-332ae7cd1322" x="185" y="14" width="185" height="25"/>
+					<box>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+						<paragraph leftIndent="5" rightIndent="5" spacingBefore="1" spacingAfter="1"/>
+					</textElement>
+					<text><![CDATA[INDICADORES VERIFICABLES]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="da8bebfa-4804-47c8-a41c-332ae7cd1322" x="0" y="14" width="185" height="25"/>
+					<box>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+						<paragraph leftIndent="5" rightIndent="5" spacingBefore="1" spacingAfter="1"/>
+					</textElement>
+					<text><![CDATA[RESUMEN NARRATIVO DE OBJETIVOS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="da8bebfa-4804-47c8-a41c-332ae7cd1322" x="370" y="14" width="185" height="25"/>
+					<box>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+						<paragraph leftIndent="5" rightIndent="5" spacingBefore="1" spacingAfter="1"/>
+					</textElement>
+					<text><![CDATA[MEDIOS DE VERIFICACIÓN]]></text>
+				</staticText>
+				<subreport>
+					<reportElement uuid="c33e76b8-afdb-4808-ab4c-063cfb8c04d8" x="0" y="39" width="555" height="20"/>
+					<subreportParameter name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="pide_proyecto">
+						<subreportParameterExpression><![CDATA[$P{pide_proyecto}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "/reportes/rep_titulacion/rep_formulario_objetivos.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band/>
+	</pageHeader>
+	<columnHeader>
+		<band/>
+	</columnHeader>
+	<detail>
+		<band/>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band/>
+	</pageFooter>
+	<summary>
+		<band height="39" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="da8bebfa-4804-47c8-a41c-332ae7cd1322" x="0" y="0" width="555" height="14" isPrintInFirstWholeBand="true"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="5" spacingBefore="1" spacingAfter="1"/>
+				</textElement>
+				<text><![CDATA[10. Bibliografía]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="81043930-4ef5-4c23-b045-e81c55038da4" isPrintRepeatedValues="false" x="0" y="14" width="555" height="18"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font size="9"/>
+					<paragraph lineSpacing="Single" leftIndent="5" rightIndent="5" spacingBefore="1" spacingAfter="5" tabStopWidth="40">
+						<tabStop position="0" alignment="Left"/>
+					</paragraph>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{introduccion_ytipro}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

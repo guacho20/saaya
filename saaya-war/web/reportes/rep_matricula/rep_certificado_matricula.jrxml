@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rep_inscripcion" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e288d278-559f-475e-a331-a051cd6e8632">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["http://localhost:8080/sam"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="usuario" class="java.lang.String"/>
+	<parameter name="ide_sucu" class="java.lang.Integer"/>
+	<parameter name="ide_empr" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pide_ins" class="java.lang.Integer"/>
+	<parameter name="nombre" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select a.ide_ymamat,apellido_yaldap,nombre_yaldap,apellido_yaldap,doc_identidad_yaldap,descripcion_ystnie,
+apellido_ypedpe,nombre_ypedpe,nro_folio_ymamat,fecha_ymamat,descripcion_ystmen,descripcion_ymatip,descripcion_ystpea,
+abreviatura_ymanum,detalle_ymatrc,detalle_ystmat
+from yavirac_matri_matricula a ,yavirac_alum_dato_personal b,yavirac_perso_dato_personal d,yavirac_stror_mension e,
+(
+select ide_ymaper,descripcion_ymatip,descripcion_ystpea
+from yavirac_matri_periodo_matric a,yavirac_matri_tipo_periodo b,yavirac_stror_periodo_academic c
+where a.ide_ymatip = b.ide_ymatip
+and a.ide_ystpea = c.ide_ystpea
+) f,yavirac_matri_registro_credito g,yavirac_matri_numero_matricula h,yavirac_matri_tipo_reg_credito i,
+(
+select ide_ystmal,detalle_ystmat,descripcion_ystnie
+from yavirac_stror_malla a, yavirac_stror_materia b,yavirac_stror_nivel_educacion c
+where a.ide_ystmat = b.ide_ystmat
+and a.ide_ystnie = c.ide_ystnie
+) j
+where a.ide_yaldap = b.ide_yaldap
+and a.ide_ypedpe = d.ide_ypedpe
+and a.ide_ystmen = e.ide_ystmen
+and a.ide_ymaper = f.ide_ymaper
+and a.ide_ymamat = g.ide_ymamat
+and g.ide_ymanum = h.ide_ymanum
+and g.ide_ymatrc = i.ide_ymatrc
+and g.ide_ystmal = j.ide_ystmal
+and a.ide_ymamat =$P{pide_ins}]]>
+	</queryString>
+	<field name="ide_ymamat" class="java.lang.Long"/>
+	<field name="apellido_yaldap" class="java.lang.String">
+		<fieldDescription><![CDATA[Este campo nos indicara el apellido del alumno de la tabla yavirac_alum_dato_personal]]></fieldDescription>
+	</field>
+	<field name="nombre_yaldap" class="java.lang.String">
+		<fieldDescription><![CDATA[Este campo nos indicara el nombre del alumno de la tabla yavirac_alum_dato_personal]]></fieldDescription>
+	</field>
+	<field name="doc_identidad_yaldap" class="java.lang.String">
+		<fieldDescription><![CDATA[Este campo nos indicara el documento de identidad del alumno de la tabla yavirac_alum_dato_personal]]></fieldDescription>
+	</field>
+	<field name="descripcion_ystnie" class="java.lang.String">
+		<fieldDescription><![CDATA[este campo identidica la descripcion de la tabla  nivel educacion]]></fieldDescription>
+	</field>
+	<field name="apellido_ypedpe" class="java.lang.String"/>
+	<field name="nombre_ypedpe" class="java.lang.String"/>
+	<field name="nro_folio_ymamat" class="java.lang.String"/>
+	<field name="fecha_ymamat" class="java.sql.Date"/>
+	<field name="descripcion_ystmen" class="java.lang.String"/>
+	<field name="descripcion_ymatip" class="java.lang.String"/>
+	<field name="descripcion_ystpea" class="java.lang.String">
+		<fieldDescription><![CDATA[este campo permite gusrdar informacion del periodo de inico y final del año lectivo]]></fieldDescription>
+	</field>
+	<field name="abreviatura_ymanum" class="java.lang.String"/>
+	<field name="detalle_ymatrc" class="java.lang.String"/>
+	<field name="detalle_ystmat" class="java.lang.String">
+		<fieldDescription><![CDATA[este campo identifica el nombre de la  materia de la carrera respectiva]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="85" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="c3b45197-d42a-48d2-9512-39a7f5a06778" x="0" y="0" width="175" height="85"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="usuario">
+					<subreportParameterExpression><![CDATA[$P{usuario}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ide_empr">
+					<subreportParameterExpression><![CDATA[$P{ide_empr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ide_sucu">
+					<subreportParameterExpression><![CDATA[$P{ide_sucu}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "/reportes/rep_sistema/rep_cabecera.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement uuid="64440180-6447-4d20-9449-3d4c9e1f0cbe" x="235" y="0" width="320" height="50"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CERTIFICADO DE MATRICULA]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="9cd9fa52-8f13-4a7f-94e9-34378f6560d1" x="235" y="43" width="319" height="35"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion_ystpea}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="120" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="b3dad8ce-b6e7-4ed5-9e8c-bffbd823bc04" x="0" y="3" width="120" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NRO. MATRICULA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cce1891e-7120-4619-bc88-1cfdb65b5311" x="0" y="23" width="120" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d7694d5a-cbf3-4b6e-9ce1-b4b256df3c4b" x="286" y="3" width="48" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FOLIO:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="395a850a-5ae5-4988-9b03-52dcb3c4966e" x="120" y="3" width="134" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ide_ymamat}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy-MM-dd" isBlankWhenNull="true">
+				<reportElement uuid="f436590a-56b5-47a8-91cb-609c1274a964" x="120" y="23" width="134" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha_ymamat}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="65b4b306-8ada-4435-88c7-ef55161a5822" x="334" y="3" width="100" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nro_folio_ymamat}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="20d5a6d8-59ab-4ef2-a9ed-dad48af3d9e0" x="0" y="47" width="555" height="71"/>
+				<textElement textAlignment="Justified">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["CERTIFICO que el/la alumno/a "+$F{nombre_yaldap}+" "+$F{apellido_yaldap}+" con documento de identidad Nro. "+$F{doc_identidad_yaldap}+", previo los requisitos legales se encuentra matriculado/a en la Carrera de Tecnología "+$F{descripcion_ystmen}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="64859454-9e20-46d7-bb18-6eb1effae8a4" x="150" y="105" width="100" height="15"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[MATERIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ddf9de2f-f983-4baa-bb27-b6570b8758e7" x="368" y="105" width="100" height="15"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NRO. MATR.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6d4759ef-c8d9-406f-883f-29469de41c1d" x="49" y="105" width="100" height="15"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NIVEL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement uuid="a4c91e4f-3fa2-4083-bb5e-65b62a1a4415" x="49" y="0" width="100" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{descripcion_ystnie}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e57ac8bc-3e1c-437c-9814-4ad56c2934dc" x="150" y="0" width="218" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{detalle_ystmat}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="dfac0291-62dd-4b50-984b-73cf98d7e8ca" x="368" y="0" width="100" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{abreviatura_ymanum}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="15" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="382ca1e9-dd0e-4282-b878-0c0e849990b6" x="0" y="0" width="100" height="15"/>
+				<textElement/>
+				<text><![CDATA[Usuario Impresión:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement uuid="79575ce7-ca6e-4b51-a6cd-4b916b496629" x="268" y="0" width="100" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e92d5af9-dfd5-44e6-9f59-a61c5d258d67" x="434" y="0" width="80" height="15"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="bdeb830c-5243-4927-9928-77a5259f055a" x="514" y="0" width="40" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="165c2a68-74dc-43bf-8d9a-ca12e0bbbc0e" x="100" y="0" width="100" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="516a4a91-457d-4030-8f37-15ff62f2d5cf" x="209" y="0" width="56" height="15"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="111" splitType="Stretch">
+			<textField>
+				<reportElement uuid="433d918c-e739-481d-b1f2-4543635d395a" x="149" y="71" width="259" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{apellido_ypedpe}+" "+$F{nombre_ypedpe}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="bb890dc6-9a02-4eea-a5d6-e6d1896fb173" x="231" y="91" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[SECRETARIA]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

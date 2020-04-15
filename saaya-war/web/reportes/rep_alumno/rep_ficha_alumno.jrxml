@@ -1,0 +1,1041 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rep_ficha_alumno" pageWidth="595" pageHeight="842" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="56" bottomMargin="56" uuid="78e344f7-8cf0-4aa7-8851-93a59ce2f85b">
+	<property name="ireport.zoom" value="1.331000000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="ide_yaldap" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select *
+from (--dato  alumno
+	select a.ide_yaldap,descripcion_ystnac,descripcion_ysttis,descripcion_ystdoi,e.descripcion_ystesc,descripcion_ystgen,nombre_yaldap,apellido_yaldap,
+	doc_identidad_yaldap,edad_yaldap,fecha_nac_yaldap,fotografia_yaldap,firma_yaldap,numero_yaltel,celular_yaltel,descripcion_yalcor,
+	j.provincia||' - '||j.canton||' - '||j.parroquia as lugar_nacimiento,k.provincia as dir_provincia,k.canton as dir_canton,k.parroquia as dir_paroquia,descripcion_yaldia
+	from yavirac_alum_dato_personal  a
+	left join yavirac_stror_nacionalidad  b on a.ide_ystnac=b.ide_ystnac
+	left join yavirac_stror_tipo_sangre c on a.ide_ysttis=c.ide_ysttis
+	left join yavirac_stror_docu_identidad d on a.ide_ystdoi=d.ide_ystdoi
+	left join yavirac_stror_estado_civil e on a.ide_ystesc=e.ide_ystesc
+	left join yavirac_stror_genero f on a.ide_ystgen=f.ide_ystgen
+	left join yavirac_alum_direccion_alumno g on a.ide_yaldap=g.ide_yaldap
+	left join yavirac_alum_telefono h on a.ide_yaldap=h.ide_yaldap
+	left join yavirac_alum_correo i on a.ide_yaldap=i.ide_yaldap
+	left join view_division_politica j on a.ide_ystdip=j.ide_ystdip
+	left join view_division_politica k on g.ide_ystdip=k.ide_ystdip
+)a
+left join (--datofamiliar
+	select a.ide_yaldap,descripcion_yalgas as gasto,descripcion_yaltip as tipo_vivienda,m.descripcion_ystesc as estado_civi_familiar,descripcion_ystpaf as parentesco,
+	o.descripcion_yalocu as ocupacion1,p.descripcion_yalocu as ocupacion2,q.descripcion_yalocu as ocupacion3,nombre_padre_yaldfa,edad_padre_yaldfa,
+	nombre_madre_yaldfa, edad_madre_yaldfa, nombre_conyuge_yaldfa,edad_conyuge_yaldfa, numero_hijo_yaldfa, hermanos_yaldfa, puesto_ocupa_yaldfa
+	from yavirac_alum_direccion_alumno a
+	left join yavirac_alum_dato_fami_alumno j on a.ide_yaldap=j.ide_yaldap
+	left join yavirac_alum_gasto k on j.ide_yalgas=k.ide_yalgas
+	left join yavirac_alum_tipo_vivienda l on j.ide_yaltiv=l.ide_yaltiv
+	left join yavirac_stror_estado_civil m on j.ide_ystesc=m.ide_ystesc
+	left join yavirac_stror_parentezco_fami n on j.ide_ystpaf=n.ide_ystpaf
+	left join yavirac_alum_ocupacion o on j.ide_yalocu=o.ide_yalocu
+	left join yavirac_alum_ocupacion p on j.yav_ide_yalocu=p.ide_yalocu
+	left join yavirac_alum_ocupacion q on j.yav_ide_yalocu2=q.ide_yalocu
+) b on a.ide_yaldap=b.ide_yaldap
+left join (--dato academico
+	select ide_yaldap,b.descripcion_ystins as instutucion1,anio_graduacion_yaldaa,descripcion_ypetip as titulo,
+	c.provincia||' - '||c.canton||' - '||c.parroquia as dir_institucion1,estudio_adicional_yaldaa,e.descripcion_ystins as instutucion2,
+	descripcion_yalcar as carrera,anio_ingreso_yaldaa, anio_egreso_yaldaa,g.provincia||' - '||g.canton||' - '||g.parroquia as dir_institucion2
+	from yavirac_alum_dato_academico a
+	left join yavirac_stror_institucion b on a.ide_ystins=b.ide_ystins
+	left join view_division_politica c on a.ide_ystdip=c.ide_ystdip
+	left join yavirac_perso_titu_profesional d on a.ide_ypetip=d.ide_ypetip
+	left join yavirac_stror_institucion e on a.yav_ide_ystins=e.ide_ystins
+	left join yavirac_alum_carrera f on a.ide_yalcar=f.ide_yalcar
+	left join view_division_politica g on a.yav_ide_ystdip=g.ide_ystdip
+)c on a.ide_yaldap=c.ide_yaldap
+left join (--curso o capacitacion
+select ide_yaldap,descripcion_ystins as inst_capacitacion,observacion_yalcap,capacitacion_yalcap
+from yavirac_alum_capacitacion a
+left join yavirac_stror_institucion b on a.ide_ystins=b.ide_ystins
+)d on a.ide_yaldap=d.ide_yaldap
+left join yavirac_alum_dato_laboral e on a.ide_yaldap=e.ide_yaldap --dato laboral
+left join (--dato medico
+select ide_yaldap,padece_yaldam,c.descripcion_yalenf as enfermedad,tratamiento_yaldam,descripcion_yaltit as tipo_tratamiento,detalle_tratamiento_yaldam,
+hospitalizado_yaldam,motivo_especializado_yaldam,operado_yaldam,motivo_operado_yaldam,enfermedad_cronica_yaldam,enfermedad_yaldam as enfermedad_cronica
+from yavirac_alum_dato_medico a
+left join yavirac_alum_tipo_tratamiento b on a.ide_yaltit=b.ide_yaltit
+left join yavirac_alum_enfermedad c on a.ide_yalenf=c.ide_yalenf
+
+) f on a.ide_yaldap=f.ide_yaldap
+left join (-- alumno aficion
+select ide_yaldap,actividad_yalafi,detalle_yalafi as aficion,descripcion_yaltia as tipo_aficion
+from yavirac_alum_aficion a
+left join yavirac_alum_tipo_aficion b on a.ide_yaltia=b.ide_yaltia
+) g on a.ide_yaldap=g.ide_yaldap
+left join (--familia emergencia
+select ide_yaldap,nombre_yaldfe,descripcion_ystpaf as parenterco_emergencia,celular_yaldfe,telefono_yaldfe
+from yavirac_alum_dato_fami_emerg a
+left join yavirac_stror_parentezco_fami b on a.ide_ystpaf=b.ide_ystpaf
+)h on a.ide_yaldap=h.ide_yaldap
+where a.ide_yaldap=$P{ide_yaldap}]]>
+	</queryString>
+	<field name="ide_yaldap" class="java.lang.Long"/>
+	<field name="descripcion_ystnac" class="java.lang.String">
+		<fieldDescription><![CDATA[este campo permite descripir la nacionalidad del sea personal o estediante de la institucion]]></fieldDescription>
+	</field>
+	<field name="descripcion_ysttis" class="java.lang.String">
+		<fieldDescription><![CDATA[permite conocer el tipo de sangre acorde a las caracteristicas de la persona]]></fieldDescription>
+	</field>
+	<field name="descripcion_ystdoi" class="java.lang.String">
+		<fieldDescription><![CDATA[este campo visualiza la identidad delas personas]]></fieldDescription>
+	</field>
+	<field name="descripcion_ystesc" class="java.lang.String">
+		<fieldDescription><![CDATA[este campo permive conocer el estado civil de la tabla ejemplo casado,divorciado, viudo, union libre, soltero,etc]]></fieldDescription>
+	</field>
+	<field name="descripcion_ystgen" class="java.lang.String">
+		<fieldDescription><![CDATA[valor de estado vachar que almacena el tipo de documento identidad ejem:
+C.I.- SEXO]]></fieldDescription>
+	</field>
+	<field name="nombre_yaldap" class="java.lang.String">
+		<fieldDescription><![CDATA[Este campo nos indicara el nombre del alumno de la tabla yavirac_alum_dato_personal]]></fieldDescription>
+	</field>
+	<field name="apellido_yaldap" class="java.lang.String">
+		<fieldDescription><![CDATA[Este campo nos indicara el apellido del alumno de la tabla yavirac_alum_dato_personal]]></fieldDescription>
+	</field>
+	<field name="doc_identidad_yaldap" class="java.lang.String">
+		<fieldDescription><![CDATA[Este campo nos indicara el documento de identidad del alumno de la tabla yavirac_alum_dato_personal]]></fieldDescription>
+	</field>
+	<field name="edad_yaldap" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Este campo nos indicara la edad del alumno de la tabla yavirac_alum_dato_personal]]></fieldDescription>
+	</field>
+	<field name="fecha_nac_yaldap" class="java.sql.Date">
+		<fieldDescription><![CDATA[Este campo nos indicara la fecha de nacimiento del alumno de la tabla yavirac_alum_dato_personal]]></fieldDescription>
+	</field>
+	<field name="fotografia_yaldap" class="java.lang.Object"/>
+	<field name="firma_yaldap" class="java.lang.Object"/>
+	<field name="numero_yaltel" class="java.lang.String">
+		<fieldDescription><![CDATA[Este campo nos indicará el el numero de telefono del alumno]]></fieldDescription>
+	</field>
+	<field name="celular_yaltel" class="java.lang.String">
+		<fieldDescription><![CDATA[este campo almacenara el numero celular del alumno]]></fieldDescription>
+	</field>
+	<field name="descripcion_yalcor" class="java.lang.String">
+		<fieldDescription><![CDATA[este campo almacenar que clase de correo tiene el alumno]]></fieldDescription>
+	</field>
+	<field name="lugar_nacimiento" class="java.lang.String"/>
+	<field name="dir_provincia" class="java.lang.String"/>
+	<field name="dir_canton" class="java.lang.String"/>
+	<field name="dir_paroquia" class="java.lang.String"/>
+	<field name="descripcion_yaldia" class="java.lang.String">
+		<fieldDescription><![CDATA[describe el lugar de residencia del alumno como provincia,canton,parroquia]]></fieldDescription>
+	</field>
+	<field name="gasto" class="java.lang.String"/>
+	<field name="tipo_vivienda" class="java.lang.String"/>
+	<field name="estado_civi_familiar" class="java.lang.String"/>
+	<field name="parentesco" class="java.lang.String"/>
+	<field name="ocupacion1" class="java.lang.String"/>
+	<field name="ocupacion2" class="java.lang.String"/>
+	<field name="ocupacion3" class="java.lang.String"/>
+	<field name="nombre_padre_yaldfa" class="java.lang.String">
+		<fieldDescription><![CDATA[Este campo registrara el nombre del padre del alumno de la tabla yavirac_alum_dato_fami_alumno]]></fieldDescription>
+	</field>
+	<field name="edad_padre_yaldfa" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Este campo registrara la edad del padre del alumno de la tabla yavirac_alum_dato_fami_alumno]]></fieldDescription>
+	</field>
+	<field name="nombre_madre_yaldfa" class="java.lang.String">
+		<fieldDescription><![CDATA[Este campo registrara el nombre de la madre del alumno de la tabla yavirac_alum_dato_fami_alumno]]></fieldDescription>
+	</field>
+	<field name="edad_madre_yaldfa" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Este campo registrara la edad de la madre del alumno de la tabla yavirac_alum_dato_fami_alumno]]></fieldDescription>
+	</field>
+	<field name="nombre_conyuge_yaldfa" class="java.lang.String">
+		<fieldDescription><![CDATA[Este campo registrara el nombre del conyuge del familiar del alumno de la tabla yavirac_alum_dato_fami_alumno]]></fieldDescription>
+	</field>
+	<field name="edad_conyuge_yaldfa" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Este campo registrara la edad del conyuge del familiar del alumno de la tabla yavirac_alum_dato_fami_alumno]]></fieldDescription>
+	</field>
+	<field name="numero_hijo_yaldfa" class="java.lang.Long">
+		<fieldDescription><![CDATA[Este campo registrara el numero de hijos del conyuge de la tabla yavirac_alum_dato_fami_alumno]]></fieldDescription>
+	</field>
+	<field name="hermanos_yaldfa" class="java.lang.Long">
+		<fieldDescription><![CDATA[Este campo registrara la cantidad de hermanos y hermanas que tendra el alumno de la tabla yavirac_alum_dato_fami_alumno]]></fieldDescription>
+	</field>
+	<field name="puesto_ocupa_yaldfa" class="java.lang.Long">
+		<fieldDescription><![CDATA[Este campo registrara el puesto que ocupa el alumno entre sus hermanos  de la tabla yavirac_alum_dato_fami_alumno]]></fieldDescription>
+	</field>
+	<field name="instutucion1" class="java.lang.String"/>
+	<field name="anio_graduacion_yaldaa" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Este campo almacena el anio de graduacion del alumno de la tabla yavirac_alum_dato_academico]]></fieldDescription>
+	</field>
+	<field name="titulo" class="java.lang.String"/>
+	<field name="dir_institucion1" class="java.lang.String"/>
+	<field name="estudio_adicional_yaldaa" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[Este campo registrara si el alumno posee estudios adicionales superiores de la tabla yavirac_alum_dato_academico]]></fieldDescription>
+	</field>
+	<field name="instutucion2" class="java.lang.String"/>
+	<field name="carrera" class="java.lang.String"/>
+	<field name="anio_ingreso_yaldaa" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Este campo registrara el anio de ingreso a la educacion superior del alumno de la tabla yavirac_alum_dato_academico]]></fieldDescription>
+	</field>
+	<field name="anio_egreso_yaldaa" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Este campo define el anio de egreso del alumno culminado los estudios superiores de la tabla yavirac_alum_dato_academico]]></fieldDescription>
+	</field>
+	<field name="dir_institucion2" class="java.lang.String"/>
+	<field name="inst_capacitacion" class="java.lang.String"/>
+	<field name="observacion_yalcap" class="java.lang.String">
+		<fieldDescription><![CDATA[este campo almacenara si el alumno tiene alguna capacitacion]]></fieldDescription>
+	</field>
+	<field name="capacitacion_yalcap" class="java.lang.Boolean"/>
+	<field name="ide_yaldal" class="java.lang.Long"/>
+	<field name="laborando_yaldal" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[Este campo nos indicará si el alumno se encuentra laborando actualmente]]></fieldDescription>
+	</field>
+	<field name="nombre_empresa_yaldal" class="java.lang.String">
+		<fieldDescription><![CDATA[Este campo nos indicará el nombre de la empresa en la cual el alumno esta laborando]]></fieldDescription>
+	</field>
+	<field name="lugar_empresa_yaldal" class="java.lang.String">
+		<fieldDescription><![CDATA[Este campo nos indicará el lugar de trabajo del alumno]]></fieldDescription>
+	</field>
+	<field name="cargo_empresa_yaldal" class="java.lang.String">
+		<fieldDescription><![CDATA[Este campo nos indicará el cargo que ejerce el alumno]]></fieldDescription>
+	</field>
+	<field name="horario_empresa_yaldal" class="java.lang.String">
+		<fieldDescription><![CDATA[Este campo nos indicará el horario en el cual trabaja el alumno.]]></fieldDescription>
+	</field>
+	<field name="telefono_empresa_yaldal" class="java.lang.String"/>
+	<field name="email_empresa_yaldal" class="java.lang.String">
+		<fieldDescription><![CDATA[Este campo nos indicará el email de la empresa en la cual esta laborando]]></fieldDescription>
+	</field>
+	<field name="activo_yaldal" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[Este campo nos indicará el activo de la tabla yavirac_alum_dato_laboral]]></fieldDescription>
+	</field>
+	<field name="padece_yaldam" class="java.lang.Boolean"/>
+	<field name="enfermedad" class="java.lang.String"/>
+	<field name="tratamiento_yaldam" class="java.lang.Boolean"/>
+	<field name="tipo_tratamiento" class="java.lang.String"/>
+	<field name="detalle_tratamiento_yaldam" class="java.lang.String">
+		<fieldDescription><![CDATA[Este campo nos indicará el detalle del tratamiento que sigue el alumno.]]></fieldDescription>
+	</field>
+	<field name="hospitalizado_yaldam" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[Este campo almacenar si el alumno ha sido hospitalizado por alguna enfermedad de la tabla yavirac_alum_dato_medico]]></fieldDescription>
+	</field>
+	<field name="motivo_especializado_yaldam" class="java.lang.String">
+		<fieldDescription><![CDATA[Este campo nos indicará el motivo por el cual estaba hospitalizado el alumno.]]></fieldDescription>
+	</field>
+	<field name="operado_yaldam" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[Este campo va a almacenar si el alumno ha sido operado por alguna enfermedad de la tabla yavirac_alum_dato_medico]]></fieldDescription>
+	</field>
+	<field name="motivo_operado_yaldam" class="java.lang.String">
+		<fieldDescription><![CDATA[Este campo nos indicará el motivo por el cual fue operado el alumno.]]></fieldDescription>
+	</field>
+	<field name="enfermedad_cronica_yaldam" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[Este campo almacenar si el alumno a sufrido alguna enfermedad crónica de la tabla yavirac_alum_dato_medico]]></fieldDescription>
+	</field>
+	<field name="enfermedad_cronica" class="java.lang.String"/>
+	<field name="actividad_yalafi" class="java.lang.Boolean"/>
+	<field name="aficion" class="java.lang.String"/>
+	<field name="tipo_aficion" class="java.lang.String"/>
+	<field name="nombre_yaldfe" class="java.lang.String">
+		<fieldDescription><![CDATA[Este campo nos indicara el nombre del familiar en caso de emergencia de la tabla yavirac_alum_dato_fami_emerg]]></fieldDescription>
+	</field>
+	<field name="parenterco_emergencia" class="java.lang.String"/>
+	<field name="celular_yaldfe" class="java.lang.String"/>
+	<field name="telefono_yaldfe" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement x="-1" y="5" width="511" height="20" uuid="46bb53c5-75b3-440d-88b5-9512ed4847c9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FICHA DEL ESTUDIANTE]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="686" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="131" width="511" height="15" uuid="1eed5c06-cb8c-42c0-844e-06fd51d606b3"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[1. DATOS PERSONALES]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="46" y="146" width="275" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre_yaldap}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="146" width="45" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Nombres:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="161" width="45" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Apellidos:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="176" width="98" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Cédula de identidad:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="191" width="98" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha de nacimiento:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="206" width="98" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Lugar de nacimiento:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="245" width="55" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Provincia:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="226" y="176" width="30" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Edad:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="346" y="176" width="29" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Sexo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="230" width="511" height="15" uuid="1eed5c06-cb8c-42c0-844e-06fd51d606b3"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dirección Actual del Domicilio:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="177" y="245" width="38" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Cantón:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="341" y="245" width="48" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Parroquia:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="321" y="260" width="36" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[E-mail:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="275" width="58" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Tipo sangre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="260" width="55" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Teléfono:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="177" y="260" width="38" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Celular:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="290" width="511" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[En caso de emergencia se puede notificar a:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="305" width="43" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="320" width="43" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Teléfono:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="213" y="305" width="117" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Relción con el estudiante:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="213" y="320" width="38" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Celular:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="339" width="511" height="15" uuid="1eed5c06-cb8c-42c0-844e-06fd51d606b3"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[2. DATOS FAMILIARES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="354" width="95" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Nombre de su padre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="369" width="30" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Edad:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="474" width="78" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Tipo de vivienda:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="489" width="200" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[¿Quién cubre los gastos para sus estudios?:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="511" height="110" uuid="8b89de49-a065-4461-8057-54edfb71ffac"/>
+				<textElement textAlignment="Justified">
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.3"/>
+				</textElement>
+				<text><![CDATA[Estimado estudiante, el ISTY, te da la más cordial bienvenida y te invita a formar parte activa de su comunidad académica.
+Con el objetivo de mejorar nuestros procesos internos y la base de datos de nuestros estudiantes, te solicitamos llenar la siguiente ficha de registro. Los datos que consignes en esta ficha se mantendrán en absoluta reserva y únicamente serán empleados para seguimiento y apoyo a nuestros estudiantes.
+Todos los campos son obligatorios.
+Agradecemos tu colaboración.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="384" width="98" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Nombre de su madre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="399" width="30" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Edad:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="122" y="399" width="55" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Ocupación:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="414" width="55" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Estado civil:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="177" y="414" width="98" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Nombre del Cónyuge:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="429" width="110" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Ocupación del Cónyuge:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="308" y="429" width="28" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Edad:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="404" y="429" width="40" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[N° Hijos:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="444" width="180" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[¿Cuántos hermanos y hermanas tiene?:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="279" y="444" width="135" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Puesto que ocupa entre ellos:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="459" width="93" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Actualente vive con:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="507" width="511" height="15" uuid="1eed5c06-cb8c-42c0-844e-06fd51d606b3"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[3. DATOS ACADÉMICOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="541" width="50" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Institución:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="556" width="90" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Año de graduación:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="185" y="556" width="77" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Titulo Obtenido:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="571" width="185" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Ubicación (Provincia, Cantón, Parroquia):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="586" width="400" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Adicional de los estudios realizados en el ITSA, ¿Posees otros estudios de nivel superior?]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="601" width="50" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Institución:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="616" width="72" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Año de ingreso:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="631" width="72" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Año de egreso:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="154" y="616" width="38" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Carrera:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="404" y="586" width="81" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( $F{estudio_adicional_yaldaa}.equals( true ) ? "SI" : "NO" )]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="522" width="511" height="15" uuid="1eed5c06-cb8c-42c0-844e-06fd51d606b3"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTUDIOS SECUNDARIOS ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="46" y="161" width="275" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{apellido_yaldap}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="98" y="176" width="119" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{doc_identidad_yaldap}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="98" y="191" width="119" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecha_nac_yaldap}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="98" y="206" width="337" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{lugar_nacimiento}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="256" y="176" width="74" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{edad_yaldap}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="375" y="176" width="110" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{descripcion_ystgen}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="55" y="245" width="119" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dir_provincia}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="215" y="245" width="105" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dir_canton}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="389" y="245" width="122" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dir_paroquia}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="58" y="275" width="119" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{descripcion_ysttis}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="215" y="260" width="93" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{celular_yaltel}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="55" y="260" width="93" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{numero_yaltel}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="357" y="260" width="154" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{descripcion_yalcor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="122" y="369" width="55" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Ocupación:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="96" y="354" width="279" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre_padre_yaldfa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="98" y="384" width="279" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre_madre_yaldfa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="30" y="369" width="68" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{edad_padre_yaldfa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="177" y="369" width="334" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ocupacion1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="30" y="399" width="68" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{edad_madre_yaldfa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="177" y="399" width="334" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ocupacion2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="55" y="414" width="115" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{estado_civi_familiar}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="275" y="414" width="236" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre_conyuge_yaldfa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="110" y="429" width="198" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ocupacion3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="336" y="429" width="53" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{edad_conyuge_yaldfa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="444" y="429" width="53" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{numero_hijo_yaldfa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="414" y="444" width="53" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{puesto_ocupa_yaldfa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="181" y="444" width="53" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{hermanos_yaldfa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="92" y="459" width="187" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{parentesco}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="200" y="489" width="187" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{gasto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="78" y="474" width="187" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tipo_vivienda}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="51" y="541" width="460" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{instutucion1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="92" y="556" width="56" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{anio_graduacion_yaldaa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="262" y="556" width="249" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{titulo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="185" y="571" width="326" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dir_institucion1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="51" y="601" width="460" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{instutucion2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="72" y="616" width="56" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{anio_ingreso_yaldaa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="72" y="631" width="56" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{anio_egreso_yaldaa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="192" y="616" width="319" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{carrera}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="44" y="305" width="164" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre_yaldfe}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="44" y="320" width="93" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{telefono_yaldfe}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="330" y="305" width="180" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{parenterco_emergencia}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="251" y="320" width="90" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{celular_yaldfe}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="646" width="185" height="15" uuid="3eaa1086-95ad-40be-8eab-8e83937d726c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Ubicación (Provincia, Cantón, Parroquia):]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="186" y="646" width="326" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dir_institucion2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="10" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="665" splitType="Immediate">
+			<staticText>
+				<reportElement x="0" y="43" width="220" height="15" uuid="b429425e-bbc9-4d3f-98d7-2f4619cf856c"/>
+				<text><![CDATA[Institución / Academia / Centro de Capacitación:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="58" width="135" height="15" uuid="b429425e-bbc9-4d3f-98d7-2f4619cf856c"/>
+				<text><![CDATA[Tipo de capacitación o curso:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="83" width="511" height="15" uuid="1eed5c06-cb8c-42c0-844e-06fd51d606b3"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[4. DATOS LABORALES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="98" width="170" height="15" uuid="b429425e-bbc9-4d3f-98d7-2f4619cf856c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Se encuentra laborando actualmente:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="128" width="35" height="15" uuid="b429425e-bbc9-4d3f-98d7-2f4619cf856c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Cargo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="113" width="110" height="15" uuid="b429425e-bbc9-4d3f-98d7-2f4619cf856c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Nombre de la Empresa:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="143" width="122" height="15" uuid="b429425e-bbc9-4d3f-98d7-2f4619cf856c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Teléfono de la empresa:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="113" width="36" height="15" uuid="b429425e-bbc9-4d3f-98d7-2f4619cf856c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Lugar:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="128" width="36" height="15" uuid="b429425e-bbc9-4d3f-98d7-2f4619cf856c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Horario:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="221" y="143" width="75" height="15" uuid="b429425e-bbc9-4d3f-98d7-2f4619cf856c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[E-mail Empresa:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="170" width="511" height="15" uuid="1eed5c06-cb8c-42c0-844e-06fd51d606b3"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[5. DATOS MÉDICOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="192" width="511" height="28" uuid="6e52d565-5715-4827-b00b-8c9c04a8ed23"/>
+				<text><![CDATA[¿Padeces alguna enfermedad o existe alguna condición física especial que pueda afectar tus estudios (oído, vista, enfermedades respiratorias)? ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="220" width="60" height="15" uuid="b429425e-bbc9-4d3f-98d7-2f4619cf856c"/>
+				<text><![CDATA[Especifique:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="235" width="357" height="15" uuid="b429425e-bbc9-4d3f-98d7-2f4619cf856c"/>
+				<text><![CDATA[¿Actualmente recibes o has recibido algún tratamiento médico o psicológico?]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="250" width="69" height="15" uuid="b429425e-bbc9-4d3f-98d7-2f4619cf856c"/>
+				<text><![CDATA[¿De qué tipo?:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="511" height="15" uuid="1eed5c06-cb8c-42c0-844e-06fd51d606b3"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[OTRAS CAPACITACIONES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="15" width="511" height="28" uuid="08900a9e-d346-44b5-aa22-70a2059b3406"/>
+				<text><![CDATA[¿Realizas otro tipo de estudios o capacitación fuera del instituto tales como música, idiomas, informática, capacitación técnica?]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="220" y="43" width="291" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{inst_capacitacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="105" y="28" width="40" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{capacitacion_yalcap}.equals( true ) ? "SI" : "NO" )]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="135" y="58" width="291" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{observacion_yalcap}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="98" width="81" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( $F{laborando_yaldal}.equals( true ) ? "SI" : "NO" )]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="110" y="113" width="165" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre_empresa_yaldal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="316" y="113" width="195" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{lugar_empresa_yaldal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="35" y="128" width="240" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cargo_empresa_yaldal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="316" y="128" width="170" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{horario_empresa_yaldal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="122" y="143" width="91" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{telefono_empresa_yaldal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="297" y="143" width="214" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{email_empresa_yaldal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="138" y="205" width="47" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( $F{padece_yaldam}.equals( true ) ? "SI" : "NO" )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="357" y="235" width="47" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( $F{tratamiento_yaldam}.equals( true ) ? "SI" : "NO" )]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="61" y="220" width="450" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{enfermedad}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="69" y="250" width="442" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tipo_tratamiento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="265" width="58" height="15" uuid="b429425e-bbc9-4d3f-98d7-2f4619cf856c"/>
+				<text><![CDATA[Especifique:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="58" y="265" width="453" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{detalle_tratamiento_yaldam}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="280" width="177" height="15" uuid="b429425e-bbc9-4d3f-98d7-2f4619cf856c"/>
+				<text><![CDATA[¿Has estado alguna vez hospitalizado? ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="177" y="280" width="47" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( $F{hospitalizado_yaldam}.equals( true ) ? "SI" : "NO" )]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="226" y="280" width="36" height="15" uuid="b429425e-bbc9-4d3f-98d7-2f4619cf856c"/>
+				<text><![CDATA[Motivo:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="262" y="280" width="249" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{motivo_especializado_yaldam}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="295" width="122" height="15" uuid="b429425e-bbc9-4d3f-98d7-2f4619cf856c"/>
+				<text><![CDATA[¿Estás operado/a de algo? ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="123" y="295" width="31" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( $F{operado_yaldam}.equals( true ) ? "SI" : "NO" )]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="153" y="295" width="55" height="15" uuid="b429425e-bbc9-4d3f-98d7-2f4619cf856c"/>
+				<text><![CDATA[ ¿De qué? :]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="208" y="295" width="303" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{motivo_operado_yaldam}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="310" width="376" height="15" uuid="b429425e-bbc9-4d3f-98d7-2f4619cf856c"/>
+				<text><![CDATA[En la actualidad ¿Padeces alguna enfermedad crónica (epilepsia, diabetes, asma)? ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="378" y="310" width="31" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( $F{enfermedad_cronica_yaldam}.equals( true ) ? "SI" : "NO" )]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="325" width="42" height="15" uuid="b429425e-bbc9-4d3f-98d7-2f4619cf856c"/>
+				<text><![CDATA[ ¿Cuál?]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="43" y="325" width="468" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{enfermedad_cronica}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="352" width="511" height="15" uuid="1eed5c06-cb8c-42c0-844e-06fd51d606b3"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[6.  AFICIONES Y TIEMPO LIBRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="367" width="136" height="15" uuid="b429425e-bbc9-4d3f-98d7-2f4619cf856c"/>
+				<text><![CDATA[Tus principales aficiones son:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="382" width="390" height="15" uuid="b429425e-bbc9-4d3f-98d7-2f4619cf856c"/>
+				<text><![CDATA[¿Realizas alguna actividad extraescolar? (deporte, música, asociaciones juveniles, etc) ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="397" width="68" height="15" uuid="b429425e-bbc9-4d3f-98d7-2f4619cf856c"/>
+				<text><![CDATA[¿De qué tipo? ]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="69" y="397" width="442" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tipo_aficion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="138" y="367" width="373" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{aficion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="30" y="546" width="162" height="15" uuid="b429425e-bbc9-4d3f-98d7-2f4619cf856c"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FIRMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="257" y="546" width="101" height="15" uuid="b429425e-bbc9-4d3f-98d7-2f4619cf856c"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA IMPRESIÓN:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="358" y="546" width="128" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="382" width="31" height="15" uuid="0daac702-0d20-4e20-a911-8a7d39421566"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( $F{actividad_yalafi}.equals( true ) ? "SI" : "NO" )]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
