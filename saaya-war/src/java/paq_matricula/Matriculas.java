@@ -152,7 +152,7 @@ public class Matriculas extends Pantalla {
             tab_registro_credito.getColumna("ide_ymanum").setAncho(-1);
             tab_registro_credito.getColumna("ide_ymanum").setLongitud(-1);
             tab_registro_credito.getColumna("ide_ystmal").setCombo(ser_estructura.getMalla());
-            //tab_registro_credito.getColumna("ide_ystmal").setAutoCompletar();
+            tab_registro_credito.getColumna("ide_ystmal").setAutoCompletar();
             //***************************************************************************
             tab_registro_credito.getColumna("ide_ymarec").setNombreVisual("CODIGO");
             tab_registro_credito.getColumna("ide_ymatrc").setNombreVisual("TIPO CREDITO");
