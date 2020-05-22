@@ -15,38 +15,52 @@ import sistema.aplicacion.Pantalla;
  * @author ITSY
  */
 public class TipoCorreo extends Pantalla{
-    Tabla tab_tipo_correo = new Tabla();
-    public TipoCorreo(){
-        tab_tipo_correo.setId ("tab_tipo_correo");
-        tab_tipo_correo.setTabla ("yavirac_stror_tipo_correo","ide_ystgen",1);
-        tab_tipo_correo.dibujar();
-        
-        PanelTabla pa_tipo_correo =new PanelTabla ();
-        pa_tipo_correo.setId ("pa_tipo_correo");
-        pa_tipo_correo.setPanelTabla (tab_tipo_correo);
-        
-        Division div_tipo_correo = new Division();
-        div_tipo_correo.setId("div_tipo_correo");
-        div_tipo_correo.dividir1(pa_tipo_correo);
-        
-        agregarComponente(pa_tipo_correo);
+     Tabla tab_tipo_correo = new Tabla();// importar tabla
+    public TipoCorreo(){//constructor
+    tab_tipo_correo.setId("tab_tipo_correo");// todo objeto instanciado poner id
+    tab_tipo_correo.setTabla("yavirac_stror_tipo_correo","ide_ysttoc",1); // nom bdd
+    tab_tipo_correo.getColumna("ide_ysttoc").setNombreVisual("CÓDIGO");
+    tab_tipo_correo.getColumna("descripcion_ysttic").setNombreVisual("DESCRIPCIÓN");
+    tab_tipo_correo.getColumna("activo_ystic").setNombreVisual("ACTIVO");
+    tab_tipo_correo.dibujar();
+            
+    PanelTabla pa_tipo_correo = new PanelTabla();
+    pa_tipo_correo.setId("pa_tipo_correo");
+    pa_tipo_correo.setPanelTabla(tab_tipo_correo);
+    
+    Division div_tipo_correo = new Division();
+    div_tipo_correo.setId("div_tipo_correo");
+    div_tipo_correo.dividir1(pa_tipo_correo);
+    
+    agregarComponente(div_tipo_correo);   
                 
     }
     
-
-    @Override
+ @Override
     public void insertar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        tab_tipo_correo.insertar();
     }
 
     @Override
     public void guardar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        tab_tipo_correo.guardar();
+        guardarPantalla();
     }
 
     @Override
     public void eliminar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         tab_tipo_correo.eliminar();
+                 
     }
+
+
+    public Tabla getTab_tipo_correo() {
+        return tab_tipo_correo;
+    }
+
+    public void setTab_tipo_correo(Tabla tab_tipo_correo) {
+        this.tab_tipo_correo = tab_tipo_correo;
+    }
+    
     
 }
