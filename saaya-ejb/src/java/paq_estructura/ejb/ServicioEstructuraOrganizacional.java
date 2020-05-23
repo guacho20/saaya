@@ -1,11 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package paq_estructura.ejb;
 
 import framework.aplicacion.TablaGenerica;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 
@@ -52,7 +49,7 @@ public class ServicioEstructuraOrganizacional {
      * @param activo.- permite el ingreso del paramtero activo para filtrar ya
      * sea true, false, o ambos.
      * @return sql de la jornada
-     */
+*/
     public String getJornada(String activo) {
         String sql = "";
         sql = "select ide_ystjor, descripcion_ystjor from yavirac_stror_jornada  where activo_ystjor in (" + activo + ") order by descripcion_ystjor desc";
@@ -111,7 +108,7 @@ public class ServicioEstructuraOrganizacional {
      * sea true, false, o ambos.
      * @return sql de modalidad
      */
-    public String getDocumentoIdentidad(String activo) {
+public String getDocumentoIdentidad(String activo) {
         String sql = "";
         sql = "SELECT ide_ystdoi, descripcion_ystdoi FROM yavirac_stror_docu_identidad where activo_ystdoi in (" + activo + ")";
         return sql;
@@ -124,11 +121,11 @@ public class ServicioEstructuraOrganizacional {
      * sea true, false, o ambos.
      * @return sql de modalidad
      */
-    public String getDistribucionPolitica(String activo) {
+     String getDistribucionPolitica(String activo) {
         String sql = "";
-        sql = "SELECT ide_ystdip,descripcion_ystdip FROM yavirac_stror_distribucion_pol where activo_ystdip in (" + activo + ")";
+        sql = "SELECT ide_ystdip,descripcion_ystdip,codigounitario_ystdip FROM yavirac_stror_distribucion_pol where activo_ystdip in (" + activo + ")";
         return sql;
-    }
+    }public
 
     /**
      * Retorna la Tipo Division Politica
@@ -138,9 +135,11 @@ public class ServicioEstructuraOrganizacional {
      * @return sql de modalidad
      */
     public String getTipoDivisionPolitica(String activo) {
-        String sql = "";
-        sql = "SELECT ide_ysttdp ,descripcion_ysttdp FROM yavirac_stror_tipo_divisio_po where activo_ysttdp in (" + activo + ")";
+         String sql = "";
+        sql = "SELECT ide_ysttdp,descripcion_ysttdp FROM yavirac_stror_tipo_divisio_po where activo_ysttdp in (" + activo + ")";
         return sql;
+    
+
     }
 
     /**
@@ -196,13 +195,13 @@ public class ServicioEstructuraOrganizacional {
 
     public String getParentezcoFamiliar(String activo) {
         String sql = "";
-        sql = "SELECT ide_ystpaf, descripcion_ystpaf  FROM yavirac_stror_parentezco_fami where activo_ystpaf in (" + activo + ") ";
+        sql = "SELECT ide_ystpaf, descripcion_ystpaf FROM yavirac_stror_parentezco_fami where activo_ystpaf in (" + activo + ") ";
         return sql;
     }
 
     public String getTipoFormacionEducativa(String activo) {
         String sql = "";
-        sql = "SELECT ide_ysttfe, detalle_ysttfe,abreviatura_ysttfe  FROM yavirac_stror_tipo_for_educaci where activo_ysttif in (" + activo + ")order by detalle_ysttfe";
+        sql = "SELECT ide_ysttfe, detalle_ysttfe,abreviatura_ysttfe FROM yavirac_stror_tipo_for_educaci where activo_ysttif in (" + activo + ")order by detalle_ysttfe";
         return sql;
     }
 
@@ -251,7 +250,6 @@ public class ServicioEstructuraOrganizacional {
         sql = "SELECT ide_ysttif, detalle_ysttif,abreviatura_ysttif  FROM yavirac_stror_tipo_formacion order by detalle_ysttif";
         return sql;
     }
-
     public String getUsuarioSistema(String ide_usua, String condicion) {
         String sql = "";
         sql = "select ide_usua,nom_usua,nick_usua,ide_ypedpe from sis_usuario where ide_usua in(" + ide_usua + ") " + condicion;
@@ -281,8 +279,7 @@ public class ServicioEstructuraOrganizacional {
         sql = "select ide_ysttid,descripcion_ysttid from yavirac_stror_tipo_discapacid";
         return sql;
     }
-
-    public String getEtnia() {
+public String getEtnia() {
 
         String sql = "";
         sql = "select ide_ystetn,detalle_ystetn from yavirac_stror_etnia";
@@ -311,16 +308,9 @@ public class ServicioEstructuraOrganizacional {
         return sql;
     }
 
-    public String getTipoInstalacion() {
-
-        String sql = "";
-        sql = "select ide_ysttin,descripcion_ysttin from yavirac_stror_tipo_instalacion";
-        return sql;
-    }
 
     public String getVinculaSociedad() {
-
-        String sql = "";
+String sql = "";
         sql = "select ide_ystvis,descripcion_ystvis from yavirac_stror_vinculacion_socie";
         return sql;
     }
@@ -377,7 +367,6 @@ public class ServicioEstructuraOrganizacional {
     }
 
     public String getcodigoSecuencial(String secuencial) {
-
         String sql = "select a.ide_ystmos, ide_ystmod, descripcion_ystani,secuencial_ystmos,abreviatura_ystmos, longuitud_ystmos,aplica_abi_ystmos,aplica_anio_ystmos,\n"
                 + "(case when a.aplica_anio_ystmos =false then\n"
                 + "(case when aplica_abi_ystmos = true then abreviatura_ystmos||'-'||secuencial_ystmos else \n"
@@ -401,7 +390,7 @@ public class ServicioEstructuraOrganizacional {
     public String getDistribucionPolitica(String tipo, String condicion) {
 
         String sql = "";
-        sql = "select ide_ystdip,descripcion_ystdip from yavirac_stror_distribucion_pol";
+        sql = "select ide_ystdip,descripcion_ystdip, codigounitario_ystdip from yavirac_stror_distribucion_pol";
         if (tipo.equals("1")) {
             sql += " where ide_ysttdp in ('" + condicion + "') ";
         }
@@ -417,13 +406,23 @@ public class ServicioEstructuraOrganizacional {
      * @param activo.- permite el ingreso del paramtero activo para filtrar ya
      * sea true, false, o ambos.
      * @return sql del area departamento
-     */
-    public String getAreaDepartamento(String activo) { //extraer informacion de la base de datos mediante un script
+     */ 
+    public String getAreaDepartamento (String activo) { //extraer informacion de la base de datos mediante un script
         String sql = "";
-        sql = "select ide_ystard, descripcion_ysttad, descripcion_ystard from yavirac_stror_tipo_area_depar b,yavirac_stror_area_departament a where a.ide_ysttad = b.ide_ysttad;";
+        sql = "select b.descripcion_ysttad,a.descripcion_ystard from yavirac_stror_area_departament  a\n" +
+        "left join yavirac_stror_tipo_area_depar b on a.ide_ysttad=b.ide_ysttad\n" + 
+                 "order by a.ide_ystard";
+
         return sql;
     }
 
+     public String getTipoAreaDepartamento() { //extraer informacion de la base de datos mediante un script
+        String sql = "";
+        sql = "select ide_ysttad, descripcion_ysttad from yavirac_stror_tipo_area_depar";
+        return sql;
+    }
+    
+    
     public String getSumaDiasFecha(String fecha, String dias) {
         String sql = "";
         sql = "SELECT 1 as codigo, cast( (CAST('" + fecha + "' AS DATE) + CAST('" + dias + " days' AS INTERVAL)) as date) as fecha;";
@@ -447,7 +446,7 @@ public class ServicioEstructuraOrganizacional {
     public String getTipoOperadora() {
 
         String sql = "";
-        sql = "select ide_ysttio,descripcion_ysttio from yavirac_stror_tipo_operadora";
+        sql = "select ide_ysttio, descripcion_ysttio  from yavirac_stror_tipo_operadora";
         return sql;
     }
 
@@ -482,10 +481,9 @@ public class ServicioEstructuraOrganizacional {
     public String getInstitucion() {
 
         String sql = "";
-        sql = "select ide_ystins,descripcion_ystins from yavirac_stror_institucion;";
+        sql = "select ide_ystins,descripcion_ystins, direccion_ystins, activo_ystins from yavirac_stror_institucion;";
         return sql;
     }
-
     public String getMensionAlumno(String alumno) {
 
         String sql = "";
@@ -514,4 +512,10 @@ public class ServicioEstructuraOrganizacional {
                 + "order by detalle_ysttfe,descripcion_ystmen";
         return sql;
     }
+
+ 
+
+  
 }
+   
+   
