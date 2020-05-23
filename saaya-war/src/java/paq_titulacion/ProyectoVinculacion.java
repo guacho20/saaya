@@ -256,13 +256,13 @@ public class ProyectoVinculacion extends Pantalla {
 
     public void datosEmpresa(SelectEvent evt) {
         tab_tabla.modificar(evt);
-        TablaGenerica tab_parroquia = utilitario.consultar(ser_periodoacademico.getDistribucionPolitica("2", "select ide_ystdip from yavirac_stror_distribucion_pol  where ide_ystdip in (\n"
+        TablaGenerica tab_parroquia = utilitario.consultar(ser_periodoacademico.getDistribucionPoliticaPorCondicion("2", "select ide_ystdip from yavirac_stror_distribucion_pol  where ide_ystdip in (\n"
                 + "select ide_ystdip from yavirac_titu_empresa  where ide_ytiemp=" + tab_tabla.getValor("ide_ytiemp")
                 + ") and ide_ysttdp=4"));
-        TablaGenerica tab_canton = utilitario.consultar(ser_periodoacademico.getDistribucionPolitica("2", "select ide_ystdip from yavirac_stror_distribucion_pol  where ide_ystdip in (\n"
+        TablaGenerica tab_canton = utilitario.consultar(ser_periodoacademico.getDistribucionPoliticaPorCondicion("2", "select ide_ystdip from yavirac_stror_distribucion_pol  where ide_ystdip in (\n"
                 + "select yav_ide_ystdip from yavirac_stror_distribucion_pol  where ide_ystdip=" + tab_parroquia.getValor("ide_ystdip")
                 + ") and ide_ysttdp=3"));
-        TablaGenerica tab_provincia = utilitario.consultar(ser_periodoacademico.getDistribucionPolitica("2", "select ide_ystdip from yavirac_stror_distribucion_pol  where ide_ystdip in (\n"
+        TablaGenerica tab_provincia = utilitario.consultar(ser_periodoacademico.getDistribucionPoliticaPorCondicion("2", "select ide_ystdip from yavirac_stror_distribucion_pol  where ide_ystdip in (\n"
                 + "select yav_ide_ystdip from yavirac_stror_distribucion_pol  where ide_ystdip=" + tab_canton.getValor("ide_ystdip")
                 + ") and ide_ysttdp=2"));
         tab_tabla.setValor("ide_ystdip", tab_provincia.getValor("ide_ystdip"));
@@ -275,9 +275,9 @@ public class ProyectoVinculacion extends Pantalla {
         String usuario = utilitario.getVariable("NICK");
         if (tab_tabla.getValorSeleccionado() != null) {
             ///////////AQUI ABRE EL REPORTE
-            TablaGenerica tab_provincia = utilitario.consultar(ser_periodoacademico.getDistribucionPolitica("2", tab_tabla.getValor("ide_ystdip")));
-            TablaGenerica tab_canton = utilitario.consultar(ser_periodoacademico.getDistribucionPolitica("2", tab_tabla.getValor("yav_ide_ystdip")));
-            TablaGenerica tab_parroquia = utilitario.consultar(ser_periodoacademico.getDistribucionPolitica("2", tab_tabla.getValor("yav_ide_ystdip2")));
+            TablaGenerica tab_provincia = utilitario.consultar(ser_periodoacademico.getDistribucionPoliticaPorCondicion("2", tab_tabla.getValor("ide_ystdip")));
+            TablaGenerica tab_canton = utilitario.consultar(ser_periodoacademico.getDistribucionPoliticaPorCondicion("2", tab_tabla.getValor("yav_ide_ystdip")));
+            TablaGenerica tab_parroquia = utilitario.consultar(ser_periodoacademico.getDistribucionPoliticaPorCondicion("2", tab_tabla.getValor("yav_ide_ystdip2")));
             Map parametros = new HashMap();
             parametros.put("pide_canton", tab_canton.getValor("descripcion_ystdip"));
             parametros.put("pide_provincia", tab_provincia.getValor("descripcion_ystdip"));
