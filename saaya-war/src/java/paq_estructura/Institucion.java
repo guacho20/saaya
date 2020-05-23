@@ -27,8 +27,7 @@ public class Institucion extends Pantalla {
         tab_tabla1.setId("tab_tabla1");// todo objeto instanciado poner id 
         tab_tabla1.setTabla("yavirac_stror_institucion","ide_ystins",1);  // nom bdd
         tab_tabla1.setCampoPadre("yav_ide_ystins");
-        tab_tabla1.setCampoNombre("descripcion_ystins");
-        tab_tabla1.setCampoNombre("direccion_ystins");
+        tab_tabla1.setCampoNombre("descripcion_ystins"); 
         tab_tabla1.getColumna("ide_ysttii").setCombo(ser_estructura.getTipoInstitucion("true,false"));
         tab_tabla1.agregarArbol(arb_arbol);
         tab_tabla1.getColumna("ide_ystins").setNombreVisual("CÓDIGO");
