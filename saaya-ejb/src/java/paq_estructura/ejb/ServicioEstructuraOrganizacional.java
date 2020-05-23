@@ -121,11 +121,11 @@ public String getDocumentoIdentidad(String activo) {
      * sea true, false, o ambos.
      * @return sql de modalidad
      */
-     String getDistribucionPolitica(String activo) {
+     public String getDistribucionPolitica(String activo) {
         String sql = "";
         sql = "SELECT ide_ystdip,descripcion_ystdip,codigounitario_ystdip FROM yavirac_stror_distribucion_pol where activo_ystdip in (" + activo + ")";
         return sql;
-    }public
+    }
 
     /**
      * Retorna la Tipo Division Politica
@@ -387,7 +387,7 @@ String sql = "";
         return sql;
     }
 
-    public String getDistribucionPolitica(String tipo, String condicion) {
+    public String getDistribucionPoliticaPorCondicion(String tipo, String condicion) {
 
         String sql = "";
         sql = "select ide_ystdip,descripcion_ystdip, codigounitario_ystdip from yavirac_stror_distribucion_pol";
