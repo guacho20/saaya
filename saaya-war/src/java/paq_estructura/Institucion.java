@@ -28,11 +28,13 @@ public class Institucion extends Pantalla {
         tab_tabla1.setTabla("yavirac_stror_institucion","ide_ystins",1);  // nom bdd
         tab_tabla1.setCampoPadre("yav_ide_ystins");
         tab_tabla1.setCampoNombre("descripcion_ystins");
+        tab_tabla1.setCampoNombre("direccion_ystins");
         tab_tabla1.getColumna("ide_ysttii").setCombo(ser_estructura.getTipoInstitucion("true,false"));
         tab_tabla1.agregarArbol(arb_arbol);
         tab_tabla1.getColumna("ide_ystins").setNombreVisual("CÓDIGO");
         tab_tabla1.getColumna("ide_ysttii").setNombreVisual("TIPO INSTITUCIÓN");
         tab_tabla1.getColumna("descripcion_ystins").setNombreVisual("DESCRIPCIÓN");
+        tab_tabla1.getColumna("direccion_ystins").setNombreVisual("DIRECCIÓN");
         tab_tabla1.getColumna("activo_ystins").setNombreVisual("ACTIVO");
         tab_tabla1.dibujar();
         

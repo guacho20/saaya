@@ -12,7 +12,7 @@ import sistema.aplicacion.Pantalla;
 
 /**
  *
- * @author ITSY
+ * @author Amanda
  */
 public class TipoCorreo extends Pantalla{
      Tabla tab_tipo_correo = new Tabla();// importar tabla

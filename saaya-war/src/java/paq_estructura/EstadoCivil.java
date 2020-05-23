@@ -12,7 +12,8 @@ import sistema.aplicacion.Pantalla;
 
 /**
  *
- * @author ITSY
+ * @author Amanda
+ * 
  */
 public class EstadoCivil extends Pantalla{
     Tabla tab_estado_civil= new Tabla(); 

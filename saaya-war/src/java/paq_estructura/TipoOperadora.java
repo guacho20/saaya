@@ -11,7 +11,7 @@ import sistema.aplicacion.Pantalla;
 
 /**
  *
- * @author ITSY
+ * @author Amanda
  */
 
 public class TipoOperadora extends Pantalla{

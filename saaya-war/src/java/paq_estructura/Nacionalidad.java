@@ -37,8 +37,8 @@ public class Nacionalidad extends Pantalla {
         div_nacionalidad.dividir1(tab_nacionalidad);
         
         agregarComponente(div_nacionalidad);
-        
-        
+            
+     
         
     }
     

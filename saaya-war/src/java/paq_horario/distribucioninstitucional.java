@@ -59,7 +59,7 @@ public class distribucioninstitucional extends Pantalla {
         tab_tabla2.getColumna("ide_ystjor").setCombo(ser_estructura_organizacional.getJornada("true"));
         tab_tabla2.getColumna("ide_ystpea").setCombo(ser_estructura_organizacional.getPeriodoAcademico("true"));
         tab_tabla2.getColumna("ide_yhodia").setCombo(ser_horarios.getDia());
-        tab_tabla2.getColumna("ide_ystins").setCombo(ser_estructura_organizacional.getTipoInstalacion());
+      /*  tab_tabla2.getColumna("ide_ystins").setCombo(ser_estructura_organizacional.getTipoInstalacion()); */
         tab_tabla2.dibujar();
         PanelTabla pat_panel2 = new PanelTabla();
         pat_panel2.setPanelTabla(tab_tabla2);

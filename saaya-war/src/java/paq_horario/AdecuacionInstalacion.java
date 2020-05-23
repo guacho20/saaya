@@ -26,7 +26,7 @@ public class AdecuacionInstalacion extends Pantalla {
     
     tab_instalacion.setId("tab_instalacion");   
     tab_instalacion.setTabla("yavirac_stror_instalacion", "ide_ystins", 1);
-    tab_instalacion.getColumna("ide_ysttin").setCombo(ser_instalacion.getTipoInstalacion());
+   /* tab_instalacion.getColumna("ide_ysttin").setCombo(ser_instalacion.getTipoInstalacion()); */
     tab_instalacion.getColumna("ide_yhodin").setCombo(ser_instalacion_horarios.getDistribucionInstalacion());
     tab_instalacion.getColumna("ide_ystins").setNombreVisual("CÓDIGO PRINCIPAL");
     tab_instalacion.getColumna("ide_ysttin").setNombreVisual("TIPO INSTALACIÓN");

@@ -12,7 +12,7 @@ import sistema.aplicacion.Pantalla;
 
 /**
  *
- * @author ITSY
+ * @author Amanda
  */
 public class ParentescoFamiliar extends Pantalla {
     Tabla tab_parentesco_familiar = new Tabla ();

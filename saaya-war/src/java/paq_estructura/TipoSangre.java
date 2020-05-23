@@ -11,7 +11,7 @@ import sistema.aplicacion.Pantalla;
 
 /**
  *
- * @author ITSY
+ * @author Amanda
  */
 public class TipoSangre extends Pantalla{
     Tabla tab_tipo_sangre = new Tabla();// importar tabla
