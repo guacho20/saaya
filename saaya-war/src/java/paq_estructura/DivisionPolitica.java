@@ -32,9 +32,16 @@ public class DivisionPolitica extends Pantalla {
         tab_division_politica.getColumna("ide_ysttdp").setCombo(ser_estructura.getTipoDivisionPolitica("true,false"));
         tab_division_politica.setHeader("DIVISION POLITICA"); 
         tab_division_politica.getColumna("ide_ystdip").setNombreVisual("CÓDIGO");
-        //tab_division_politica.getColumna("ide_ysttip").setNombreVisual("TIPO DIVISIÓN POLITICA");
+        tab_division_politica.getColumna("ide_ysttdp").setNombreVisual("TIPO DIVISIÓN POLITICA");
         tab_division_politica.getColumna("descripcion_ystdip").setNombreVisual("DESCRIPCIÓN");
+        tab_division_politica.getColumna("codigounitario_ystdip").setNombreVisual("CÓDIGO UNITARIO");
         tab_division_politica.getColumna("activo_ystdip").setNombreVisual("ACTIVO");
+        
+        tab_division_politica.getColumna("ide_ystdip").setOrden(0);
+        tab_division_politica.getColumna("ide_ysttdp").setOrden(1);
+        tab_division_politica.getColumna("descripcion_ystdip").setOrden(2);
+        tab_division_politica.getColumna("codigounitario_ystdip").setOrden(3);
+        tab_division_politica.getColumna("activo_ystdip").setOrden(4);
         //arbol
         tab_division_politica.setCampoPadre("yav_ide_ystdip");
         tab_division_politica.setCampoNombre("descripcion_ystdip");

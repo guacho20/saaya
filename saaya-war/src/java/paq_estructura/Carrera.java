@@ -41,6 +41,7 @@ public class Carrera extends Pantalla {
         tab_carrera.getColumna("fechaaprob_ystcrr").setNombreVisual("FECHA APROBACIÓN");
         tab_carrera.getColumna("descripcion_ystcrr").setNombreVisual("DESCRICPIÓN");
         tab_carrera.getColumna("resolucion_ystcrr").setNombreVisual("RESOLUCIÓN");
+        tab_carrera.setRows(3);
         tab_carrera.dibujar();
 
         PanelTabla pat_carrera = new PanelTabla();
@@ -57,7 +58,11 @@ public class Carrera extends Pantalla {
         tab_mension.getColumna("fechaapro_ystmen").setNombreVisual("FECHA APROBACIÓN");
         tab_mension.getColumna("descripcion_ystmen").setNombreVisual("DESCRIPCIÓN");
         tab_mension.getColumna("resolucion_ystmen").setNombreVisual("RESOLUCIÓN");
-        tab_mension.getColumna("total_credito_ystmen").setNombreVisual("TOTAL CREDITOS");
+        tab_mension.getColumna("total_credito_ystmen").setVisible(false);
+        tab_mension.getColumna("codigo_mension_ystmen").setVisible(false);
+        tab_mension.getColumna("yavirac_stror_periodo_academic").setVisible(false);
+        tab_mension.getColumna("yavirac_stror_periodo_mension").setVisible(false);
+        tab_mension.setRows(2);
         tab_mension.dibujar();
 
         PanelTabla pat_mension = new PanelTabla();
@@ -73,13 +78,37 @@ public class Carrera extends Pantalla {
         tab_malla.setHeader("MALLA ACADEMICA");
         tab_malla.getColumna("ide_ystmal").setNombreVisual("CÓDIGO");
         tab_malla.getColumna("ide_ystnie").setNombreVisual("NIVEL EDUCACIÓN");
+        tab_malla.getColumna("ide_ystnie").setAncho(-1);
+        tab_malla.getColumna("ide_ystnie").setLongitud(-1);
         tab_malla.getColumna("ide_ystmat").setNombreVisual("MATERIAS");
         tab_malla.getColumna("ide_ystmat").setAutoCompletar();
         tab_malla.getColumna("ide_ysttif").setNombreVisual("TIPO FORMACIÓN");
+        //tab_malla.getColumna("ide_ysttif").setEstilo("width: 100px;");
         tab_malla.getColumna("codigo_ystmal").setNombreVisual("CÓDIGO MALLA");
-        tab_malla.getColumna("numero_credito_ystmal").setNombreVisual("NÚMERO CREDITOS");
-        tab_malla.getColumna("orden_ystmal").setNombreVisual("ORDEN");
         tab_malla.getColumna("aplica_requisitos_ystmal").setNombreVisual("APLICA REQUISITOS");
+        tab_malla.getColumna("prerrequisito_ystmal").setNombreVisual("PRERREQUISITO");
+        tab_malla.getColumna("correquisito_ystmal").setNombreVisual("CORREQUISITO");
+        tab_malla.getColumna("numero_horas_ystmal").setNombreVisual("NÚMERO HORAS");
+        tab_malla.getColumna("maximo_horas_ystmal").setNombreVisual("MAXIMO HORAS");
+        tab_malla.getColumna("minimo_horas_ystmal").setNombreVisual("MINIMO HORAS");
+
+        tab_malla.getColumna("codigo_ystmal").setVisible(false);
+        tab_malla.getColumna("orden_ystmal").setVisible(false);
+        tab_malla.getColumna("prioridad_materia_ystmal").setVisible(false);
+        tab_malla.getColumna("aplica_requisitos_ystmal").setVisible(false);
+        tab_malla.getColumna("numero_credito_ystmal").setVisible(false);
+
+        tab_malla.getColumna("ide_ystmal").setOrden(0);
+        tab_malla.getColumna("ide_ystnie").setOrden(1);
+        tab_malla.getColumna("ide_ystmat").setOrden(2);
+        tab_malla.getColumna("ide_ysttif").setOrden(3);
+        tab_malla.getColumna("numero_horas_ystmal").setOrden(4);
+        tab_malla.getColumna("maximo_horas_ystmal").setOrden(5);
+        tab_malla.getColumna("minimo_horas_ystmal").setOrden(6);
+        tab_malla.getColumna("prerrequisito_ystmal").setOrden(7);
+        tab_malla.getColumna("correquisito_ystmal").setOrden(8);
+        tab_malla.getColumna("aplica_calculo_ystmal").setOrden(9);
+        tab_malla.setRows(6);
         tab_malla.dibujar();
 
         PanelTabla pat_malla = new PanelTabla();
@@ -101,6 +130,7 @@ public class Carrera extends Pantalla {
         sel_mesion.setTitle("SELECION DE MALLAS");
         sel_mesion.setSeleccionTabla(ser_estructura.getMensionFormacion(), "ide_ystmen");
         sel_mesion.getTab_seleccion().getColumna("descripcion_ystmen").setFiltro(true);
+        tab_mension.getColumna("anexo_ystmen").setVisible(false);
         sel_mesion.getTab_seleccion().setRows(12);
         sel_mesion.getBot_aceptar().setMetodo("aceptarReporte");
         agregarComponente(sel_mesion);
