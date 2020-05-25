@@ -49,6 +49,21 @@ public class PeriodoAcademico extends Pantalla {
         tab_periodo_academic.getColumna("ide_ystani").setLongitud(-1);
         tab_periodo_academic.getColumna("ide_ystani").setNombreVisual("AÑO");
         tab_periodo_academic.getColumna("nota_evaluacion_ystpea").setNombreVisual("NOTA EVALUACIÓN");
+         tab_periodo_academic.getColumna("id_ystpea").setNombreVisual("CÓDIGO");
+         tab_periodo_academic.getColumna("descripcion_ystpea").setNombreVisual("DESCRIPCIÓN");
+         tab_periodo_academic.getColumna("fecha_inicio_ystpea").setNombreVisual("FECHA INICIO");
+         tab_periodo_academic.getColumna("fecha_final_ystpea").setNombreVisual("FECHA FINAL");
+          tab_periodo_academic.getColumna("activo_ystpea").setNombreVisual("ACTIVO");
+           tab_periodo_academic.getColumna("hora_clase_ystpea").setNombreVisual("HORAS CLASE");
+            tab_periodo_academic.getColumna("aplica_jornada_completa_ystpea").setNombreVisual("APLICA JORNADA COMPLETA");
+
+         tab_periodo_academic.getColumna("dias_justifica_ystpea").setNombreVisual("DIAS JUSTIFICABLES");
+         tab_periodo_academic.getColumna("nota_evaluacion_ystpea").setNombreVisual("NOTA EVALUACION");
+         tab_periodo_academic.getColumna("nota_minima_aprobada_ystpea").setNombreVisual("NOTA MINIMA");
+         tab_periodo_academic.getColumna("nota_recuperacion_ystpea").setNombreVisual("NOTA RECUPERQACIÓN");
+         tab_periodo_academic.getColumna("aplica_recuperacion_ystpea").setNombreVisual("APLICA RECUPERACIÓN");
+         tab_periodo_academic.getColumna("tabla_notas_ystpea").setVisible(false);
+         
         tab_periodo_academic.getColumna("activo_ystpea").setLectura(true);
         tab_periodo_academic.getColumna("activo_ystpea").setValorDefecto("true");
         tab_periodo_academic.getColumna("aplica_recuperacion_ystpea").setValorDefecto("false");

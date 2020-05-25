@@ -58,6 +58,10 @@ public class Carrera extends Pantalla {
         tab_mension.getColumna("fechaapro_ystmen").setNombreVisual("FECHA APROBACIÓN");
         tab_mension.getColumna("descripcion_ystmen").setNombreVisual("DESCRIPCIÓN");
         tab_mension.getColumna("resolucion_ystmen").setNombreVisual("RESOLUCIÓN");
+        tab_mension.getColumna("total_horas_ystmen").setNombreVisual("TOTAL HORAS");
+        tab_mension.getColumna("nom_titulo_ystem").setNombreVisual("NOMBRE TÍTULO");
+        tab_mension.getColumna("abreviatura_ystmen").setNombreVisual("ABREVIATURA");
+       
         tab_mension.getColumna("total_credito_ystmen").setVisible(false);
         tab_mension.getColumna("codigo_mension_ystmen").setVisible(false);
         tab_mension.getColumna("yavirac_stror_periodo_academic").setVisible(false);
