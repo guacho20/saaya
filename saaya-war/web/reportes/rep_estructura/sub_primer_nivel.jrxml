@@ -70,7 +70,7 @@ order by a.ide_ystmen,a.orden_ystmal]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="80" splitType="Stretch">
+		<band height="66" splitType="Stretch">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement stretchType="RelativeToBandHeight" x="0" y="30" width="80" height="20" isRemoveLineWhenBlank="true" uuid="14b00fa4-9db8-402b-a409-abc4f174f2a1"/>
 				<box>

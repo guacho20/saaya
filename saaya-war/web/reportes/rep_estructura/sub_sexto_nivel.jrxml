@@ -21,7 +21,7 @@ order by a.orden_ystmal]]>
 		<fieldDescription><![CDATA[este campo identifica el nombre de la  materia de la carrera respectiva]]></fieldDescription>
 	</field>
 	<field name="codigo_ystmal" class="java.lang.String">
-		<fieldDescription><![CDATA[este  campo es el codigo de la malla ]]></fieldDescription>
+		<fieldDescription><![CDATA[este  campo es el codigo de la malla]]></fieldDescription>
 	</field>
 	<field name="numero_credito_ystmal" class="java.lang.Long">
 		<fieldDescription><![CDATA[este campo dientifica el numero de creditos]]></fieldDescription>
@@ -60,7 +60,7 @@ order by a.orden_ystmal]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="90" splitType="Stretch">
+		<band height="68" splitType="Stretch">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement stretchType="RelativeToBandHeight" x="0" y="30" width="80" height="20" isRemoveLineWhenBlank="true" uuid="14b00fa4-9db8-402b-a409-abc4f174f2a1"/>
 				<box>
