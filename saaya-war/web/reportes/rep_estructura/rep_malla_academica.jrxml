@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rep_malla_academica" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8bd0ee3a-3711-4f00-9b49-f4d3866820d8">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="192"/>
+	<property name="ireport.y" value="52"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String">
 		<defaultValueExpression><![CDATA["C:\\Users\\JHON\\Documents\\PROYECTOS\\saaya_02\\trunk\\rua\\rua-war\\web\\"]]></defaultValueExpression>
@@ -86,10 +86,10 @@ where b.ide_ystmen in ($P!{ide_ystmen})]]>
 					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "/reportes/rep_estructura/sub_tipo_formacion.jasper"]]></subreportExpression>
 				</subreport>
 				<rectangle radius="10">
-					<reportElement x="313" y="30" width="239" height="71" backcolor="#FFFFFA" uuid="d982fa7a-98db-4b9a-9680-efe18341fc51"/>
+					<reportElement x="313" y="31" width="239" height="56" backcolor="#FFFFFA" uuid="d982fa7a-98db-4b9a-9680-efe18341fc51"/>
 				</rectangle>
 				<textField>
-					<reportElement mode="Opaque" x="462" y="40" width="24" height="15" backcolor="#FFFF00" uuid="68232e33-4a59-44a3-8633-5e51732be8cd"/>
+					<reportElement mode="Opaque" x="462" y="42" width="13" height="15" backcolor="#FFFF00" uuid="68232e33-4a59-44a3-8633-5e51732be8cd"/>
 					<box>
 						<topPen lineWidth="0.75"/>
 						<leftPen lineWidth="0.75"/>
@@ -102,7 +102,7 @@ where b.ide_ystmen in ($P!{ide_ystmen})]]>
 					<textFieldExpression><![CDATA["1"]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="333" y="33" width="116" height="12" uuid="b451462e-e5a8-405e-b2c0-93382f203c90"/>
+					<reportElement x="333" y="45" width="116" height="12" uuid="b451462e-e5a8-405e-b2c0-93382f203c90"/>
 					<textElement verticalAlignment="Middle">
 						<font size="7"/>
 					</textElement>
@@ -124,7 +124,7 @@ where b.ide_ystmen in ($P!{ide_ystmen})]]>
 					<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement mode="Opaque" x="486" y="45" width="56" height="10" backcolor="#00FFFF" uuid="68232e33-4a59-44a3-8633-5e51732be8cd"/>
+					<reportElement mode="Opaque" x="475" y="47" width="67" height="10" backcolor="#00FFFF" uuid="68232e33-4a59-44a3-8633-5e51732be8cd"/>
 					<box>
 						<topPen lineWidth="0.75"/>
 						<leftPen lineWidth="0.75"/>
@@ -137,7 +137,7 @@ where b.ide_ystmen in ($P!{ide_ystmen})]]>
 					<textFieldExpression><![CDATA["2"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement mode="Opaque" x="462" y="55" width="80" height="20" backcolor="#FFC800" uuid="68232e33-4a59-44a3-8633-5e51732be8cd"/>
+					<reportElement mode="Opaque" x="462" y="57" width="80" height="20" backcolor="#FFC800" uuid="68232e33-4a59-44a3-8633-5e51732be8cd"/>
 					<box>
 						<topPen lineWidth="0.75"/>
 						<leftPen lineWidth="0.75"/>
@@ -150,60 +150,18 @@ where b.ide_ystmen in ($P!{ide_ystmen})]]>
 					<textFieldExpression><![CDATA["3"]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="333" y="43" width="116" height="12" uuid="b451462e-e5a8-405e-b2c0-93382f203c90"/>
+					<reportElement x="333" y="57" width="116" height="12" uuid="b451462e-e5a8-405e-b2c0-93382f203c90"/>
 					<textElement verticalAlignment="Middle">
 						<font size="7"/>
 					</textElement>
 					<text><![CDATA[2.- Codigo asignatura y creditos]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="333" y="55" width="116" height="12" uuid="b451462e-e5a8-405e-b2c0-93382f203c90"/>
+					<reportElement x="333" y="69" width="116" height="12" uuid="b451462e-e5a8-405e-b2c0-93382f203c90"/>
 					<textElement verticalAlignment="Middle">
 						<font size="7"/>
 					</textElement>
 					<text><![CDATA[3.- Nombre asignatura]]></text>
-				</staticText>
-				<textField>
-					<reportElement x="462" y="75" width="24" height="20" backcolor="#99FF99" uuid="d30a723f-35a7-464c-b081-1186b40ad64d"/>
-					<box>
-						<pen lineWidth="0.75"/>
-						<topPen lineWidth="0.75"/>
-						<leftPen lineWidth="0.75"/>
-						<bottomPen lineWidth="0.75"/>
-						<rightPen lineWidth="0.75"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="7"/>
-					</textElement>
-					<textFieldExpression><![CDATA["4"]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="486" y="75" width="20" height="20" backcolor="#6666FF" uuid="ba4ea742-54e7-40f5-abbf-ce171fec1ea3"/>
-					<box>
-						<pen lineWidth="0.75"/>
-						<topPen lineWidth="0.75"/>
-						<leftPen lineWidth="0.75"/>
-						<bottomPen lineWidth="0.75"/>
-						<rightPen lineWidth="0.75"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="7"/>
-					</textElement>
-					<textFieldExpression><![CDATA["5"]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement x="333" y="67" width="116" height="12" uuid="dd27f080-d053-4840-a68c-e0c11bdea718"/>
-					<textElement verticalAlignment="Middle">
-						<font size="7"/>
-					</textElement>
-					<text><![CDATA[4.- Prerrequisito]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="333" y="79" width="116" height="12" uuid="6f4172fc-19ff-4868-8a93-aa6eb003afb4"/>
-					<textElement verticalAlignment="Middle">
-						<font size="7"/>
-					</textElement>
-					<text><![CDATA[5.- Correquisito]]></text>
 				</staticText>
 			</band>
 		</groupFooter>
