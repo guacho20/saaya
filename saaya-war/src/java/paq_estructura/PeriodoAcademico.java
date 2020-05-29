@@ -49,7 +49,7 @@ public class PeriodoAcademico extends Pantalla {
         tab_periodo_academic.getColumna("ide_ystani").setLongitud(-1);
         tab_periodo_academic.getColumna("ide_ystani").setNombreVisual("AÑO");
         tab_periodo_academic.getColumna("nota_evaluacion_ystpea").setNombreVisual("NOTA EVALUACIÓN");
-         tab_periodo_academic.getColumna("id_ystpea").setNombreVisual("CÓDIGO");
+         tab_periodo_academic.getColumna("ide_ystpea").setNombreVisual("CÓDIGO");
          tab_periodo_academic.getColumna("descripcion_ystpea").setNombreVisual("DESCRIPCIÓN");
          tab_periodo_academic.getColumna("fecha_inicio_ystpea").setNombreVisual("FECHA INICIO");
          tab_periodo_academic.getColumna("fecha_final_ystpea").setNombreVisual("FECHA FINAL");
