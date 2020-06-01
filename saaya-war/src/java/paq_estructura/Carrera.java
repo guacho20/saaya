@@ -88,31 +88,39 @@ public class Carrera extends Pantalla {
         tab_malla.getColumna("ide_ystmat").setAutoCompletar();
         tab_malla.getColumna("ide_ysttif").setNombreVisual("TIPO FORMACIÓN");
         //tab_malla.getColumna("ide_ysttif").setEstilo("width: 100px;");
-        tab_malla.getColumna("codigo_ystmal").setNombreVisual("CÓDIGO MALLA");
-        tab_malla.getColumna("aplica_requisitos_ystmal").setNombreVisual("APLICA REQUISITOS");
-        tab_malla.getColumna("prerrequisito_ystmal").setNombreVisual("PRERREQUISITO");
-        tab_malla.getColumna("correquisito_ystmal").setNombreVisual("CORREQUISITO");
-        tab_malla.getColumna("numero_horas_ystmal").setNombreVisual("NÚMERO HORAS");
+        //tab_malla.getColumna("codigo_ystmal").setNombreVisual("CÓDIGO MALLA");
+       
+  
+        tab_malla.getColumna("numero_credito_ystmal").setNombreVisual("NÚMERO HORAS");
+        tab_malla.getColumna("orden_ystmal").setNombreVisual("ORDEN");
         tab_malla.getColumna("maximo_horas_ystmal").setNombreVisual("MAXIMO HORAS");
         tab_malla.getColumna("minimo_horas_ystmal").setNombreVisual("MINIMO HORAS");
+        //tab_malla.getColumna("codigo_ystmal").setNombreVisual("CODIGO");
+        
+       tab_malla.getColumna("prerrequisito_ystmal").setNombreVisual("PRE-REQUISITO");
+        tab_malla.getColumna("correquisito_ystmal").setNombreVisual("CO-REQUISITO");
+         tab_malla.getColumna("aplica_calculo_ystmal").setNombreVisual("APLICA CÁLCULO");
+
 
         tab_malla.getColumna("codigo_ystmal").setVisible(false);
-        tab_malla.getColumna("orden_ystmal").setVisible(false);
+        //tab_malla.getColumna("orden_ystmal").setVisible(false);
         tab_malla.getColumna("prioridad_materia_ystmal").setVisible(false);
         tab_malla.getColumna("aplica_requisitos_ystmal").setVisible(false);
-        tab_malla.getColumna("numero_credito_ystmal").setVisible(false);
+        //tab_malla.getColumna("numero_credito_ystmal").setVisible(false);
+        tab_malla.getColumna("numero_horas_ystmal").setVisible(false);
 
         tab_malla.getColumna("ide_ystmal").setOrden(0);
         tab_malla.getColumna("ide_ystnie").setOrden(1);
         tab_malla.getColumna("ide_ystmat").setOrden(2);
         tab_malla.getColumna("ide_ysttif").setOrden(3);
-        tab_malla.getColumna("numero_horas_ystmal").setOrden(4);
-        tab_malla.getColumna("maximo_horas_ystmal").setOrden(5);
-        tab_malla.getColumna("minimo_horas_ystmal").setOrden(6);
-        tab_malla.getColumna("prerrequisito_ystmal").setOrden(7);
-        tab_malla.getColumna("correquisito_ystmal").setOrden(8);
-        tab_malla.getColumna("aplica_calculo_ystmal").setOrden(9);
-        tab_malla.setRows(6);
+        tab_malla.getColumna("numero_credito_ystmal").setOrden(4);
+         tab_malla.getColumna("orden_ystmal").setOrden(5);
+        tab_malla.getColumna("maximo_horas_ystmal").setOrden(6);
+        tab_malla.getColumna("minimo_horas_ystmal").setOrden(7);
+        tab_malla.getColumna("prerrequisito_ystmal").setOrden(8);
+        tab_malla.getColumna("correquisito_ystmal").setOrden(9);
+        tab_malla.getColumna("aplica_calculo_ystmal").setOrden(10);
+        //tab_malla.setRows(6);
         tab_malla.dibujar();
 
         PanelTabla pat_malla = new PanelTabla();
@@ -155,7 +163,7 @@ public class Carrera extends Pantalla {
             utilitario.addUpdate("vipdf_malla");
             sel_mesion.cerrar();
         } else {
-            utilitario.agregarMensajeInfo("ADEVRTENCIA,", "Seleccione al menos una opción");
+            utilitario.agregarMensajeInfo("ADVERTENCIA,", "Seleccione al menos una opción");
         }
     }
 
