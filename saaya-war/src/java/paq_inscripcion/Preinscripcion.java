@@ -225,8 +225,7 @@ public class Preinscripcion extends Pantalla {
             tab_pre_inscrip.getColumna("observacion_contac_yinpin").setLectura(true);
             tab_pre_inscrip.getColumna("inscrito_yinpin").setLectura(true);
             tab_pre_inscrip.getColumna("fecha_registro_yinpin").setLectura(true);
-            tab_pre_inscrip.getColumna("yav_ide_ypedpe").setCombo(ser_personal.getDatopersonal("true"));
-                     
+
             tab_pre_inscrip.agregarRelacion(tab_requ_entregado);
             tab_pre_inscrip.setTipoFormulario(true);
             tab_pre_inscrip.getGrid().setColumns(4);
@@ -247,9 +246,8 @@ public class Preinscripcion extends Pantalla {
             tab_pre_inscrip.getColumna("fecha_registro_yinpin").setNombreVisual("FECHA REGISTRO");
             tab_pre_inscrip.getColumna("celular_yinpin").setNombreVisual("CELULAR");
             tab_pre_inscrip.getColumna("correo_yinpin").setNombreVisual("CORREO");
-            tab_pre_inscrip.getColumna("yav_ide_ypedpe").setNombreVisual("SECRETARIO/A");
-             
-            tab_pre_inscrip.dibujar();                
+
+            tab_pre_inscrip.dibujar();
 
             PanelTabla pat_pre_inscrip = new PanelTabla();
             pat_pre_inscrip.setId("pat_pre_inscrip");

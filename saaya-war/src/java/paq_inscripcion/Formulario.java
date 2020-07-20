@@ -83,7 +83,7 @@ public class Formulario extends Pantalla{
         tab_formulario_alumno.getColumna("ide_ystvis").setCombo(ser_formulario.getVinculaSociedad());
         tab_formulario_alumno.getColumna("ide_ystmod").setCombo(ser_formulario.getModalidad("true,false"));
         tab_formulario_alumno.getColumna("ide_ypetip").setCombo(ser_formulario2.getTituloProfesional());
-        tab_formulario_alumno.getColumna("ide_ystdip").setCombo(ser_formulario.getDistribucionPoliticaPorCondicion("1",utilitario.getVariable("p_tipo_pais"))); 
+        tab_formulario_alumno.getColumna("ide_ystdip").setCombo(ser_formulario.getDistribucionPolitica("1",utilitario.getVariable("p_tipo_pais"))); 
         tab_formulario_alumno.getColumna("ide_ytiace").setCombo(ser_formulario1.getSqlActividadEconomica());
         tab_formulario_alumno.getColumna("ide_ystdoi").setCombo(ser_formulario.getDocumentoIdentidad("true,false"));
         tab_formulario_alumno.getColumna("ide_ystmen").setCombo(ser_formulario.getMension());
@@ -98,11 +98,11 @@ public class Formulario extends Pantalla{
         tab_formulario_alumno.getColumna("ide_yhogra").setCombo(ser_horario.getGrupoAcademico());
         tab_formulario_alumno.getColumna("ide_ystani").setAutoCompletar();
         tab_formulario_alumno.getColumna("ide_ymatip").setCombo(ser_matricula.getTipoPeriodoMatricula());
-        tab_formulario_alumno.getColumna("yav_ide_ystdip").setCombo(ser_formulario.getDistribucionPoliticaPorCondicion("1",utilitario.getVariable("p_tipo_provincia")));
-        tab_formulario_alumno.getColumna("yav_ide_ystdip2").setCombo(ser_formulario.getDistribucionPoliticaPorCondicion("1",utilitario.getVariable("p_tipo_canton")));
-        tab_formulario_alumno.getColumna("yav_ide_ystdip3").setCombo(ser_formulario.getDistribucionPoliticaPorCondicion("1",utilitario.getVariable("p_tipo_pais")));
-        tab_formulario_alumno.getColumna("yav_ide_ystdip4").setCombo(ser_formulario.getDistribucionPoliticaPorCondicion("1",utilitario.getVariable("p_tipo_provincia")));
-        tab_formulario_alumno.getColumna("yav_ide_ystdip5").setCombo(ser_formulario.getDistribucionPoliticaPorCondicion("1",utilitario.getVariable("p_tipo_canton")));
+        tab_formulario_alumno.getColumna("yav_ide_ystdip").setCombo(ser_formulario.getDistribucionPolitica("1",utilitario.getVariable("p_tipo_provincia")));
+        tab_formulario_alumno.getColumna("yav_ide_ystdip2").setCombo(ser_formulario.getDistribucionPolitica("1",utilitario.getVariable("p_tipo_canton")));
+        tab_formulario_alumno.getColumna("yav_ide_ystdip3").setCombo(ser_formulario.getDistribucionPolitica("1",utilitario.getVariable("p_tipo_pais")));
+        tab_formulario_alumno.getColumna("yav_ide_ystdip4").setCombo(ser_formulario.getDistribucionPolitica("1",utilitario.getVariable("p_tipo_provincia")));
+        tab_formulario_alumno.getColumna("yav_ide_ystdip5").setCombo(ser_formulario.getDistribucionPolitica("1",utilitario.getVariable("p_tipo_canton")));
 
         tab_formulario_alumno.getColumna("yav_ide_ytiace").setCombo(ser_formulario1.getActividadEconomica());
         tab_formulario_alumno.getColumna("yav_ide_ystfoe").setCombo(ser_formulario.getFormacionEducativa());
