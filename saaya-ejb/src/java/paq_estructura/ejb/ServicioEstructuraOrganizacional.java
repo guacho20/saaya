@@ -121,9 +121,9 @@ public String getDocumentoIdentidad(String activo) {
      * sea true, false, o ambos.
      * @return sql de modalidad
      */
-     public String getDistribucionPolitica(String activo) {
+     public String getDistribucionPolitica(String activo) {   
         String sql = "";
-        sql = "SELECT ide_ystdip,descripcion_ystdip,codigounitario_ystdip FROM yavirac_stror_distribucion_pol where activo_ystdip in (" + activo + ")";
+        sql = "SELECT ide_ystdip,descripcion_ystdip,yav_ide_ystdip FROM yavirac_stror_distribucion_pol where activo_ystdip in (" + activo + ")";
         return sql;
     }
 
