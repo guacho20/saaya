@@ -612,7 +612,7 @@ public class ServicioNotas {
 
     public String getConsultaMatricula(String codigo_matricula) {
         String sql = "";
-        sql += "select ide_ymarec,d.ide_ystnie,ide_ymatrc,ide_ymanum,numero_credito_ystmal,b.ide_ystmal,e.ide_ystmat,d.ide_ystmen,ide_ysttif,codigo_ystmal,numero_horas_yastmal,detalle_ystmat,ide_ystpea,observacion_ymarec\n"
+        sql += "select ide_ymarec,d.ide_ystnie,ide_ymatrc,ide_ymanum,numero_credito_ystmal,b.ide_ystmal,e.ide_ystmat,d.ide_ystmen,ide_ysttif,codigo_ystmal,numero_horas_ystmal,detalle_ystmat,ide_ystpea,observacion_ymarec\n"
                 + "from yavirac_matri_matricula a\n"
                 + "left join yavirac_matri_registro_credito b on a.ide_ymamat=b.ide_ymamat\n"
                 + "left join yavirac_matri_periodo_matric c on a.ide_ymaper=c.ide_ymaper  \n"
