@@ -1,4 +1,3 @@
-
 package paq_estructura.ejb;
 
 import framework.aplicacion.TablaGenerica;
@@ -49,7 +48,7 @@ public class ServicioEstructuraOrganizacional {
      * @param activo.- permite el ingreso del paramtero activo para filtrar ya
      * sea true, false, o ambos.
      * @return sql de la jornada
-*/
+     */
     public String getJornada(String activo) {
         String sql = "";
         sql = "select ide_ystjor, descripcion_ystjor from yavirac_stror_jornada  where activo_ystjor in (" + activo + ") order by descripcion_ystjor desc";
@@ -108,7 +107,7 @@ public class ServicioEstructuraOrganizacional {
      * sea true, false, o ambos.
      * @return sql de modalidad
      */
-public String getDocumentoIdentidad(String activo) {
+    public String getDocumentoIdentidad(String activo) {
         String sql = "";
         sql = "SELECT ide_ystdoi, descripcion_ystdoi FROM yavirac_stror_docu_identidad where activo_ystdoi in (" + activo + ")";
         return sql;
@@ -121,7 +120,7 @@ public String getDocumentoIdentidad(String activo) {
      * sea true, false, o ambos.
      * @return sql de modalidad
      */
-     public String getDistribucionPolitica(String activo) {   
+    public String getDistribucionPolitica(String activo) {
         String sql = "";
         sql = "SELECT ide_ystdip,descripcion_ystdip,yav_ide_ystdip FROM yavirac_stror_distribucion_pol where activo_ystdip in (" + activo + ")";
         return sql;
@@ -135,10 +134,9 @@ public String getDocumentoIdentidad(String activo) {
      * @return sql de modalidad
      */
     public String getTipoDivisionPolitica(String activo) {
-         String sql = "";
+        String sql = "";
         sql = "SELECT ide_ysttdp,descripcion_ysttdp FROM yavirac_stror_tipo_divisio_po where activo_ysttdp in (" + activo + ")";
         return sql;
-    
 
     }
 
@@ -250,6 +248,7 @@ public String getDocumentoIdentidad(String activo) {
         sql = "SELECT ide_ysttif, detalle_ysttif,abreviatura_ysttif  FROM yavirac_stror_tipo_formacion order by detalle_ysttif";
         return sql;
     }
+
     public String getUsuarioSistema(String ide_usua, String condicion) {
         String sql = "";
         sql = "select ide_usua,nom_usua,nick_usua,ide_ypedpe from sis_usuario where ide_usua in(" + ide_usua + ") " + condicion;
@@ -267,6 +266,22 @@ public String getDocumentoIdentidad(String activo) {
         return sql;
     }
 
+    /**
+     * Devueklve la malla segun la mesion
+     *
+     * @return
+     */
+    public String getMallaMension(String mension) {
+        String sql = "";
+        sql = "select a.ide_ystmal, descripcion_ystnie, detalle_ystmat, descripcion_ystmen \n"
+                + "from yavirac_stror_malla a, yavirac_stror_nivel_educacion b,yavirac_stror_mension c,yavirac_stror_materia d\n"
+                + "where a.ide_ystnie = b.ide_ystnie\n"
+                + "and a.ide_ystmen = c.ide_ystmen\n"
+                + "and a.ide_ystmat = d.ide_ystmat and a.ide_ystmen=" + mension + "\n"
+                + "order by descripcion_ystmen, descripcion_ystnie";
+        return sql;
+    }
+
     public String getSexo() {
         String sql = "";
         sql = "select ide_ystsex,descripcion_ystsex from yavirac_stror_sexo ";
@@ -279,7 +294,8 @@ public String getDocumentoIdentidad(String activo) {
         sql = "select ide_ysttid,descripcion_ysttid from yavirac_stror_tipo_discapacid";
         return sql;
     }
-public String getEtnia() {
+
+    public String getEtnia() {
 
         String sql = "";
         sql = "select ide_ystetn,detalle_ystetn from yavirac_stror_etnia";
@@ -308,9 +324,8 @@ public String getEtnia() {
         return sql;
     }
 
-
     public String getVinculaSociedad() {
-String sql = "";
+        String sql = "";
         sql = "select ide_ystvis,descripcion_ystvis from yavirac_stror_vinculacion_socie";
         return sql;
     }
@@ -406,23 +421,22 @@ String sql = "";
      * @param activo.- permite el ingreso del paramtero activo para filtrar ya
      * sea true, false, o ambos.
      * @return sql del area departamento
-     */ 
-    public String getAreaDepartamento (String activo) { //extraer informacion de la base de datos mediante un script
+     */
+    public String getAreaDepartamento(String activo) { //extraer informacion de la base de datos mediante un script
         String sql = "";
-        sql = "select b.descripcion_ysttad,a.descripcion_ystard from yavirac_stror_area_departament  a\n" +
-        "left join yavirac_stror_tipo_area_depar b on a.ide_ysttad=b.ide_ysttad\n" + 
-                 "order by a.ide_ystard";
+        sql = "select b.descripcion_ysttad,a.descripcion_ystard from yavirac_stror_area_departament  a\n"
+                + "left join yavirac_stror_tipo_area_depar b on a.ide_ysttad=b.ide_ysttad\n"
+                + "order by a.ide_ystard";
 
         return sql;
     }
 
-     public String getTipoAreaDepartamento() { //extraer informacion de la base de datos mediante un script
+    public String getTipoAreaDepartamento() { //extraer informacion de la base de datos mediante un script
         String sql = "";
         sql = "select ide_ysttad, descripcion_ysttad from yavirac_stror_tipo_area_depar";
         return sql;
     }
-    
-    
+
     public String getSumaDiasFecha(String fecha, String dias) {
         String sql = "";
         sql = "SELECT 1 as codigo, cast( (CAST('" + fecha + "' AS DATE) + CAST('" + dias + " days' AS INTERVAL)) as date) as fecha;";
@@ -484,6 +498,7 @@ String sql = "";
         sql = "select ide_ystins,descripcion_ystins, direccion_ystins, activo_ystins from yavirac_stror_institucion;";
         return sql;
     }
+
     public String getMensionAlumno(String alumno) {
 
         String sql = "";
@@ -513,9 +528,18 @@ String sql = "";
         return sql;
     }
 
- 
+    /**
+     * Devuelve la mension segun la carrera
+     *
+     * @param carrera
+     * @return
+     */
+    public String getMensionxCarrera(String carrera) {
+        String sql = "";
+        sql = "select ide_ystmen,descripcion_ystmen,detalle_ysttfe \n"
+                + "from yavirac_stror_mension a, yavirac_stror_tipo_for_educaci b  \n"
+                + "where a.ide_ysttfe=b.ide_ysttfe and ide_ystcrr=" + carrera;
+        return sql;
+    }
 
-  
 }
-   
-   
