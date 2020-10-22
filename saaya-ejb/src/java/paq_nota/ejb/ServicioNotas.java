@@ -724,7 +724,70 @@ public class ServicioNotas {
         sql += "select ide_ynocan,descripcion_ynoace||' - '||descripcion_ynotie as actividad,detalle_ynocan,fecha_calificacion_ynocan\n"
                 + "from yavirac_nota_cabecera_nota a,yavirac_nota_periodo_activ_eva b,yavirac_nota_actividad_evaluac c,yavirac_nota_periodo_evaluacio d,\n"
                 + "yavirac_nota_tipo_evaluacion e\n"
-                + "where a.ide_ynopae=b.ide_ynopae and b.ide_ynoace=c.ide_ynoace and b.ide_ynopee=d.ide_ynopee and d.ide_ynotie=e.ide_ynotie and ide_ynocan = "+codigo+"  ";
+                + "where a.ide_ynopae=b.ide_ynopae and b.ide_ynoace=c.ide_ynoace and b.ide_ynopee=d.ide_ynopee and d.ide_ynotie=e.ide_ynotie and ide_ynocan = " + codigo + "  ";
         return sql;
+    }
+
+    /**
+     * Guarda la cabecera del record académico
+     *
+     * @param ide_yaldap alumno
+     * @param ide_ystmen mension
+     * @param fecha_inicio_ynocra fecha inicio
+     * @return
+     */
+    public String saveCabeceraRecord(String ide_yaldap, String ide_ystmen, String fecha_inicio_ynocra) {
+        String ide_ynocra = "-1";
+        TablaGenerica tab_tabla1 = new TablaGenerica();
+        tab_tabla1.setTabla("yavirac_nota_cab_rec_acad", "ide_ynocra", -1);
+        tab_tabla1.setCondicion("ide_ynocra=-1");
+        tab_tabla1.ejecutarSql();
+        tab_tabla1.insertar();
+        tab_tabla1.setValor("ide_yaldap", ide_yaldap);
+        tab_tabla1.setValor("ide_ystmen", ide_ystmen);
+        tab_tabla1.setValor("fecha_inicio_ynocra", fecha_inicio_ynocra);
+
+        if (tab_tabla1.guardar()) {
+            ide_ynocra = tab_tabla1.getValor("ide_ynocra");
+        }
+        return ide_ynocra;
+    }
+
+    /**
+     * Guarda el detalle del record académico
+     * @param ide_ynoest estado
+     * @param ide_ynocra ide cabecera
+     * @param ide_ystmat materia
+     * @param ide_ystpea periodo academico
+     * @param ide_ymanum numero de matricula
+     * @param ide_ymatrc tipo de registro de crédito
+     * @param ide_ystmal malla
+     * @param codigo_mate_ynodra codigo materia
+     * @param num_creditos_ynodra numero creditos
+     * @param nota_ynodra nota o calificación
+     * @return 
+     */
+    public String saveDetalleRecord(String ide_ynoest, String ide_ynocra, String ide_ystmat, String ide_ystpea, String ide_ymanum, String ide_ymatrc, String ide_ystmal, String codigo_mate_ynodra, String num_creditos_ynodra, String nota_ynodra) {
+        String ide_ynodra = "-1";
+        TablaGenerica tab_tabla1 = new TablaGenerica();
+        tab_tabla1.setTabla("yavirac_nota_det_rec_acad", "ide_ynodra", -1);
+        tab_tabla1.setCondicion("ide_ynodra=-1");
+        tab_tabla1.ejecutarSql();
+        tab_tabla1.insertar();
+        tab_tabla1.setValor("ide_ynoest", ide_ynoest);
+        tab_tabla1.setValor("ide_ynocra", ide_ynocra);
+        tab_tabla1.setValor("ide_ystmat", ide_ystmat);
+        tab_tabla1.setValor("ide_ystpea", ide_ystpea);
+        tab_tabla1.setValor("ide_ymanum", ide_ymanum);
+        tab_tabla1.setValor("ide_ymatrc", ide_ymatrc);
+        tab_tabla1.setValor("ide_ystmal", ide_ystmal);
+        tab_tabla1.setValor("codigo_mate_ynodra", codigo_mate_ynodra);
+        tab_tabla1.setValor("num_creditos_ynodra", num_creditos_ynodra);
+        tab_tabla1.setValor("nota_ynodra", nota_ynodra);
+
+        if (tab_tabla1.guardar()) {
+            ide_ynodra = tab_tabla1.getValor("ide_ynodra");
+        }
+        return ide_ynodra;
     }
 }
