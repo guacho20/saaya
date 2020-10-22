@@ -149,7 +149,7 @@ public class ServiciosHorarios {
     }  
         public String getGrupoAcademico() {
         String sql="";
-        sql="SELECT ide_yhogra, detalle_yhogra FROM yavirac_hora_grupo_academic order by detalle_yhogra desc";
+        sql="SELECT ide_yhogra, detalle_yhogra FROM yavirac_hora_grupo_academic order by detalle_yhogra asc";
         return sql;
     }
    
