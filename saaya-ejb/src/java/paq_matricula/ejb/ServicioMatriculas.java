@@ -93,28 +93,36 @@ public class ServicioMatriculas {
     /**
      * Envia todas las materias y tambien arrastres
      *
-     * @param mensio
+     * @param mensio 
      * @param nivel
      * @param estudiante
      * @return
      */ 
-    public String getMaterias(String mensio, String nivel, String estudiante) {
+    public String getMaterias(String mensio, String nivel, String estudiante, String periodo) {
         String sql = "";
-        sql = "select a.ide_ystmal ,a.ide_ystnie,detalle_ystmat,codigo_ystmal,numero_credito_ystmal,descripcion_ystnie,1 as num_matricula\n"
-                + "from yavirac_stror_malla a, yavirac_stror_materia b, yavirac_stror_nivel_educacion c\n"
-                + "where a.ide_ystmat=b.ide_ystmat and a.ide_ystnie=c.ide_ystnie\n"
-                + "and ide_ystmen="+mensio+" and a.ide_ystnie="+nivel+"\n"
-                + "and a.ide_ystmal not in (\n"
-                + "	select c.ide_ystmal\n"
-                + "	from yavirac_nota_cab_rec_acad a, yavirac_nota_det_rec_acad b, yavirac_stror_malla_precorequi c\n"
-                + "	where a.ide_ynocra=b.ide_ynocra and b.ide_ystmal=c.yav_ide_ystmal and ide_yaldap="+estudiante+" and ide_ynoest in (8) and ide_ystmen ="+mensio+"\n"
-                + ")\n"
-                + "union \n"
-                + "select b.ide_ystmal ,c.ide_ystnie,detalle_ystmat,codigo_ystmal,numero_credito_ystmal,descripcion_ystnie,count (ide_ymanum) as num_matricula\n"
-                + "from yavirac_nota_cab_rec_acad a, yavirac_nota_det_rec_acad b, yavirac_stror_malla c,yavirac_stror_materia d, yavirac_stror_nivel_educacion e\n"
-                + "where a.ide_ynocra=b.ide_ynocra and b.ide_ystmal=c.ide_ystmal and c.ide_ystmat=d.ide_ystmat and c.ide_ystnie=e.ide_ystnie\n"
-                + "and ide_yaldap="+estudiante+" and ide_ynoest in (8) and a.ide_ystmen ="+mensio+"\n"
-                + "group by b.ide_ystmal ,c.ide_ystnie,descripcion_ystnie,detalle_ystmat,codigo_ystmal,numero_credito_ystmal\n"
+        sql = "select a.ide_ystmal ,a.ide_ystnie,detalle_ystmat,codigo_ystmal,numero_credito_ystmal,descripcion_ystnie,1 as num_matricula\n" +
+"from (\n" +
+"	select a.ide_ystmal ,a.ide_ystnie,detalle_ystmat,codigo_ystmal,numero_credito_ystmal,descripcion_ystnie,1 as num_matricula\n" +
+"	from yavirac_stror_malla a, yavirac_stror_materia b, yavirac_stror_nivel_educacion c\n" +
+"	where a.ide_ystmat=b.ide_ystmat and a.ide_ystnie=c.ide_ystnie\n" +
+"	and ide_ystmen="+mensio+" and a.ide_ystnie="+nivel+"\n" +
+"	and a.ide_ystmal not in (\n" +
+"		select c.ide_ystmal\n" +
+"		from yavirac_nota_cab_rec_acad a, yavirac_nota_det_rec_acad b, yavirac_stror_malla_precorequi c\n" +
+"		where a.ide_ynocra=b.ide_ynocra and b.ide_ystmal=c.yav_ide_ystmal and ide_yaldap="+estudiante+" and ide_ynoest in (8) and ide_ystmen ="+mensio+"\n" +
+"	)\n" +
+"	union \n" +
+"	select b.ide_ystmal ,c.ide_ystnie,detalle_ystmat,codigo_ystmal,numero_credito_ystmal,descripcion_ystnie,count (ide_ymanum) as num_matricula\n" +
+"	from yavirac_nota_cab_rec_acad a, yavirac_nota_det_rec_acad b, yavirac_stror_malla c,yavirac_stror_materia d, yavirac_stror_nivel_educacion e\n" +
+"	where a.ide_ynocra=b.ide_ynocra and b.ide_ystmal=c.ide_ystmal and c.ide_ystmat=d.ide_ystmat and c.ide_ystnie=e.ide_ystnie\n" +
+"	and ide_yaldap="+estudiante+" and ide_ynoest in (8) and a.ide_ystmen ="+mensio+"\n" +
+"	group by b.ide_ystmal ,c.ide_ystnie,descripcion_ystnie,detalle_ystmat,codigo_ystmal,numero_credito_ystmal\n" +
+"	order by ide_ystnie\n" +
+")a left join (\n" +
+"	select ide_ystmal from yavirac_matri_matricula  a,yavirac_matri_registro_credito b \n" +
+"	where a.ide_ymamat=b.ide_ymamat and ide_yaldap="+estudiante+" and ide_ymaper="+periodo+" and ide_ystmen="+mensio+" and ide_ystnie="+nivel+"\n" +
+")b on a.ide_ystmal=b.ide_ystmal\n" +
+"where b.ide_ystmal is null "
                 + "order by ide_ystnie";
         return sql;
     }
