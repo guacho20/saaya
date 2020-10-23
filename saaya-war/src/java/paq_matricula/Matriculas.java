@@ -334,7 +334,7 @@ public class Matriculas extends Pantalla {
             boc_seleccion_inversa.agregarBoton(itm_niguna);
 
             tab_materias.setId("tab_materias");
-            tab_materias.setSql(ser_matricula.getMaterias("-1", "-1", "-1"));
+            tab_materias.setSql(ser_matricula.getMaterias("-1", "-1", "-1","-1"));
             tab_materias.getColumna("ide_ystnie").setVisible(false);
             tab_materias.getColumna("detalle_ystmat").setNombreVisual("MATERIA");
             tab_materias.getColumna("codigo_ystmal").setNombreVisual("CODIGO");
@@ -493,7 +493,9 @@ public class Matriculas extends Pantalla {
                 utilitario.agregarMensajeInfo("No puede insertar materias,", "La matricula se encuentra aprobada");
                 return;
             }
-            tab_materias.setSql(ser_matricula.getMaterias(tab_matriculas.getValor(tab_matriculas.getFilaActual(), "ide_ystmen"), tab_matriculas.getValor(tab_matriculas.getFilaActual(), "ide_ystnie"), tab_matriculas.getValor(tab_matriculas.getFilaActual(), "ide_yaldap")));
+            tab_materias.setSql(ser_matricula.getMaterias(tab_matriculas.getValor(tab_matriculas.getFilaActual(), "ide_ystmen"), 
+                    tab_matriculas.getValor(tab_matriculas.getFilaActual(), "ide_ystnie"), tab_matriculas.getValor(tab_matriculas.getFilaActual(), "ide_yaldap"),
+                    com_periodo_academico.getValue().toString()));
             tab_materias.ejecutarSql();
             dia_materias.dibujar();
         } else {
