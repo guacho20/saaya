@@ -183,7 +183,7 @@ public class Matriculas extends Pantalla {
             tab_matriculas.getColumna("trabaja_ymamat").setVisible(false);
             tab_matriculas.getColumna("telefono_trabaja_ymamat").setNombreVisual("TELÉFONO TRABAJO");
             tab_matriculas.getColumna("telefono_trabaja_ymamat").setVisible(false);
-            tab_matriculas.getColumna("aprobado_ymamat").setValorDefecto("false");
+            tab_matriculas.getColumna("aprobado_ymamat").setValorDefecto("false"); 
             tab_matriculas.getColumna("aprobado_ymamat").setNombreVisual("APROBADO");
             tab_matriculas.getColumna("aprobado_ymamat").setLectura(true);
             tab_matriculas.dibujar();
