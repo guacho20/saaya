@@ -47,6 +47,10 @@ public class Parametros {
          * MATRICULAS MODULO =4
          */
         lis_parametros.add(new Parametro("4", "p_documento_matricula", "Indica que los documentos son para matriculas", "2", "yavirac_stror_requerido_para", "ide_ystrep", "descripcion_ystrep"));
+        lis_parametros.add(new Parametro("4", "p_primer_nivel", "Indica el primer nivel de educación", "0", "yavirac_stror_nivel_educacion", "ide_ystnie", "descripcion_ystnie"));
+        lis_parametros.add(new Parametro("4", "p_path_matriculas", "Indica la backup de los archivos adjuntados de matriculas", ""));
+        lis_parametros.add(new Parametro("4", "p_tamanio_archivo", "Indica el tamaño maximo a subir un archivo Eje: 2000000 Bits equivale a 2MB", "2000000"));
+ 
         /*
          * HORARIOS MODULO =5
          */
@@ -79,7 +83,7 @@ public class Parametros {
         lis_parametros.add(new Parametro("7", "p_estado_autorizado", "Indica que esta autorizado para modificar una nota una vez cerrado el periodo academico", "2", "yavirac_nota_estado_nota", "ide_ynoest", "detalle_ynoest"));
         lis_parametros.add(new Parametro("7", "p_estado_registrado", "Indica que el docente modifico una nota que le autorizaron", "2", "yavirac_nota_estado_nota", "ide_ynoest", "detalle_ynoest"));
         lis_parametros.add(new Parametro("7", "p_nombre_secretaria", "Indica el nombre de la secretaria para imprimir elrecord academico", "NOMBRE PRUEBA"));
-        
+
         /*
          * TITULACION MODULO =8
          */
