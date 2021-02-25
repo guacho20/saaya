@@ -214,6 +214,17 @@ public class ServicioEstructuraOrganizacional {
         sql = "select ide_ystdor,descripcion_ystdor,abreviatura_ystdor from yavirac_stror_documento_reque where activo_ystdor in (" + activo + ") order by descripcion_ystdor";
         return sql;
     }
+    
+    /**
+     * Transforma bits a megabits
+     * @param bits
+     * @return 
+     */
+    public int getConvertBitsAMegabits(String bits) {
+        int size = 0;
+        size = (Integer.parseInt(bits) * 1) / 1000000;
+        return size;
+    }
 
     public String getRequeridoPara() {
         String sql = "";
