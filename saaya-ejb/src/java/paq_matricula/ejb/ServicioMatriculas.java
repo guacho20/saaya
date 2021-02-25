@@ -93,37 +93,85 @@ public class ServicioMatriculas {
     /**
      * Envia todas las materias y tambien arrastres
      *
-     * @param mensio 
+     * @param mensio
      * @param nivel
      * @param estudiante
      * @return
-     */ 
+     */
     public String getMaterias(String mensio, String nivel, String estudiante, String periodo) {
         String sql = "";
-        sql = "select a.ide_ystmal ,a.ide_ystnie,detalle_ystmat,codigo_ystmal,numero_credito_ystmal,descripcion_ystnie,1 as num_matricula\n" +
-"from (\n" +
-"	select a.ide_ystmal ,a.ide_ystnie,detalle_ystmat,codigo_ystmal,numero_credito_ystmal,descripcion_ystnie,1 as num_matricula\n" +
-"	from yavirac_stror_malla a, yavirac_stror_materia b, yavirac_stror_nivel_educacion c\n" +
-"	where a.ide_ystmat=b.ide_ystmat and a.ide_ystnie=c.ide_ystnie\n" +
-"	and ide_ystmen="+mensio+" and a.ide_ystnie="+nivel+"\n" +
-"	and a.ide_ystmal not in (\n" +
-"		select c.ide_ystmal\n" +
-"		from yavirac_nota_cab_rec_acad a, yavirac_nota_det_rec_acad b, yavirac_stror_malla_precorequi c\n" +
-"		where a.ide_ynocra=b.ide_ynocra and b.ide_ystmal=c.yav_ide_ystmal and ide_yaldap="+estudiante+" and ide_ynoest in (8) and ide_ystmen ="+mensio+"\n" +
-"	)\n" +
-"	union \n" +
-"	select b.ide_ystmal ,c.ide_ystnie,detalle_ystmat,codigo_ystmal,numero_credito_ystmal,descripcion_ystnie,count (ide_ymanum) as num_matricula\n" +
-"	from yavirac_nota_cab_rec_acad a, yavirac_nota_det_rec_acad b, yavirac_stror_malla c,yavirac_stror_materia d, yavirac_stror_nivel_educacion e\n" +
-"	where a.ide_ynocra=b.ide_ynocra and b.ide_ystmal=c.ide_ystmal and c.ide_ystmat=d.ide_ystmat and c.ide_ystnie=e.ide_ystnie\n" +
-"	and ide_yaldap="+estudiante+" and ide_ynoest in (8) and a.ide_ystmen ="+mensio+"\n" +
-"	group by b.ide_ystmal ,c.ide_ystnie,descripcion_ystnie,detalle_ystmat,codigo_ystmal,numero_credito_ystmal\n" +
-"	order by ide_ystnie\n" +
-")a left join (\n" +
-"	select ide_ystmal from yavirac_matri_matricula  a,yavirac_matri_registro_credito b \n" +
-"	where a.ide_ymamat=b.ide_ymamat and ide_yaldap="+estudiante+" and ide_ymaper="+periodo+" and ide_ystmen="+mensio+" and ide_ystnie="+nivel+"\n" +
-")b on a.ide_ystmal=b.ide_ystmal\n" +
-"where b.ide_ystmal is null "
+        sql = "select a.ide_ystmal ,a.ide_ystnie,detalle_ystmat,codigo_ystmal,numero_credito_ystmal,descripcion_ystnie,1 as num_matricula\n"
+                + "from (\n"
+                + "	select a.ide_ystmal ,a.ide_ystnie,detalle_ystmat,codigo_ystmal,numero_credito_ystmal,descripcion_ystnie,1 as num_matricula\n"
+                + "	from yavirac_stror_malla a, yavirac_stror_materia b, yavirac_stror_nivel_educacion c\n"
+                + "	where a.ide_ystmat=b.ide_ystmat and a.ide_ystnie=c.ide_ystnie\n"
+                + "	and ide_ystmen=" + mensio + " and a.ide_ystnie=" + nivel + "\n"
+                + "	and a.ide_ystmal not in (\n"
+                + "		select c.ide_ystmal\n"
+                + "		from yavirac_nota_cab_rec_acad a, yavirac_nota_det_rec_acad b, yavirac_stror_malla_precorequi c\n"
+                + "		where a.ide_ynocra=b.ide_ynocra and b.ide_ystmal=c.yav_ide_ystmal and ide_yaldap=" + estudiante + " and ide_ynoest in (8) and ide_ystmen =" + mensio + "\n"
+                + "	)\n"
+                + "	union \n"
+                + "	select b.ide_ystmal ,c.ide_ystnie,detalle_ystmat,codigo_ystmal,numero_credito_ystmal,descripcion_ystnie,count (ide_ymanum) as num_matricula\n"
+                + "	from yavirac_nota_cab_rec_acad a, yavirac_nota_det_rec_acad b, yavirac_stror_malla c,yavirac_stror_materia d, yavirac_stror_nivel_educacion e\n"
+                + "	where a.ide_ynocra=b.ide_ynocra and b.ide_ystmal=c.ide_ystmal and c.ide_ystmat=d.ide_ystmat and c.ide_ystnie=e.ide_ystnie\n"
+                + "	and ide_yaldap=" + estudiante + " and ide_ynoest in (8) and a.ide_ystmen =" + mensio + "\n"
+                + "	group by b.ide_ystmal ,c.ide_ystnie,descripcion_ystnie,detalle_ystmat,codigo_ystmal,numero_credito_ystmal\n"
+                + "	order by ide_ystnie\n"
+                + ")a left join (\n"
+                + "	select ide_ystmal from yavirac_matri_matricula  a,yavirac_matri_registro_credito b \n"
+                + "	where a.ide_ymamat=b.ide_ymamat and ide_yaldap=" + estudiante + " and ide_ymaper=" + periodo + " and ide_ystmen=" + mensio + " and ide_ystnie=" + nivel + "\n"
+                + ")b on a.ide_ystmal=b.ide_ystmal\n"
+                + "where b.ide_ystmal is null "
                 + "order by ide_ystnie";
+        return sql;
+    }
+
+    /**
+     * Devuelve el nivel, carrera y estado de nota del estudiante del record
+     * académico
+     *
+     * @param estudiante
+     * @return
+     */
+    public String getNivelCarreraEstadoNota(String estudiante) {
+        String sql = "";
+        sql = "select a.ide_ystmen,ide_ystnie,ide_ynoest\n"
+                + "from yavirac_nota_cab_rec_acad a, yavirac_nota_det_rec_acad b,yavirac_stror_malla c\n"
+                + "where a.ide_ynocra =b.ide_ynocra and b.ide_ystmal=c.ide_ystmal and ide_yaldap = " + estudiante + " --and ide_ynoest in (7,8)\n"
+                + "group by ide_ystnie,a.ide_ystmen,ide_ystnie,ide_ynoest\n"
+                + "order by ide_ystnie desc\n"
+                + "limit 1";
+        return sql;
+    }
+
+    /**
+     * Devuelve los niveles configurados en la malla
+     *
+     * @param malla
+     * @return
+     */
+    public String getUltimoNivelMalla(String malla) {
+        String sql = "";
+        sql = "select 1 as codigo, ide_ystnie from yavirac_stror_malla  where ide_ystmen = " + malla + "\n"
+                + "group by ide_ystnie\n"
+                + "order by ide_ystnie desc\n"
+                + "limit 1";
+        return sql;
+    }
+
+    public String getMatriculasNoAnulados(String alumno, String periodo) {
+        String sql = "";
+        sql = "select ide_ymamat,descripcion_ystnie,descripcion_ystmen,fecha_ymamat,aprobado_ymamat,nro_folio_ymamat \n"
+                + "from yavirac_matri_matricula a, yavirac_stror_nivel_educacion b , yavirac_stror_mension c\n"
+                + "where a.ide_ystnie=b.ide_ystnie and a.ide_ystmen=c.ide_ystmen \n"
+                + "and ide_yaldap = " + alumno + " and ide_ymaper=" + periodo + " and anulado_ymamat=false";
+        return sql;
+    }
+
+    public String updateAnularMatricula(String matricula, String detalle) {
+        String sql = "";
+        sql = "update yavirac_matri_matricula set anulado_ymamat=true, detalle_anulado_ymamat='" + detalle + "' where ide_ymamat in (" + matricula + ")";
         return sql;
     }
 }
