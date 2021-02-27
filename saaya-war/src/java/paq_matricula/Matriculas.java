@@ -933,6 +933,7 @@ public class Matriculas extends Pantalla {
 
     public void aceptarAnular() {
         String str_seleccionado = tab_tabla1.getFilasSeleccionadas();
+        String mension = tab_matriculas.getValor(tab_matriculas.getFilaActual(), "ide_ystmen");
         // System.out.println("seleccionado => " + str_seleccionado);
         if (aut_alumno.getValor() == null) {
             utilitario.agregarMensajeInfo("No puede continuar", "Seleccione un estudiante.");
@@ -946,7 +947,7 @@ public class Matriculas extends Pantalla {
             utilitario.agregarMensajeInfo("No puede continuar,", "Ingrese el detalle del motivo de anulacion de la matricula.");
             return;
         }
-
+        utilitario.getConexion().ejecutarSql(ser_notas.getActualzarEstadoRecord(utilitario.getVariable("p_estado_anulado"), aut_alumno.getValor(), mension, com_periodo_academico.getValue().toString()));
         utilitario.getConexion().ejecutarSql(ser_matricula.updateAnularMatricula(str_seleccionado, are_detalle.getValue().toString()));
         utilitario.agregarMensaje("Se anulo correctamente la matricula", "");
         tab_matriculas.actualizar();
@@ -1022,7 +1023,7 @@ public class Matriculas extends Pantalla {
     public void bloquearEditarALumno() {
         if (tab_registro_credito.getTotalFilas() < 0) {
             tab_matriculas.getColumna("ide_yaldap").setLectura(true);
-        }else{
+        } else {
             tab_matriculas.getColumna("ide_yaldap").setLectura(false);
         }
     }
@@ -1546,7 +1547,7 @@ public class Matriculas extends Pantalla {
 
     public Tabla getTab_matriculas() {
         return tab_matriculas;
-    } 
+    }
 
     public Tabla getTab_materias() {
         return tab_materias;
