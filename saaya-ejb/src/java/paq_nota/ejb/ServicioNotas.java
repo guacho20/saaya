@@ -755,6 +755,7 @@ public class ServicioNotas {
 
     /**
      * Guarda el detalle del record académico
+     *
      * @param ide_ynoest estado
      * @param ide_ynocra ide cabecera
      * @param ide_ystmat materia
@@ -765,7 +766,7 @@ public class ServicioNotas {
      * @param codigo_mate_ynodra codigo materia
      * @param num_creditos_ynodra numero creditos
      * @param nota_ynodra nota o calificación
-     * @return 
+     * @return
      */
     public String saveDetalleRecord(String ide_ynoest, String ide_ynocra, String ide_ystmat, String ide_ystpea, String ide_ymanum, String ide_ymatrc, String ide_ystmal, String codigo_mate_ynodra, String num_creditos_ynodra, String nota_ynodra) {
         String ide_ynodra = "-1";
@@ -790,4 +791,24 @@ public class ServicioNotas {
         }
         return ide_ynodra;
     }
+
+    /**
+     * Actualiza los estados del record académico
+     *
+     * @param estado
+     * @param alumno
+     * @param mension
+     * @param periodo
+     * @return
+     */
+    public String getActualzarEstadoRecord(String estado, String alumno, String mension, String periodomatricula) {
+        String sql = "";
+        sql += "update yavirac_nota_det_rec_acad set ide_ynoest=" + estado + " where ide_ynodra in (\n"
+                + "select ide_ynodra from yavirac_nota_det_rec_acad  where ide_ynocra in (\n"
+                + "select ide_ynocra from yavirac_nota_cab_rec_acad where ide_yaldap=" + alumno + " and ide_ystmen=" + mension + "\n"
+                + ") and ide_ystpea in (select ide_ystpea from yavirac_matri_periodo_matric  where ide_ymaper=" + periodomatricula + ")\n"
+                + ")";
+        return sql;
+    }
+
 }
