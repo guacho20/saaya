@@ -83,7 +83,8 @@ public class Parametros {
         lis_parametros.add(new Parametro("7", "p_estado_autorizado", "Indica que esta autorizado para modificar una nota una vez cerrado el periodo academico", "2", "yavirac_nota_estado_nota", "ide_ynoest", "detalle_ynoest"));
         lis_parametros.add(new Parametro("7", "p_estado_registrado", "Indica que el docente modifico una nota que le autorizaron", "2", "yavirac_nota_estado_nota", "ide_ynoest", "detalle_ynoest"));
         lis_parametros.add(new Parametro("7", "p_nombre_secretaria", "Indica el nombre de la secretaria para imprimir elrecord academico", "NOMBRE PRUEBA"));
-
+        lis_parametros.add(new Parametro("7", "p_estado_anulado", "Indica el estado anulado la materia del record académico", "2", "yavirac_nota_estado_nota", "ide_ynoest", "detalle_ynoest"));
+        
         /*
          * TITULACION MODULO =8
          */
