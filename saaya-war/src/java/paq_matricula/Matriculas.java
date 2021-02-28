@@ -948,7 +948,7 @@ public class Matriculas extends Pantalla {
             return;
         }
         utilitario.getConexion().ejecutarSql(ser_notas.getActualzarEstadoRecord(utilitario.getVariable("p_estado_anulado"), aut_alumno.getValor(), mension, com_periodo_academico.getValue().toString()));
-        utilitario.getConexion().ejecutarSql(ser_matricula.updateAnularMatricula(str_seleccionado, are_detalle.getValue().toString()));
+        utilitario.getConexion().ejecutarSql(ser_matricula.updateAnularMatricula(str_seleccionado, are_detalle.getValue().toString() + "Fecha anulación: " + utilitario.getFechaHoraActual()));
         utilitario.agregarMensaje("Se anulo correctamente la matricula", "");
         tab_matriculas.actualizar();
         dia_anular.cerrar();
@@ -1094,17 +1094,19 @@ public class Matriculas extends Pantalla {
                 utilitario.agregarMensajeInfo("ADVERTENCIA,", "Seleccione almenos un registro");
             } else {
                 for (Fila filaActual : tab_materias.getListaFilasSeleccionadas()) {
-                    tab_registro_credito.insertar();
-                    tab_registro_credito.setValor("ide_ymamat", tab_matriculas.getValor(tab_matriculas.getFilaActual(), "ide_ymamat"));
+                    /* tab_registro_credito.insertar();
+                    tab_registro_credito.setValor("ide_ymamat", );
                     tab_registro_credito.setValor("ide_ystmal", "" + filaActual.getCampos()[0]);
                     tab_registro_credito.setValor("ide_ymanum", "" + filaActual.getCampos()[6]);
                     tab_registro_credito.setValor("ide_ymatrc", com_tipo_credito.getValue().toString());
                     tab_registro_credito.setValor("codigo_asignatura_ymarcm", "" + filaActual.getCampos()[3]);
                     tab_registro_credito.setValor("numero_de_creditos_ymarcm", "" + filaActual.getCampos()[4]);
                     tab_registro_credito.setValor("ide_yhogra", com_paralelo.getValue().toString());
-                    tab_registro_credito.setValor("ide_ystjor", com_jornada.getValue().toString());
+                    tab_registro_credito.setValor("ide_ystjor", com_jornada.getValue().toString()); */
+                    String ide_ymarec = ser_matricula.saveRegistroCredito(tab_matriculas.getValor(tab_matriculas.getFilaActual(), "ide_ymamat"), "" + filaActual.getCampos()[0], "" + filaActual.getCampos()[6], com_tipo_credito.getValue().toString(),
+                            "" + filaActual.getCampos()[3], "" + filaActual.getCampos()[4], com_paralelo.getValue().toString(), com_jornada.getValue().toString());
                 }
-                tab_registro_credito.guardar();
+                //tab_registro_credito.guardar();
                 guardarPantalla();
                 tab_registro_credito.actualizar();
                 dia_materias.cerrar();
