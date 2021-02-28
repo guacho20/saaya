@@ -174,4 +174,38 @@ public class ServicioMatriculas {
         sql = "update yavirac_matri_matricula set anulado_ymamat=true, detalle_anulado_ymamat='" + detalle + "' where ide_ymamat in (" + matricula + ")";
         return sql;
     }
+
+    /**
+     * Guarda los registros de credito
+     * @param ide_ymamat
+     * @param ide_ystmal
+     * @param ide_ymanum
+     * @param ide_ymatrc
+     * @param codigo_asignatura_ymarcm
+     * @param numero_de_creditos_ymarcm
+     * @param ide_yhogra
+     * @param ide_ystjor
+     * @return 
+     */
+    public String saveRegistroCredito(String ide_ymamat, String ide_ystmal, String ide_ymanum, String ide_ymatrc, String codigo_asignatura_ymarcm, String numero_de_creditos_ymarcm, String ide_yhogra, String ide_ystjor) {
+        String ide_ymarec = "-1";
+        TablaGenerica tab_tabla1 = new TablaGenerica();
+        tab_tabla1.setTabla("yavirac_matri_registro_credito", "ide_ymarec", -1);
+        tab_tabla1.setCondicion("ide_ymarec=-1");
+        tab_tabla1.ejecutarSql();
+        tab_tabla1.insertar();
+        tab_tabla1.setValor("ide_ymamat", ide_ymamat);
+        tab_tabla1.setValor("ide_ystmal", ide_ystmal);
+        tab_tabla1.setValor("ide_ymanum", ide_ymanum);
+        tab_tabla1.setValor("ide_ymatrc", ide_ymatrc);
+        tab_tabla1.setValor("codigo_asignatura_ymarcm", codigo_asignatura_ymarcm);
+        tab_tabla1.setValor("numero_de_creditos_ymarcm", numero_de_creditos_ymarcm);
+        tab_tabla1.setValor("ide_yhogra", ide_yhogra);
+        tab_tabla1.setValor("ide_ystjor", ide_ystjor);
+
+        if (tab_tabla1.guardar()) {
+            ide_ymarec = tab_tabla1.getValor("ide_ymarec");
+        }
+        return ide_ymarec;
+    }
 }
