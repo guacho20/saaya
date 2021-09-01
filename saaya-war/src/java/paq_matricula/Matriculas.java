@@ -204,6 +204,8 @@ public class Matriculas extends Pantalla {
             tab_matriculas.getColumna("ide_ymatma").setRequerida(true);
             tab_matriculas.getColumna("nro_folio_ymamat").setRequerida(true);
             tab_matriculas.getColumna("nro_folio_ymamat").setNombreVisual("NRO FOLIO");
+            tab_matriculas.getColumna("nro_folio_ymamat").setEtiqueta();
+            tab_matriculas.getColumna("nro_folio_ymamat").setEstilo("font-size:12px;font-weight: bold;color:red");
             tab_matriculas.getColumna("estudia_otro_lugar_ymamat").setNombreVisual("ESTUDIA APARTE");
             tab_matriculas.getColumna("estudia_otro_lugar_ymamat").setVisible(false);
             tab_matriculas.getColumna("semestre_otro_lugar_ymamat").setNombreVisual("SEMESTRE");
@@ -1437,6 +1439,9 @@ public class Matriculas extends Pantalla {
 
     @Override
     public void guardar() {
+        if (tab_matriculas.isFilaInsertada()) {
+            tab_matriculas.setValor("nro_folio_ymamat", ser_matricula.getSecuencialFolio());
+        } 
         if (tab_matriculas.guardar()) {
             if (tab_documento_entregado.guardar()) {
                 if (tab_registro_credito.guardar()) {
