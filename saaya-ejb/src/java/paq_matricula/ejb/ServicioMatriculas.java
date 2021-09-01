@@ -8,13 +8,17 @@ package paq_matricula.ejb;
 import paq_personal.ejb.*;
 import paq_estructura.ejb.*;
 import framework.aplicacion.TablaGenerica;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import sistema.aplicacion.Utilitario;
 
 @Stateless
 @LocalBean
 public class ServicioMatriculas {
 
+    private final Utilitario utilitario = new Utilitario();
+    
     /**
      * Insertar en la tabla Biometrico
      *
@@ -207,5 +211,22 @@ public class ServicioMatriculas {
             ide_ymarec = tab_tabla1.getValor("ide_ymarec");
         }
         return ide_ymarec;
+    }
+    
+    public String getSecuencialFolio() {
+        List list = utilitario.getConexion().consultar("select max(ide_uscl) as maximo from sis_usuario_clave");
+        String str_maximo = "0";
+        if (list != null && !list.isEmpty()) {
+            if (list.get(0) != null) {
+                if (!list.get(0).toString().isEmpty()) {
+                    str_maximo = list.get(0) + "";
+                }
+            }
+        }
+        String num_max = String.valueOf(Integer.parseInt(str_maximo) + 1);
+        String ceros = utilitario.generarCero(7 - num_max.length());
+        str_maximo = ceros.concat(num_max);
+
+        return str_maximo;
     }
 }
